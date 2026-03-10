@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="560.0" maxWidth="650.0" minHeight="560.0" minWidth="650.0" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AuthorizationController">
+   <children>
+      <Label layoutX="208.0" layoutY="50.0" text="Авторизация">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loginTF" layoutX="123.0" layoutY="199.0" prefHeight="50.0" prefWidth="400.0" promptText="Логин">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordTF" layoutX="123.0" layoutY="269.0" prefHeight="50.0" prefWidth="400.0" promptText="Пароль">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="entryTF" layoutX="123.0" layoutY="399.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #6478E9;" text="Войти" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

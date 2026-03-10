@@ -6,4 +6,6 @@ module com.chealown.csa {
 
     opens com.chealown.csa to javafx.fxml;
     exports com.chealown.csa;
+    opens com.chealown.csa.Controllers to javafx.fxml;
+    exports com.chealown.csa.Controllers;
 }
