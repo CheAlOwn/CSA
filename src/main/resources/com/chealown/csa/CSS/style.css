@@ -1,0 +1,137 @@
+/* Стиль для таблицы */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-border-width: 0;
+}
+
+/* Стиль для заголовков колонок */
+.table-view .column-header-background {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 20 20 0 0;
+    -fx-border-radius: 20 20 0 0;
+}
+
+/* Скругление только для верхней части */
+.table-view .column-header-background .filler {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 20 20 0 0;
+}
+
+/* Стиль для каждого заголовка с скруглением */
+.table-view .column-header {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 0 0;
+    -fx-background-radius: 20 20 0 0;
+}
+
+/* Скругление для первого заголовка (левый верхний угол) */
+.table-view .column-header:first-child {
+    -fx-background-radius: 20 0 0 0;
+}
+
+/* Скругление для последнего заголовка (правый верхний угол) */
+.table-view .column-header:last-child {
+    -fx-background-radius: 0 20 0 0;
+}
+
+/* Если только одна колонка */
+.table-view .column-header:only-child {
+    -fx-background-radius: 20 20 0 0;
+}
+
+/* Последний заголовок без правой границы */
+.table-view .column-header:last-visible {
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Убираем лишние скругления у заголовков */
+.table-view .column-header .label {
+    -fx-text-fill: #242424;
+    -fx-font-weight: bold;
+    -fx-padding: 10 5 10 5;
+    -fx-background-color: transparent;
+}
+
+/* Стиль для корнера (правый верхний угол) */
+.table-view .corner {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 0 20 0 0;
+}
+
+/* Стиль для ячеек */
+.table-view .table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #6b7eea;
+    -fx-text-fill: #fff;
+}
+
+/* Исправление цвета текста в выделенной ячейке */
+.table-view .table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* кастом скролл-бара */
+
+.table-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:horizontal .track {
+    -fx-background-color: #e9e9e9;
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar:vertical .thumb:hover,
+.table-view .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 15px;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-pref-height: 15px;
+}
+
+/* Скрыть кнопки-стрелки у вертикального скролла */
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+/* Скрыть кнопки-стрелки у горизонтального скролла */
+.table-view .scroll-bar:horizontal .increment-button,
+.table-view .scroll-bar:horizontal .decrement-button {
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-width: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+.hyperlink {
+    -fx-underline: false; /* альтернативный параметр */
+    -fx-border-color: transparent;
+    -fx-fill: #242424;
+}
+
+
+

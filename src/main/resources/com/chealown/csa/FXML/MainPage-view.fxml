@@ -1,14 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.chealown.csa.Controllers.MainController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #fff;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.MainController">
+   <children>
+      <Button fx:id="menuBtn" layoutX="40.0" layoutY="24.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="24.0">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/menu.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="searchTF" layoutX="146.0" layoutY="24.0" prefHeight="78.0" prefWidth="1255.0" promptText="Поиск" style="-fx-background-radius: 20; -fx-background-color: #f2f2f2; -fx-padding: 0 0 0 28;" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="519.0" AnchorPane.topAnchor="24.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="filterBtn" layoutX="1429.0" layoutY="24.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/filter.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="sortBtn" layoutX="1523.0" layoutY="24.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/sort.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="addBtn" layoutX="1629.0" layoutY="24.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="251.0" style="-fx-background-color: #6478E9; -fx-background-radius: 20; -fx-text-fill: #fff;" text="Добавить запись">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableView" layoutX="40.0" layoutY="130.0" prefHeight="858.0" prefWidth="1840.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0" />
+      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" />
+      <AnchorPane fx:id="burgerMenu" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="modulesList" layoutX="40.0" layoutY="120.0" prefHeight="644.0" prefWidth="353.0" spacing="5.0">
+               <children>
+                  <Hyperlink fx:id="childHL" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Дети">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="spHL" layoutX="10.0" layoutY="10.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Социальный паспорт">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="smHL" layoutX="10.0" layoutY="40.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Социальный мониторинг">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="hrHL" layoutX="10.0" layoutY="70.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Жилищные права">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="wlfhHL" layoutX="10.0" layoutY="100.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Очередь на получение жилья">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </VBox>
+            <Hyperlink fx:id="exitBtn" layoutX="40.0" layoutY="938.0" style="-fx-text-fill: #FF2B2B;" text="Выйти" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="40.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Hyperlink>
+            <Button fx:id="closeMenuBtn" layoutX="352.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/x.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

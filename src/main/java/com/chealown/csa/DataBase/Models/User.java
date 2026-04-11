@@ -2,17 +2,18 @@ package com.chealown.csa.DataBase.Models;
 
 public class User {
     int id;
+
+    // TODO: логин и пароль можно убрать
     String login;
-    String password;
     String secondName;
     String firstName;
     String patronymic;
     String post;
 
-    public User(int id, String login, String password, String secondName, String firstName, String patronymic, String post) {
+    public User(int id, String login, String secondName, String firstName, String patronymic, String post) {
         this.id = id;
         this.login = login;
-        this.password = password;
+
         this.secondName = secondName;
         this.firstName = firstName;
         this.patronymic = patronymic;
@@ -33,14 +34,6 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getSecondName() {

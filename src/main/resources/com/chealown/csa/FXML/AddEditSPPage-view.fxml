@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="770.0" prefWidth="648.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEditSPController">
+   <children>
+      <Label fx:id="pageName" layoutX="200.0" layoutY="36.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="40.0" layoutY="120.0" prefHeight="634.0" prefWidth="568.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <content>
+            <VBox fillWidth="false" prefWidth="548.0" spacing="16.0" style="-fx-background-color: #fff;">
+               <children>
+                  <VBox fillWidth="false" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: #242424;" text="ID ребенка">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="78.0" prefWidth="548.0" spacing="22.0">
+                           <children>
+                              <TextField fx:id="childTF" prefHeight="78.0" prefWidth="448.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                              <Button fx:id="chooseChildrenBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" text="..." />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fillWidth="false" layoutX="20.0" layoutY="272.0" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: #242424;" text="Уровень образования">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="educationLevelCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                     </children>
+                  </VBox>
+                  <VBox fillWidth="false" layoutX="20.0" layoutY="403.0" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: #242424;" text="Группа здоровья">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="healthGroupCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                     </children>
+                  </VBox>
+                  <VBox fillWidth="false" layoutX="20.0" layoutY="534.0" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: #242424;" text="Семейное положение">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="familySituationCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                     </children>
+                  </VBox>
+                  <VBox fillWidth="false" layoutX="20.0" layoutY="665.0" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: #242424;" text="Инвалидность">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="disabilityCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #6478E9; -fx-text-fill: #fff; -fx-background-radius: 20;" text="Сохранить">
+                     <VBox.margin>
+                        <Insets bottom="16.0" top="16.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Button fx:id="exitBtn" layoutX="539.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/x.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
