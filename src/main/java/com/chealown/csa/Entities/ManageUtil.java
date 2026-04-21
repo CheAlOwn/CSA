@@ -8,16 +8,12 @@ import javafx.scene.control.Alert;
 import java.io.IOException;
 
 public class ManageUtil {
-    // TODO: move to StaticObjects.java
-
-
     public static void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type, msg);
         alert.setTitle(title);
         alert.show();
     }
 
-    //TODO: сделать реализацию переключения сцен
     public static void switchPage(String title, String path) throws IOException {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("FXML/" + path + ".fxml"));
         Scene scene = new Scene(loader.load());
@@ -25,8 +21,4 @@ public class ManageUtil {
         MainApplication.getCurrentStage().setScene(scene);
 
     }
-
-
-
-
 }

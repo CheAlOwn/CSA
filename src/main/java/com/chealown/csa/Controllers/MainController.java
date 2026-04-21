@@ -4,6 +4,7 @@ import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.*;
 import com.chealown.csa.DataBase.Repositories.*;
 import com.chealown.csa.Entities.ManageUtil; // Убедитесь, что путь соответствует вашему проекту
+import com.chealown.csa.Entities.SearchUtil;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.animation.TranslateTransition;
@@ -25,6 +26,9 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class MainController {
+
+    @FXML
+    private Hyperlink interactionHL;
 
     @FXML
     private Hyperlink childHL;
@@ -63,45 +67,60 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        // анимация бургер меню
         burgerMenu.setLayoutX(-470);
         setBaseView();
 
-        // проигрывание анимации бургер меню
         menuBtn.setOnAction(actionEvent -> {
             burgerMenu.setVisible(true);
             burgerMenu.setDisable(false);
             TranslateTransition slide = new TranslateTransition();
             slide.setToX(0);
-
             darkPane.setVisible(true);
             darkPane.setDisable(false);
-
             slide.play();
         });
 
-        // проигрывание анимации бургер меню
         closeMenuBtn.setOnAction(actionEvent -> {
             setBaseView();
             TranslateTransition slide = new TranslateTransition();
             slide.setToX(-470);
-
-
             slide.play();
+        });
+
+        searchTF.textProperty().addListener(lst -> {
+            String[] findColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
+                case "Дети" -> new String[]{
+                        "Фамилия", "Имя", "Отчество", "СНИЛС"
+                };
+                case "Социальный паспорт" -> new String[]{
+                        "Фамилия", "Имя", "Отчество"
+                };
+                case "Социальный мониторинг" -> new String[]{
+                        "Фамилия ребенка", "Имя ребенка", "Отчество ребенка", "Старое значение", "Новое значение"
+                };
+                case "Жилищные права" -> new String[]{
+                        "Фамилия", "Имя", "Отчество", "Город", "Улица", "Здание"
+                };
+                case "Очередь на получение жилья" -> new String[]{
+                        "Фамилия", "Имя", "Отчество", "Текущий шаг"
+                };
+                case "Взаимодействия с внешними службами" -> new String[]{
+                        "Фамилия", "Имя", "Отчество", "Название организации", "Результат взаимодействия"
+                };
+                default -> new String[0];
+            };
+            tableView.getItems().clear();
+            tableView.getItems().addAll(SearchUtil.searchData(searchTF.getText().toLowerCase(),
+                    Objects.requireNonNull(StaticObjects.getCurrentTableData()), findColumns));
         });
 
         tableView.setStyle("-fx-font-size: 20px");
         tableView.setRowFactory(tv -> {
             TableRow<Map<String, Object>> row = new TableRow<>();
-
-            // Создаём контекстное меню
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.setStyle("-fx-font-size: 20px");
-
             MenuItem editItem = new MenuItem("✏️ Изменить");
             MenuItem deleteItem = new MenuItem("🗑 Удалить");
-
-            // Обработчики
             editItem.setOnAction(e -> {
                 Map<String, Object> item = row.getItem();
                 if (item != null && !row.isEmpty()) {
@@ -157,11 +176,7 @@ public class MainController {
                                     item.get("Старое значение"),
                                     item.get("Новое значение"),
                                     item.get("Причина изменения"),
-                                    item.get("Фамилия пользователя"),
-                                    item.get("Имя пользователя"),
-                                    item.get("Отчество пользователя"),
-                                    item.get("ID ребенка"),
-                                    item.get("ID пользователя")
+                                    item.get("ID ребенка")
                             ));
                             try {
                                 ManageUtil.switchPage("Редактирование записи", "AddEditSMPage-view");
@@ -181,7 +196,7 @@ public class MainController {
                                     item.get("Город"),
                                     item.get("Улица"),
                                     item.get("Здание"),
-                                    item.get("ID ребенка")  // добавлено idChildren
+                                    item.get("ID ребенка")
                             ));
                             try {
                                 ManageUtil.switchPage("Редактирование записи", "AddEditHRPage-view");
@@ -207,6 +222,24 @@ public class MainController {
                                 throw new RuntimeException(ex);
                             }
                             break;
+                        case "Взаимодействия с внешними службами":
+                            StaticObjects.setInteraction(new Interaction(
+                                    item.get("ID"),
+                                    item.get("Название организации"),
+                                    item.get("Фамилия"),
+                                    item.get("Имя"),
+                                    item.get("Отчество"),
+                                    item.get("Дата взаимодействия"),
+                                    item.get("Тип взаимодействия"),
+                                    item.get("Результат взаимодействия"),
+                                    item.get("ID ребенка")
+                            ));
+                            try {
+                                ManageUtil.switchPage("Редактирование записи", "AddEditInteractionPage-view");
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            break;
                         case null:
                             break;
                         default:
@@ -218,35 +251,88 @@ public class MainController {
             });
 
             deleteItem.setOnAction(e -> {
-                Object item = row.getItem();
-                if (item != null && !row.isEmpty()) {
-                    // Автоматически обновит UI, если tableView.getItems() -> ObservableList
-                    System.out.println("Удалена строка: ");
-                    // todo: заглушка
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите удалить?");
+                alert.setTitle("Удаление записи");
+                Optional<ButtonType> buttonType = alert.showAndWait();
+
+                String query = "";
+                String[] displayColumns = {};
+                if (buttonType.isPresent() && buttonType.get() == ButtonType.OK) {
+                    Map<String, Object> item = row.getItem();
+                    if (item != null && !row.isEmpty()) {
+                        switch (StaticObjects.getCurrentTableName()) {
+                            case "Дети":
+                                Children child = new Children();
+                                child.setId(Integer.parseInt(item.get("ID").toString()));
+                                ChildrenRepository.archive(child);
+                                query = ChildrenRepository.getQUERY();
+                                displayColumns = ChildrenRepository.getDisplayColumns();
+                                break;
+                            case "Социальный паспорт":
+                                SocialPassport sp = new SocialPassport();
+                                sp.setId(Integer.parseInt(item.get("ID").toString()));
+                                SocialPassportRepository.archive(sp);
+                                query = SocialPassportRepository.getQUERY();
+                                displayColumns = SocialPassportRepository.getDisplayColumns();
+                                break;
+                            case "Социальный мониторинг":
+                                SocialMonitoring sm = new SocialMonitoring();
+                                sm.setId(Integer.parseInt(item.get("ID").toString()));
+                                SocialMonitoringRepository.archive(sm);
+                                query = SocialMonitoringRepository.getQUERY();
+                                displayColumns = SocialMonitoringRepository.getDisplayColumns();
+                                break;
+                            case "Жилищные права":
+                                HousingRights hr = new HousingRights();
+                                hr.setId(Integer.parseInt(item.get("ID").toString()));
+                                HousingRightsRepository.archive(hr);
+                                query = HousingRightsRepository.getQUERY();
+                                displayColumns = HousingRightsRepository.getDisplayColumns();
+                                break;
+                            case "Очередь на получение жилья":
+                                WaitingListForHousing wlfh = new WaitingListForHousing();
+                                wlfh.setId(Integer.parseInt(item.get("ID").toString()));
+                                WLFHRepository.archive(wlfh);
+                                query = WLFHRepository.getQUERY();
+                                displayColumns = WLFHRepository.getDisplayColumns();
+                                break;
+                            case "Взаимодействия с внешними службами":
+                                Interaction interaction = new Interaction();
+                                interaction.setId(Integer.parseInt(item.get("ID").toString()));
+                                InteractionRepository.archive(interaction);
+                                query = InteractionRepository.getQUERY();
+                                displayColumns = InteractionRepository.getDisplayColumns();
+                                break;
+                            case null:
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + StaticObjects.getCurrentTableName());
+                        }
+                    }
                 }
+
+                loadData(StaticObjects.getCurrentTableName(), query, displayColumns);
             });
 
             contextMenu.getItems().addAll(editItem, deleteItem);
 
-            // Привязываем меню к строке
-            row.setContextMenu(contextMenu);
+            row.emptyProperty().addListener((obs, wasEmpty, isEmpty) -> {
+                if (isEmpty)
+                    row.setContextMenu(null);
+                else
+                    row.setContextMenu(contextMenu);
+            });
 
             return row;
         });
 
 
-        loadData("Дети", """
-                SELECT c.id, c.second_name, c.first_name, c.patronymic, c.birthdate,
-                               g.gender_name, c.snils, c.passport_series, c.passport_number,
-                               c.registration_date, eg.group_name, s.status_name
-                        FROM children c
-                INNER JOIN gender g ON c.gender = g.id
-                INNER JOIN education_group eg ON c.id_education_group = eg.id
-                INNER JOIN status s ON c.status = s.id
-                """, new String[]{"ID", "Фамилия", "Имя", "Отчество", "Дата рождения", "Пол", "СНИЛС", "Серия паспорта", "Номер паспорта", "Дата регистрации", "Учебная группа", "Статус"});
+        loadData("Дети", ChildrenRepository.getQUERY(), ChildrenRepository.getDisplayColumns());
 
+        childHL.setOpacity(1);
+        exitBtn.setOnAction(actionEvent ->
 
-        exitBtn.setOnAction(actionEvent -> {
+        {
             try {
                 ManageUtil.switchPage("Авторизация", "AuthorizationPage-view");
                 StaticObjects.setCurrentUser(null);
@@ -259,7 +345,6 @@ public class MainController {
     private void setBaseView() {
         burgerMenu.setVisible(false);
         burgerMenu.setDisable(true);
-
         darkPane.setVisible(false);
         darkPane.setDisable(true);
     }
@@ -271,96 +356,35 @@ public class MainController {
                 spHL,
                 smHL,
                 hrHL,
-                wlfhHL
+                wlfhHL,
+                interactionHL
         };
 
         if (actionEvent.getSource() instanceof Hyperlink link) {
             String tableTitle = link.getText();
-
-            for (Hyperlink h: hyperlinks) {
+            for (Hyperlink h : hyperlinks) {
                 h.setOpacity(0.5);
-
             }
             link.setOpacity(1);
 
-
-            // Сделать разграничение по ролям
-            // SQL-запросы. Добавлены алиасы для избежания конфликтов имён колонок (например, second_name в children и employee)
             String sql = switch (tableTitle) {
-                case "Дети" -> """
-                        SELECT c.id, c.second_name, c.first_name, c.patronymic, c.birthdate,
-                               g.gender_name, c.snils, c.passport_series, c.passport_number,
-                               c.registration_date, eg.group_name, s.status_name
-                        FROM children c
-                        INNER JOIN gender g ON c.gender = g.id
-                        INNER JOIN education_group eg ON c.id_education_group = eg.id
-                        INNER JOIN status s ON c.status = s.id
-                        """;
-                case "Социальный паспорт" -> """
-                        SELECT s.id_passport, c.second_name, c.first_name, c.patronymic, c.id,
-                               el.education_name, hg.group_name, t.situation_name,
-                               s.having_a_disability, s.date_create
-                        FROM social_passport s
-                        INNER JOIN children c ON s.id_children = c.id
-                        INNER JOIN education_level el ON s.id_education = el.id
-                        INNER JOIN health_group hg ON s.id_health_group = hg.id
-                        INNER JOIN family_situation t ON s.id_family_situation = t.id
-                        """;
-                case "Социальный мониторинг" -> """
-                        SELECT s.id, c.second_name AS child_surname, c.first_name AS child_first, c.patronymic AS child_patronymic, c.id,
-                               s.date_of_fixation, mt.monitoring_name, s.old_value,
-                               s.new_value, s.change_reason,
-                               e.second_name AS emp_surname, e.first_name AS emp_first, e.patronymic AS emp_patronymic, u.id
-                        FROM social_monitoring s
-                        INNER JOIN children c ON s.id_children = c.id
-                        INNER JOIN monitoring_type mt ON s.id_monitoring_type = mt.id
-                        INNER JOIN "user" u ON s.id_user = u.id
-                        INNER JOIN employee e ON u.id_employee = e.id
-                        """;
-                case "Жилищные права" -> """
-                        SELECT h.id, c.second_name, c.first_name, c.patronymic, c.id,
-                               h.availability_of_housing, form_name,
-                               h.registration_date, h.city, h.street, h.build
-                        FROM housing_rights h
-                        INNER JOIN children c ON h.id_children = c.id
-                        INNER JOIN ownership_form o ON h.form_of_ownership=o.id
-                        """;
-                case "Очередь на получение жилья" -> """
-                        SELECT w.id, c.second_name, c.first_name, c.patronymic, c.id,
-                               w.number_in_the_queue, w.date_added,
-                               w.expected_date_of_issue, w.current_step
-                        FROM waiting_list_for_housing w
-                        INNER JOIN children c ON w.id_children = c.id
-                        """;
+                case "Дети" -> ChildrenRepository.getQUERY();
+                case "Социальный паспорт" -> SocialPassportRepository.getQUERY();
+                case "Социальный мониторинг" -> SocialMonitoringRepository.getQUERY();
+                case "Жилищные права" -> HousingRightsRepository.getQUERY();
+                case "Очередь на получение жилья" -> WLFHRepository.getQUERY();
+                case "Взаимодействия с внешними службами" -> InteractionRepository.getQUERY();
                 default -> null;
             };
 
             if (sql != null) {
-                // Соответствие позиций в SELECT и отображаемых заголовков
                 String[] displayColumns = switch (tableTitle) {
-                    case "Дети" -> new String[]{
-                            "ID", "Фамилия", "Имя", "Отчество",
-                            "Дата рождения", "Пол", "СНИЛС", "Серия паспорта",
-                            "Номер паспорта", "Дата регистрации", "Учебная группа", "Статус"
-                    };
-                    case "Социальный паспорт" -> new String[]{
-                            "ID", "Фамилия", "Имя", "Отчество", "ID ребенка", "Уровень образования",
-                            "Группа здоровья", "Семейное положение", "Инвалидность", "Дата создания"
-                    };
-                    case "Социальный мониторинг" -> new String[]{
-                            "ID", "Фамилия ребенка", "Имя ребенка",
-                            "Отчество ребенка", "ID ребенка", "Дата фиксации", "Тип мониторинга", "Старое значение", "Новое значение",
-                            "Причина изменения", "Фамилия сотрудника", "Имя сотрудника", "Отчество сотрудника", "ID пользователя"
-                    };
-                    case "Жилищные права" -> new String[]{
-                            "ID", "Фамилия", "Имя", "Отчество", "ID ребенка",
-                            "Наличие жилья", "Форма собственности", "Дата регистрации",
-                            "Город", "Улица", "Здание"
-                    };
-                    case "Очередь на получение жилья" -> new String[]{
-                            "ID", "Фамилия", "Имя", "Отчество", "ID ребенка", "Номер в очереди",
-                            "Дата постановки в очередь", "Ожидаемая дата выдачи", "Текущий шаг"
-                    };
+                    case "Дети" -> ChildrenRepository.getDisplayColumns();
+                    case "Социальный паспорт" -> SocialPassportRepository.getDisplayColumns();
+                    case "Социальный мониторинг" -> SocialMonitoringRepository.getDisplayColumns();
+                    case "Жилищные права" -> HousingRightsRepository.getDisplayColumns();
+                    case "Очередь на получение жилья" -> WLFHRepository.getDisplayColumns();
+                    case "Взаимодействия с внешними службами" -> InteractionRepository.getDisplayColumns();
                     default -> new String[0];
                 };
 
@@ -369,82 +393,59 @@ public class MainController {
         }
     }
 
-    /**
-     * Загружает данные из БД в фоновом потоке и обновляет таблицу.
-     */
-
     private void loadData(String tableName, String sql, String[] columns) {
-        // Блокируем UI
         tableView.setDisable(true);
         tableView.setPlaceholder(new Label("Загрузка..."));
 
-        // Запускаем загрузку в фоне
         Task<ObservableList<Map<String, Object>>> task = new Task<>() {
             // Map = колонка + значение
             @Override
             protected ObservableList<Map<String, Object>> call() throws Exception {
-                // Список строк для таблицы
                 List<Map<String, Object>> data = new ArrayList<>();
 
                 try (ResultSet rs = DBConnector.query(sql)) {
                     while (rs.next()) {
-                        // Словарь {Название колонки, Значение}
-                        // 1 Map = 1 строка с n количеством значений и n количеством ключей
-                        // Map может содержать несколько ключей и значений соответственно
                         Map<String, Object> row = new HashMap<>();
                         for (int i = 0; i < columns.length; i++) {
-                            // добавление в Map ключа с названием колонки и значением к нему
-                            // колонки берутся из массива с колонками
                             Object obj = rs.getObject(i + 1);
 
                             if (obj != null && !(obj.toString()).matches("[0-9.]*") &&
                                     !columns[i].equals("Тип мониторинга") &&
                                     !columns[i].equals("Наличие жилья") &&
                                     !columns[i].equals("Форма собственности") &&
-                                    !columns[i].equals("Текущий шаг")
+                                    !columns[i].equals("Текущий шаг") &&
+                                    !columns[i].equals("Название организации") &&
+                                    !columns[i].equals("Тип взаимодействия") &&
+                                    !columns[i].equals("Результат взаимодействия")
                             ) {
                                 obj = SecurityUtil.decryptSafe((String) obj, key);
                             }
 
                             row.put(columns[i], obj);
                         }
-
-                        // добавление строки в список строк
                         data.add(row);
                     }
                 }
-
                 StaticObjects.setCurrentTable(tableName, data);
                 return FXCollections.observableArrayList(data);
             }
         };
 
-        // Когда загрузка завершена
         task.setOnSucceeded(e -> {
-            // очищаем колонки
             tableView.getColumns().clear();
 
-            // Соаздем колонки для таблицы
             for (String colName : columns) {
-                // колонка состоит из "типа строки таблицы" и "тип данных в колонке"
-                // то-есть строка = Map
                 TableColumn<Map<String, Object>, String> col = new TableColumn<>(colName);
-
-                // для данной колонки и для данной ячейки устанавливаем значение
                 col.setCellValueFactory(cell -> {
                     Object value = cell.getValue().get(colName);
                     return new SimpleStringProperty(value != null ? value.toString() : "");
                 });
                 tableView.getColumns().add(col);
             }
-
-            // Устанавливаем данные
             tableView.setItems(task.getValue());
             tableView.setDisable(false);
             tableView.setPlaceholder(new Label("Готово"));
         });
-
-        // Если ошибка
         task.setOnFailed(e -> {
             tableView.setDisable(false);
             tableView.setPlaceholder(new Label("Ошибка!"));
@@ -471,6 +472,9 @@ public class MainController {
                 break;
             case "Очередь на получение жилья":
                 ManageUtil.switchPage("Добавление записи", "AddEditWLFHPage-view");
+                break;
+            case "Взаимодействия с внешними службами":
+                ManageUtil.switchPage("Добавление записи", "AddEditInteractionPage-view");
                 break;
             case null:
                 break;

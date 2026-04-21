@@ -136,18 +136,22 @@ public class StaticObjects {
 
     public static String getCurrentTableName() {
         Set<String> set = currentTable.keySet();
-        for (String key: set) {
+        for (String key : set) {
             return key;
         }
         return null;
+    }
+
+    public static List<Map<String, Object>> getCurrentTableData() {
+        String tableName = getCurrentTableName();
+        if (tableName == null || currentTable == null) {
+            return null;
+        }
+        return currentTable.get(tableName);
     }
 
     public static void setCurrentTable(String table, List<Map<String, Object>> dataArray) {
         currentTable = new HashMap<>();
         currentTable.put(table, dataArray);
     }
-//
-//    public static void getCurrentTableData(int id) {
-//        return currentTable.get();
-//    }
 }

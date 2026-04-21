@@ -28,7 +28,6 @@ public class AuthorizationController {
     @FXML
     private void initialize() throws ClassNotFoundException {
 
-        // соединение с бд
         DBConnector.connect();
 
         entryTF.setOnAction(actionEvent -> {
@@ -45,7 +44,6 @@ public class AuthorizationController {
         });
     }
 
-    // проверка существует ли пользователь
     private boolean checkUser(String login, String password) throws SQLException {
         ResultSet rs = DBConnector.query("SELECT u.id, login, password_hash, e.second_name, e.first_name , e.patronymic, post_name \n" +
                 "FROM \"user\" u\n" +

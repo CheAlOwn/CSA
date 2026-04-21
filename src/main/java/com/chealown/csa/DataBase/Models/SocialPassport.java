@@ -29,28 +29,6 @@ public class SocialPassport {
         this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
     }
 
-    public SocialPassport(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty education, StringProperty healthGroup, StringProperty familySituation, StringProperty havingADisability, StringProperty dateCreate) {
-        this.id = id;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.education = education;
-        this.healthGroup = healthGroup;
-        this.familySituation = familySituation;
-        this.havingADisability = havingADisability;
-        this.dateCreate = dateCreate;
-    }
-
-    public SocialPassport(IntegerProperty id, StringProperty education, StringProperty healthGroup, StringProperty familySituation, StringProperty havingADisability, StringProperty dateCreate, IntegerProperty idChildren) {
-        this.id = id;
-        this.education = education;
-        this.healthGroup = healthGroup;
-        this.familySituation = familySituation;
-        this.havingADisability = havingADisability;
-        this.dateCreate = dateCreate;
-        this.idChildren = idChildren;
-    }
-
     public SocialPassport() {
 
     }

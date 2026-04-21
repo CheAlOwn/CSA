@@ -1,17 +1,24 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.SocialPassport;
+import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.WaitingListForHousing;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
-import javax.crypto.SecretKey;
-
 public class WLFHRepository {
-    private static final SecretKey ENCRYPTION_KEY = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
-    private static final String[] ENCRYPTED_FIELDS = {
+    private static final String[] DISPLAY_COLUMNS = {
+            "ID", "Фамилия", "Имя", "Отчество", "ID ребенка", "Номер в очереди",
+            "Дата постановки в очередь", "Ожидаемая дата выдачи", "Текущий шаг"
     };
+    private static final String QUERY = """
+                        SELECT w.id, c.second_name, c.first_name, c.patronymic, c.id,
+                               w.number_in_the_queue, w.date_added,
+                               w.expected_date_of_issue, w.current_step
+                        FROM waiting_list_for_housing w
+                        INNER JOIN children c ON w.id_children = c.id
+                        WHERE w.archive = false
+                        """;
+
 
     public static boolean save(WaitingListForHousing wlfh) {
         if (StaticObjects.getListForHousing() == null) {
@@ -65,7 +72,25 @@ public class WLFHRepository {
         return DBConnector.update(sql, params) > 0;
     }
 
-    public static String[] getEncryptedFields() {
-        return ENCRYPTED_FIELDS;
+    public static void archive(WaitingListForHousing wlfh) {
+        String sql = """
+                UPDATE waiting_list_for_housing
+                SET archive=true
+                WHERE id=?;
+                """;
+
+        Object[] params = {
+                wlfh.getId()
+        };
+
+        DBConnector.update(sql, params);
+    }
+
+    public static String[] getDisplayColumns() {
+        return DISPLAY_COLUMNS;
+    }
+
+    public static String getQUERY() {
+        return QUERY;
     }
 }

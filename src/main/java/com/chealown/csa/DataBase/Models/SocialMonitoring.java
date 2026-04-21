@@ -23,8 +23,7 @@ public class SocialMonitoring {
 
     public SocialMonitoring(Object id, Object secondNameChildren, Object firstNameChildren, Object patronymicChildren,
                             Object dateOfFixation, Object monitoringType, Object oldValue, Object newValue,
-                            Object changeReason, Object secondNameUser, Object firstNameUser, Object patronymicUser,
-                            Object idChildren, Object idUser) {
+                            Object changeReason, Object idChildren) {
         this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
         this.secondNameChildren = new SimpleStringProperty(secondNameChildren != null ? secondNameChildren.toString() : "");
         this.firstNameChildren = new SimpleStringProperty(firstNameChildren != null ? firstNameChildren.toString() : "");
@@ -34,42 +33,10 @@ public class SocialMonitoring {
         this.oldValue = new SimpleStringProperty(oldValue != null ? oldValue.toString() : "");
         this.newValue = new SimpleStringProperty(newValue != null ? newValue.toString() : "");
         this.changeReason = new SimpleStringProperty(changeReason != null ? changeReason.toString() : "");
-        this.secondNameUser = new SimpleStringProperty(secondNameUser != null ? secondNameUser.toString() : "");
-        this.firstNameUser = new SimpleStringProperty(firstNameUser != null ? firstNameUser.toString() : "");
-        this.patronymicUser = new SimpleStringProperty(patronymicUser != null ? patronymicUser.toString() : "");
         this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
-        this.idUser = new SimpleIntegerProperty(idUser != null ? (Integer) idUser : -1);
     }
 
-    public SocialMonitoring(IntegerProperty id, StringProperty secondNameChildren, StringProperty firstNameChildren, StringProperty patronymicChildren, StringProperty dateOfFixation, StringProperty monitoringType, StringProperty oldValue, StringProperty newValue, StringProperty changeReason, StringProperty secondNameUser, StringProperty firstNameUser, StringProperty patronymicUser) {
-        this.id = id;
-        this.secondNameChildren = secondNameChildren;
-        this.firstNameChildren = firstNameChildren;
-        this.patronymicChildren = patronymicChildren;
-        this.dateOfFixation = dateOfFixation;
-        this.monitoringType = monitoringType;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-        this.changeReason = changeReason;
-        this.secondNameUser = secondNameUser;
-        this.firstNameUser = firstNameUser;
-        this.patronymicUser = patronymicUser;
-    }
-
-    public SocialMonitoring(IntegerProperty id, StringProperty dateOfFixation, StringProperty monitoringType, StringProperty oldValue, StringProperty newValue, StringProperty changeReason, IntegerProperty idChildren, IntegerProperty idUser) {
-        this.id = id;
-        this.dateOfFixation = dateOfFixation;
-        this.monitoringType = monitoringType;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-        this.changeReason = changeReason;
-        this.idChildren = idChildren;
-        this.idUser = idUser;
-    }
-
-    public SocialMonitoring() {
-
-    }
+    public SocialMonitoring() {}
 
     public int getIdChildren() {
         return idChildren.get();

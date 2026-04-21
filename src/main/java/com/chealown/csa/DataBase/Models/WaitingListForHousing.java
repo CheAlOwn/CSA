@@ -30,29 +30,7 @@ public class WaitingListForHousing {
         this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
     }
 
-    public WaitingListForHousing(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, IntegerProperty numberInTheQueue, StringProperty dateAdded, StringProperty expectedDateOfIssue, StringProperty currentStep) {
-        this.id = id;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.numberInTheQueue = numberInTheQueue;
-        this.dateAdded = dateAdded;
-        this.expectedDateOfIssue = expectedDateOfIssue;
-        this.currentStep = currentStep;
-    }
-
-    public WaitingListForHousing(IntegerProperty id, IntegerProperty numberInTheQueue, StringProperty dateAdded, StringProperty expectedDateOfIssue, StringProperty currentStep, IntegerProperty idChildren) {
-        this.id = id;
-        this.numberInTheQueue = numberInTheQueue;
-        this.dateAdded = dateAdded;
-        this.expectedDateOfIssue = expectedDateOfIssue;
-        this.currentStep = currentStep;
-        this.idChildren = idChildren;
-    }
-
-    public WaitingListForHousing() {
-
-    }
+    public WaitingListForHousing() {}
 
     public int getId() {
         return id.get();

@@ -43,7 +43,6 @@ public class AddEditSMController {
     private Label pageName;
 
     SocialMonitoring socialMonitoring = StaticObjects.getSocialMonitoring();
-    SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
 
     @FXML
     private void initialize() throws SQLException {
@@ -85,7 +84,6 @@ public class AddEditSMController {
 
     private void loadData() {
         changeReason.setText(socialMonitoring.getChangeReason());
-        // загрузить комбо-бокс с типом монитинга
         monitoringTypeCB.getSelectionModel().select(socialMonitoring.getMonitoringType());
         oldValueTF.setText(socialMonitoring.getOldValue());
         newValueTF.setText(socialMonitoring.getNewValue());
@@ -93,10 +91,6 @@ public class AddEditSMController {
     }
 
     private void saveChanges() throws SQLException {
-        //
-        // TODO: для комбо-боксов в таблицы добавить значение "Не указано"
-        //
-
         if (
                 childTF.getText().isEmpty() ||
                         monitoringTypeCB.getSelectionModel().getSelectedItem() == null ||
@@ -127,7 +121,6 @@ public class AddEditSMController {
                 StaticObjects.setSocialMonitoring(null);
             } else
                 ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), messagePart + " не удалось");
-
         }
     }
 

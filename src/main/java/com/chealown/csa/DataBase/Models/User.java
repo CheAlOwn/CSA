@@ -2,8 +2,6 @@ package com.chealown.csa.DataBase.Models;
 
 public class User {
     int id;
-
-    // TODO: логин и пароль можно убрать
     String login;
     String secondName;
     String firstName;
@@ -13,7 +11,6 @@ public class User {
     public User(int id, String login, String secondName, String firstName, String patronymic, String post) {
         this.id = id;
         this.login = login;
-
         this.secondName = secondName;
         this.firstName = firstName;
         this.patronymic = patronymic;

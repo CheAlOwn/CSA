@@ -106,10 +106,6 @@ public class AddEditSPController {
     }
 
     private void saveChanges() throws SQLException {
-        //
-        // TODO: для комбо-боксов в таблицы добавить значение "Не указано"
-        //
-
         if (
                 childTF.getText().isEmpty() ||
                         disabilityCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
@@ -141,7 +137,6 @@ public class AddEditSPController {
                 StaticObjects.setSocialPassport(null);
             } else
                 ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), messagePart + " не удалось");
-
         }
     }
 

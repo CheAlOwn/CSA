@@ -7,23 +7,28 @@ import javafx.beans.property.StringProperty;
 
 public class Interaction {
     IntegerProperty id = new SimpleIntegerProperty();
-    StringProperty organizationName = new SimpleStringProperty();
+    StringProperty organization = new SimpleStringProperty();
     StringProperty secondName = new SimpleStringProperty();
     StringProperty firstName = new SimpleStringProperty();
     StringProperty patronymic = new SimpleStringProperty();
     StringProperty interactionDate = new SimpleStringProperty();
     StringProperty interactionType = new SimpleStringProperty();
     StringProperty interactionResult = new SimpleStringProperty();
+    IntegerProperty idChildren = new SimpleIntegerProperty();
+    IntegerProperty idUser = new SimpleIntegerProperty();
 
-    public Interaction(IntegerProperty id, StringProperty organizationName, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty interactionDate, StringProperty interactionType, StringProperty interactionResult) {
-        this.id = id;
-        this.organizationName = organizationName;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.interactionDate = interactionDate;
-        this.interactionType = interactionType;
-        this.interactionResult = interactionResult;
+    public Interaction() {}
+
+    public Interaction(Object id, Object organization, Object secondName, Object firstName, Object patronymic, Object interactionDate, Object interactionType, Object interactionResult, Object idChildren) {
+        this.id = new SimpleIntegerProperty(id != null ? Integer.parseInt(String.valueOf(id)) : -1);
+        this.organization = new SimpleStringProperty(organization != null ? organization.toString() : "");
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
+        this.interactionDate = new SimpleStringProperty(interactionDate != null ? interactionDate.toString() : "");
+        this.interactionType = new SimpleStringProperty(interactionType != null ? interactionType.toString() : "");
+        this.interactionResult = new SimpleStringProperty(interactionResult != null ? interactionResult.toString() : "");
+        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
     }
 
     public int getId() {
@@ -38,16 +43,16 @@ public class Interaction {
         this.id.set(id);
     }
 
-    public String getOrganizationName() {
-        return organizationName.get();
+    public String getOrganization() {
+        return organization.get();
     }
 
-    public StringProperty organizationNameProperty() {
-        return organizationName;
+    public StringProperty organizationProperty() {
+        return organization;
     }
 
-    public void setOrganizationName(String organizationName) {
-        this.organizationName.set(organizationName);
+    public void setOrganization(String organization) {
+        this.organization.set(organization);
     }
 
     public String getSecondName() {
@@ -120,5 +125,29 @@ public class Interaction {
 
     public void setInteractionResult(String interactionResult) {
         this.interactionResult.set(interactionResult);
+    }
+
+    public int getIdChildren() {
+        return idChildren.get();
+    }
+
+    public IntegerProperty idChildrenProperty() {
+        return idChildren;
+    }
+
+    public void setIdChildren(int idChildren) {
+        this.idChildren.set(idChildren);
+    }
+
+    public int getIdUser() {
+        return idUser.get();
+    }
+
+    public IntegerProperty idUserProperty() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser.set(idUser);
     }
 }

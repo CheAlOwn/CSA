@@ -21,7 +21,6 @@ public class Children {
 
     public Children() {}
 
-    // Добавьте этот конструктор в класс Children
     public Children(Object id, Object secondName, Object firstName, Object patronymic,
                     Object birthdate, Object gender, Object snils, Object passportNum,
                     Object passportSer, Object registrationDate, Object educationGroup,

@@ -67,21 +67,15 @@ public class AddEditChildrenController {
     @FXML
     private void initialize() throws SQLException {
 
-
-        // заполнение комбо-боксов
         fillComboBoxes();
 
-        // Маска для даты
         MaskUtil.applyDateMask(birthdateTF);
         MaskUtil.applyDateMask(registrationDateTF);
 
-        // Маска для полей с вводом чисел
         MaskUtil.applyNumberMask(passportSerTF, 4);
         MaskUtil.applyNumberMask(passportNumTF, 6);
 
-        // Маска для СНИЛС
         MaskUtil.applySnilsMask(snilsTF);
-
 
         btnSave.setOnAction(actionEvent -> {
             try {
@@ -140,10 +134,6 @@ public class AddEditChildrenController {
         snilsTF.setText(child.getSnils());
         statusCB.getSelectionModel().select(child.getStatus());
 
-    }
-
-    private String decryptLoadData(String data) {
-        return SecurityUtil.decryptSafe(data, key);
     }
 
     private void saveChanges() throws SQLException {

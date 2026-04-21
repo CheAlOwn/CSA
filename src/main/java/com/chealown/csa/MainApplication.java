@@ -24,45 +24,6 @@ public class MainApplication extends Application {
         stage.setResizable(false);
 
         currentStage = stage;
-
-//        DBConnector.connect();
-//        SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
-
-
-
-        // Временный пункт для добавления данных без использования форм
-
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Сколько значений?");
-//
-//        int count = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        for (int i = 0; i < count; i++) {
-//            System.out.println("Введите значение " + (i + 1));
-//            insertData(
-//                    "INSERT INTO \"user\"\n" +
-//                            "(password_hash)\n" +
-//                            "VALUES(?);",
-//                    key,
-//                    scanner.nextLine()
-//            );
-//
-//            System.out.println("Добавлена строка " + (i + 1));
-//        }
-    }
-
-    public void insertData(String sql, SecretKey encryptionKey, Object... params) {
-        Object[] encryptedFields = new Object[params.length];
-
-
-        for (int i = 0; i < params.length; i++) {
-//            encryptedFields[i] = SecurityUtil.encryptSafe((String) params[i], encryptionKey);
-            encryptedFields[i] = SecurityUtil.hashPassword((String) params[i]);
-            System.out.println(encryptedFields[i]);
-        }
-
-        DBConnector.update(sql, encryptedFields);
     }
 
     public static Stage getCurrentStage() {

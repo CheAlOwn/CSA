@@ -57,9 +57,6 @@ public class AddEditHRController {
     private void initialize() throws SQLException {
         MaskUtil.applyDateMask(registrationDateTF);
 
-        // TODO: добавить реализацию на кнопку выбора ...;
-        //
-
         fillComboBoxes();
 
         btnSave.setOnAction(actionEvent -> {
@@ -90,8 +87,6 @@ public class AddEditHRController {
     }
 
     private void fillComboBoxes() throws SQLException {
-        SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
-
         ResultSet rs = DBConnector.query("""
                 SELECT form_name FROM ownership_form""");
         while (rs.next())
@@ -111,9 +106,6 @@ public class AddEditHRController {
     }
 
     private void saveChanges() throws SQLException {
-        //
-        // TODO: для комбо-боксов в таблицы добавить значение "Не указано"
-        //
 
         if (
                 availabilityHousingCB.getSelectionModel().getSelectedItem() == null ||

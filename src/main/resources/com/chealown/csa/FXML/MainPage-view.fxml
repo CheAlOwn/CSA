@@ -50,7 +50,7 @@
          </font>
       </Button>
       <TableView fx:id="tableView" layoutX="40.0" layoutY="130.0" prefHeight="858.0" prefWidth="1840.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0" />
-      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" />
+      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="burgerMenu" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox fx:id="modulesList" layoutX="40.0" layoutY="120.0" prefHeight="644.0" prefWidth="353.0" spacing="5.0">
@@ -76,6 +76,11 @@
                      </font>
                   </Hyperlink>
                   <Hyperlink fx:id="wlfhHL" layoutX="10.0" layoutY="100.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Очередь на получение жилья">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="interactionHL" layoutX="10.0" layoutY="178.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Взаимодействия с внешними службами" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
