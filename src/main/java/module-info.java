@@ -9,4 +9,6 @@ module com.chealown.csa {
     exports com.chealown.csa;
     opens com.chealown.csa.Controllers to javafx.fxml;
     exports com.chealown.csa.Controllers;
+    opens com.chealown.csa.Controllers.Filters to javafx.fxml;
+    exports com.chealown.csa.Controllers.Filters;
 }

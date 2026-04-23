@@ -1,10 +1,13 @@
 package com.chealown.csa.Entities;
 
+import com.chealown.csa.Controllers.MainController;
 import com.chealown.csa.DataBase.Models.*;
 
 import java.util.*;
 
 public class StaticObjects {
+    private static MainController controller;
+
     private static Children children;
     private static EducationGroup educationGroup;
     private static EducationLevel educationLevel;
@@ -153,5 +156,13 @@ public class StaticObjects {
     public static void setCurrentTable(String table, List<Map<String, Object>> dataArray) {
         currentTable = new HashMap<>();
         currentTable.put(table, dataArray);
+    }
+
+    public static MainController getController() {
+        return controller;
+    }
+
+    public static void setController(MainController controller) {
+        StaticObjects.controller = controller;
     }
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.Filters.SPFiltersController">
+    <content>
+        <VBox prefHeight="730.0" prefWidth="380.0" spacing="16.0" style="-fx-background-color: #fff;">
+            <children>
+                <VBox fillWidth="false" layoutX="10.0" layoutY="10.0" prefHeight="115.0" prefWidth="380.0" spacing="8.0">
+                    <children>
+                        <Label style="-fx-text-fill: #242424;" text="Уровень образования" textFill="#242424">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="educationLevelCB" onAction="#apply" prefHeight="78.0" prefWidth="548.0" promptText="Все" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </ComboBox>
+                    </children>
+                </VBox>
+                <VBox fillWidth="false" layoutX="10.0" layoutY="141.0" prefHeight="115.0" prefWidth="380.0" spacing="8.0">
+                    <children>
+                        <Label style="-fx-text-fill: #242424;" text="Группа здоровья" textFill="#242424">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="healthGroupCB" onAction="#apply" prefHeight="78.0" prefWidth="548.0" promptText="Все" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </ComboBox>
+                    </children>
+                </VBox>
+                <VBox fillWidth="false" layoutX="10.0" layoutY="272.0" prefHeight="115.0" prefWidth="380.0" spacing="8.0">
+                    <children>
+                        <Label style="-fx-text-fill: #242424;" text="Семейное положение" textFill="#242424">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="familySituationCB" onAction="#apply" prefHeight="78.0" prefWidth="548.0" promptText="Все" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </ComboBox>
+                    </children>
+                </VBox>
+            <VBox fillWidth="false" layoutX="10.0" layoutY="272.0" prefWidth="380.0" spacing="8.0">
+               <children>
+                  <Label style="-fx-text-fill: #242424;" text="Инвалидность" textFill="#242424">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="disabilityCB" onAction="#apply" prefHeight="78.0" prefWidth="548.0" promptText="Все" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </ComboBox>
+               </children>
+            </VBox>
+                <VBox fillWidth="false" prefHeight="115.0" prefWidth="380.0" spacing="8.0">
+                    <children>
+                        <Label style="-fx-text-fill: #242424;" text="Дата создания" textFill="#242424">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="78.0" prefWidth="381.0" spacing="10.0">
+                            <children>
+                                <TextField fx:id="startDateTF" prefHeight="78.0" prefWidth="182.0" promptText="От" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                                    <padding>
+                                        <Insets left="10.0" />
+                                    </padding>
+                                </TextField>
+                                <Label style="-fx-text-fill: #242424;" text="–">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="endDateTF" layoutX="10.0" layoutY="10.0" prefHeight="78.0" prefWidth="182.0" promptText="До" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                                    <padding>
+                                        <Insets left="10.0" />
+                                    </padding>
+                                </TextField>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

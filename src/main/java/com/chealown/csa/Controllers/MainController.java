@@ -7,6 +7,7 @@ import com.chealown.csa.Entities.ManageUtil; // Убедитесь, что пу�
 import com.chealown.csa.Entities.SearchUtil;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
+import com.chealown.csa.MainApplication;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +28,9 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class MainController {
+
+    @FXML
+    private Button clearFiltersBtn;
 
     @FXML
     private Hyperlink interactionHL;
@@ -62,12 +67,20 @@ public class MainController {
     private Button sortBtn;
     @FXML
     private TableView<Map<String, Object>> tableView;
+    @FXML
+    private Button closeFiltersBtn;
+    @FXML
+    private AnchorPane filterMenu;
+    @FXML
+    private AnchorPane filterPane;
 
     SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
+    FiltersController controller;
 
     @FXML
     private void initialize() {
         burgerMenu.setLayoutX(-470);
+        filterMenu.setLayoutX(1920);
         setBaseView();
 
         menuBtn.setOnAction(actionEvent -> {
@@ -80,6 +93,85 @@ public class MainController {
             slide.play();
         });
 
+
+        filterBtn.setOnAction(actionEvent -> {
+            filterMenu.setVisible(true);
+            filterMenu.setDisable(false);
+            TranslateTransition slide = new TranslateTransition();
+            slide.setToX(1450);
+            darkPane.setVisible(true);
+            darkPane.setDisable(false);
+            slide.play();
+
+            filterPane.getChildren().clear();
+
+            FXMLLoader loader = null;
+
+            switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
+                case "Дети":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/ChildrenFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                case "Социальный паспорт":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/SPFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                case "Социальный мониторинг":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/SMFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                case "Жилищные права":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/HRFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                case "Очередь на получение жилья":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/WLFHFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                case "Взаимодействия с внешними службами":
+                    loader = new FXMLLoader(MainApplication.class.getResource("FXML/Filters/InteractionFiltersContent-view.fxml"));
+                    try {
+                        Node node = loader.load();
+                        filterPane.getChildren().add(node);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    controller = loader.getController();
+                    break;
+                default:
+            }
+        });
+
         closeMenuBtn.setOnAction(actionEvent -> {
             setBaseView();
             TranslateTransition slide = new TranslateTransition();
@@ -87,32 +179,22 @@ public class MainController {
             slide.play();
         });
 
-        searchTF.textProperty().addListener(lst -> {
-            String[] findColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
-                case "Дети" -> new String[]{
-                        "Фамилия", "Имя", "Отчество", "СНИЛС"
-                };
-                case "Социальный паспорт" -> new String[]{
-                        "Фамилия", "Имя", "Отчество"
-                };
-                case "Социальный мониторинг" -> new String[]{
-                        "Фамилия ребенка", "Имя ребенка", "Отчество ребенка", "Старое значение", "Новое значение"
-                };
-                case "Жилищные права" -> new String[]{
-                        "Фамилия", "Имя", "Отчество", "Город", "Улица", "Здание"
-                };
-                case "Очередь на получение жилья" -> new String[]{
-                        "Фамилия", "Имя", "Отчество", "Текущий шаг"
-                };
-                case "Взаимодействия с внешними службами" -> new String[]{
-                        "Фамилия", "Имя", "Отчество", "Название организации", "Результат взаимодействия"
-                };
-                default -> new String[0];
-            };
-            tableView.getItems().clear();
-            tableView.getItems().addAll(SearchUtil.searchData(searchTF.getText().toLowerCase(),
-                    Objects.requireNonNull(StaticObjects.getCurrentTableData()), findColumns));
+        closeFiltersBtn.setOnAction(actionEvent -> {
+            setBaseView();
+            TranslateTransition slide = new TranslateTransition();
+            slide.setToX(1920);
+            slide.play();
         });
+
+        clearFiltersBtn.setOnAction(actionEvent -> {
+            if (controller != null)
+                controller.clearFilters();
+        });
+
+        searchTF.textProperty().addListener(lst -> {
+            applySearchAndFilters();
+        });
+
 
         tableView.setStyle("-fx-font-size: 20px");
         tableView.setRowFactory(tv -> {
@@ -342,7 +424,76 @@ public class MainController {
         });
     }
 
+    //
+    //
+    //
+    //
+    //
+    // TODO: убрать дату регистрации отовсюду
+//
+//
+//
+//
+
+    public void applySearchAndFilters() {
+        String[] searchColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
+            case "Дети" -> new String[]{"Фамилия", "Имя", "Отчество", "СНИЛС"};
+            case "Социальный паспорт" -> new String[]{"Фамилия", "Имя", "Отчество"};
+            case "Социальный мониторинг" ->
+                    new String[]{"Фамилия ребенка", "Имя ребенка", "Отчество ребенка", "Старое значение", "Новое значение"};
+            case "Жилищные права" -> new String[]{"Фамилия", "Имя", "Отчество", "Город", "Улица", "Здание"};
+            case "Очередь на получение жилья" -> new String[]{"Фамилия", "Имя", "Отчество", "Текущий шаг"};
+            case "Взаимодействия с внешними службами" ->
+                    new String[]{"Фамилия", "Имя", "Отчество", "Название организации", "Результат взаимодействия"};
+            default -> new String[0];
+        };
+
+        String[] dateColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
+            case "Дети" -> new String[]{"Дата рождения"};
+            case "Социальный паспорт" -> new String[]{"Дата создания"};
+            case "Социальный мониторинг" -> new String[]{"Дата фиксации"};
+            case "Жилищные права" -> new String[]{"Дата регистрации"};
+            case "Очередь на получение жилья" -> new String[]{"Дата постановки в очередь", "Ожидаемая дата выдачи"};
+            case "Взаимодействия с внешними службами" -> new String[]{"Дата взаимодействия"};
+            default -> new String[0];
+        };
+
+        String[] filterColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
+            case "Дети" -> new String[]{"Пол", "Учебная группа", "Статус"};
+            case "Социальный паспорт" ->
+                    new String[]{"Уровень образования", "Группа здоровья", "Семейное положение", "Инвалидность"};
+            case "Социальный мониторинг" -> new String[]{"Тип мониторинга"};
+            case "Жилищные права" -> new String[]{"Наличие жилья", "Форма собственности", "Город"};
+            case "Взаимодействия с внешними службами" -> new String[]{"Тип взаимодействия"};
+            default -> new String[0];
+        };
+        String[] filterData = null;
+        String[] startDate = null;
+        String[] endDate = null;
+
+        if (controller != null) {
+            filterData = controller.getFilterDataList();
+            startDate = controller.getStartDateList();
+            endDate = controller.getEndDateList();
+        }
+
+        tableView.getItems().clear();
+        tableView.getItems().addAll(
+                SearchUtil.searchData(
+                        Objects.requireNonNull(StaticObjects.getCurrentTableData()),
+                        searchTF.getText().toLowerCase(),
+                        searchColumns,
+                        filterData,
+                        filterColumns,
+                        dateColumns,
+                        startDate,
+                        endDate
+                ));
+    }
+
     private void setBaseView() {
+        filterMenu.setVisible(false);
+        filterMenu.setDisable(true);
         burgerMenu.setVisible(false);
         burgerMenu.setDisable(true);
         darkPane.setVisible(false);
@@ -444,7 +595,7 @@ public class MainController {
             }
             tableView.setItems(task.getValue());
             tableView.setDisable(false);
-            tableView.setPlaceholder(new Label("Готово"));
+            tableView.setPlaceholder(new Label("Пусто"));
         });
         task.setOnFailed(e -> {
             tableView.setDisable(false);

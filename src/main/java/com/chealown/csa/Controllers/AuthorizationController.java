@@ -34,7 +34,6 @@ public class AuthorizationController {
             try {
                 if (checkUser(loginTF.getText(), passwordTF.getText())) {
                     ManageUtil.switchPage("Главная", "MainPage-view");
-                    System.out.println("да");
                 } else {
                     ManageUtil.showAlert(Alert.AlertType.WARNING, "Авторизация", "Неверно введены логин или пароль");
                 }
