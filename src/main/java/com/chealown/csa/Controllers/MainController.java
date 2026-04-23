@@ -30,6 +30,8 @@ import java.util.*;
 public class MainController {
 
     @FXML
+    private Hyperlink documentsHL;
+    @FXML
     private Button clearFiltersBtn;
 
     @FXML
@@ -223,7 +225,7 @@ public class MainController {
                                     item.get("Статус")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditChildrenPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditChildrenPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -242,7 +244,7 @@ public class MainController {
                                     item.get("ID ребенка")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditSPPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditSPPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -261,7 +263,7 @@ public class MainController {
                                     item.get("ID ребенка")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditSMPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditSMPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -281,7 +283,7 @@ public class MainController {
                                     item.get("ID ребенка")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditHRPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditHRPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -299,7 +301,7 @@ public class MainController {
                                     item.get("ID ребенка")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditWLFHPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditWLFHPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -317,7 +319,7 @@ public class MainController {
                                     item.get("ID ребенка")
                             ));
                             try {
-                                ManageUtil.switchPage("Редактирование записи", "AddEditInteractionPage-view");
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditInteractionPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -501,14 +503,15 @@ public class MainController {
     }
 
     @FXML
-    private void changeTable(ActionEvent actionEvent) {
+    private void changeTable(ActionEvent actionEvent) throws IOException {
         Hyperlink[] hyperlinks = {
                 childHL,
                 spHL,
                 smHL,
                 hrHL,
                 wlfhHL,
-                interactionHL
+                interactionHL,
+                documentsHL
         };
 
         if (actionEvent.getSource() instanceof Hyperlink link) {
@@ -540,6 +543,8 @@ public class MainController {
                 };
 
                 loadData(tableTitle, sql, displayColumns);
+            } else {
+                ManageUtil.switchPage("Добавление шаблона", "AddEdit/AddEditTemplateDocPage-view");
             }
         }
     }
@@ -610,22 +615,22 @@ public class MainController {
     private void addNewData(ActionEvent actionEvent) throws IOException {
         switch (StaticObjects.getCurrentTableName()) {
             case "Дети":
-                ManageUtil.switchPage("Добавление записи", "AddEditChildrenPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditChildrenPage-view");
                 break;
             case "Социальный паспорт":
-                ManageUtil.switchPage("Добавление записи", "AddEditSPPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditSPPage-view");
                 break;
             case "Социальный мониторинг":
-                ManageUtil.switchPage("Добавление записи", "AddEditSMPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditSMPage-view");
                 break;
             case "Жилищные права":
-                ManageUtil.switchPage("Добавление записи", "AddEditHRPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditHRPage-view");
                 break;
             case "Очередь на получение жилья":
-                ManageUtil.switchPage("Добавление записи", "AddEditWLFHPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditWLFHPage-view");
                 break;
             case "Взаимодействия с внешними службами":
-                ManageUtil.switchPage("Добавление записи", "AddEditInteractionPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditInteractionPage-view");
                 break;
             case null:
                 break;

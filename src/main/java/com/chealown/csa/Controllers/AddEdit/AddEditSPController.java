@@ -1,4 +1,4 @@
-package com.chealown.csa.Controllers;
+package com.chealown.csa.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.SocialPassport;

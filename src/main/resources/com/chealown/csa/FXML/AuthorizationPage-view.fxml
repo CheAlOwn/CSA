@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="560.0" maxWidth="650.0" minHeight="560.0" minWidth="650.0" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AuthorizationController">
+<AnchorPane maxHeight="560.0" maxWidth="650.0" minHeight="560.0" minWidth="650.0" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEdit.AuthorizationController">
    <children>
       <Label layoutX="208.0" layoutY="50.0" text="Авторизация">
          <font>

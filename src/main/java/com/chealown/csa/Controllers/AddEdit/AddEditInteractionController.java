@@ -1,10 +1,8 @@
-package com.chealown.csa.Controllers;
+package com.chealown.csa.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.Interaction;
-import com.chealown.csa.DataBase.Models.SocialMonitoring;
 import com.chealown.csa.DataBase.Repositories.InteractionRepository;
-import com.chealown.csa.DataBase.Repositories.SocialMonitoringRepository;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -14,7 +12,6 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class AddEditInteractionController {
 

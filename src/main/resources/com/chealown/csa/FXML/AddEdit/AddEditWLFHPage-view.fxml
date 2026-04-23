@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="648.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEditWLFHController">
+<AnchorPane prefHeight="770.0" prefWidth="648.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEdit.AddEditWLFHController">
    <children>
-      <Label fx:id="pageName" layoutX="200.0" layoutY="36.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
+      <Label fx:id="pageName" layoutX="200.0" layoutY="47.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -94,7 +94,7 @@
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/x.png" />
+                  <Image url="@../../Images/x.png" />
                </image>
             </ImageView>
          </graphic>
