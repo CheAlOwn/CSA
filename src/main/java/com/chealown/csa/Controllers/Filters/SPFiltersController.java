@@ -37,7 +37,6 @@ public class SPFiltersController implements FiltersController {
 
     SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
     MainController controller = StaticObjects.getController();
-    boolean clearFlag = false;
 
     @FXML
     private void initialize() throws SQLException {
@@ -97,11 +96,10 @@ public class SPFiltersController implements FiltersController {
     }
 
     public void clearFilters() {
-        clearFlag = true;
         educationLevelCB.getSelectionModel().select("Все");
         healthGroupCB.getSelectionModel().select("Все");
         familySituationCB.getSelectionModel().select("Все");
-        disabilityCB.getSelectionModel().getSelectedItem();
+        disabilityCB.getSelectionModel().select("Все");
         startDateTF.clear();
         endDateTF.clear();
     }

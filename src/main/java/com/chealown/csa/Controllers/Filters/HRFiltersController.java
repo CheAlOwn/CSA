@@ -3,6 +3,7 @@ package com.chealown.csa.Controllers.Filters;
 import com.chealown.csa.Controllers.FiltersController;
 import com.chealown.csa.Controllers.MainController;
 import com.chealown.csa.DataBase.DBConnector;
+import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.TextField;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class HRFiltersController implements FiltersController {
 
@@ -60,10 +63,13 @@ public class HRFiltersController implements FiltersController {
                 SELECT form_name FROM ownership_form""");
         while (rs.next())
             formOfOwnershipCB.getItems().add(rs.getString("form_name"));
+
+        Set<String> cities = new LinkedHashSet<>();
         ResultSet cityRs = DBConnector.query("""
-                SELECT DISTINCT city FROM housing_rights""");
+                SELECT city FROM housing_rights WHERE city is not null""");
         while (cityRs.next())
-            cityCB.getItems().add(cityRs.getString("city"));
+            cities.add(SecurityUtil.decryptSafe(cityRs.getString("city"), SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY")));
+        cityCB.getItems().addAll(cities);
     }
 
     public String[] getFilterDataList() {

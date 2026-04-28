@@ -30,6 +30,8 @@ import java.util.*;
 public class MainController {
 
     @FXML
+    private Hyperlink templatesHL;
+    @FXML
     private Hyperlink documentsHL;
     @FXML
     private Button clearFiltersBtn;
@@ -198,7 +200,7 @@ public class MainController {
         });
 
 
-        tableView.setStyle("-fx-font-size: 20px");
+        // КОНТЕКСТНОЕ МЕНЮ
         tableView.setRowFactory(tv -> {
             TableRow<Map<String, Object>> row = new TableRow<>();
             ContextMenu contextMenu = new ContextMenu();
@@ -324,13 +326,26 @@ public class MainController {
                                 throw new RuntimeException(ex);
                             }
                             break;
+                            case "Шаблоны документов":
+                            StaticObjects.setTemplate(new TemplateDocument(
+                                    item.get("ID"),
+                                    item.get("Название шаблона"),
+                                    item.get("Дата создания"),
+                                    item.get("Дата изменения")
+                            ));
+                            try {
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditTemplateDocPage-view");
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            break;
                         case null:
                             break;
                         default:
                             throw new IllegalStateException("Unexpected value: " + StaticObjects.getCurrentTableName());
                     }
 
-                    System.out.println(item);
+//                    System.out.println(item);
                 }
             });
 
@@ -410,12 +425,13 @@ public class MainController {
             return row;
         });
 
-
+        // ЗАГРУЗКА ПЕРВОНАЧАЛЬНЫХ ДАННЫХ
         loadData("Дети", ChildrenRepository.getQUERY(), ChildrenRepository.getDisplayColumns());
 
         childHL.setOpacity(1);
-        exitBtn.setOnAction(actionEvent ->
 
+        // ВЫХОД ИЗ АККАУНТА
+        exitBtn.setOnAction(actionEvent ->
         {
             try {
                 ManageUtil.switchPage("Авторизация", "AuthorizationPage-view");
@@ -437,6 +453,7 @@ public class MainController {
 //
 //
 
+    // ПОИСК И ФИЛЬТРЫ
     public void applySearchAndFilters() {
         String[] searchColumns = switch (Objects.requireNonNull(StaticObjects.getCurrentTableName())) {
             case "Дети" -> new String[]{"Фамилия", "Имя", "Отчество", "СНИЛС"};
@@ -493,6 +510,7 @@ public class MainController {
                 ));
     }
 
+    // ИЗНАЧАЛЬНЫЙ ВИД МЕНЮ
     private void setBaseView() {
         filterMenu.setVisible(false);
         filterMenu.setDisable(true);
@@ -502,6 +520,8 @@ public class MainController {
         darkPane.setDisable(true);
     }
 
+
+    // ПЕРЕКЛЮЧЕНИЕ МЕЖДУ МОДУЛЯМИ
     @FXML
     private void changeTable(ActionEvent actionEvent) throws IOException {
         Hyperlink[] hyperlinks = {
@@ -511,7 +531,8 @@ public class MainController {
                 hrHL,
                 wlfhHL,
                 interactionHL,
-                documentsHL
+                documentsHL,
+                templatesHL
         };
 
         if (actionEvent.getSource() instanceof Hyperlink link) {
@@ -528,6 +549,8 @@ public class MainController {
                 case "Жилищные права" -> HousingRightsRepository.getQUERY();
                 case "Очередь на получение жилья" -> WLFHRepository.getQUERY();
                 case "Взаимодействия с внешними службами" -> InteractionRepository.getQUERY();
+                case "Документооборот" -> DocumentRepository.getQUERY();
+                case "Шаблоны документов" -> TemplateRepository.getQUERY();
                 default -> null;
             };
 
@@ -539,16 +562,20 @@ public class MainController {
                     case "Жилищные права" -> HousingRightsRepository.getDisplayColumns();
                     case "Очередь на получение жилья" -> WLFHRepository.getDisplayColumns();
                     case "Взаимодействия с внешними службами" -> InteractionRepository.getDisplayColumns();
+                    case "Документооборот" -> DocumentRepository.getDisplayColumns();
+                    case "Шаблоны документов" -> TemplateRepository.getDisplayColumns();
                     default -> new String[0];
                 };
 
                 loadData(tableTitle, sql, displayColumns);
             } else {
-                ManageUtil.switchPage("Добавление шаблона", "AddEdit/AddEditTemplateDocPage-view");
+                // СТРАНИЦА ДОБАВЛЕНИЯ ШАБЛОНА
+//                ManageUtil.switchPage("Добавление шаблона", "AddEdit/AddEditTemplateDocPage-view");
             }
         }
     }
 
+    // ЗАГРУЗИТЬ ДАННЫЕ В ТАБЛИЦУ
     private void loadData(String tableName, String sql, String[] columns) {
         tableView.setDisable(true);
         tableView.setPlaceholder(new Label("Загрузка..."));
@@ -572,7 +599,10 @@ public class MainController {
                                     !columns[i].equals("Текущий шаг") &&
                                     !columns[i].equals("Название организации") &&
                                     !columns[i].equals("Тип взаимодействия") &&
-                                    !columns[i].equals("Результат взаимодействия")
+                                    !columns[i].equals("Результат взаимодействия") &&
+                                    !columns[i].equals("Название шаблона") &&
+                                    !columns[i].equals("Дата создания") &&
+                                    !columns[i].equals("Дата изменения")
                             ) {
                                 obj = SecurityUtil.decryptSafe((String) obj, key);
                             }
@@ -631,6 +661,13 @@ public class MainController {
                 break;
             case "Взаимодействия с внешними службами":
                 ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditInteractionPage-view");
+                break;
+            case "Документооборот":
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditDocumentPage-view");
+//                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditTemplateDocPage-view");
+                break;
+            case "Шаблоны документов":
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditTemplateDocPage-view");
                 break;
             case null:
                 break;

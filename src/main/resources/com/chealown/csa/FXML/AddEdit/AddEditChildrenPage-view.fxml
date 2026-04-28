@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="770.0" prefWidth="648.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEdit.AddEditChildrenController">
    <children>
-      <Label fx:id="pageName" layoutX="200.0" layoutY="37.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
+      <Label fx:id="pageName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="37.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -30,7 +30,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="secondNameTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="secondNameTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="10.0" prefWidth="548.0" spacing="8.0">
@@ -40,7 +43,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="firstNameTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="firstNameTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="141.0" prefWidth="548.0" spacing="8.0">
@@ -50,7 +56,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="patronymicTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="patronymicTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="272.0" prefWidth="548.0" spacing="8.0">
@@ -60,7 +69,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="birthdateTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="birthdateTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="403.0" prefWidth="548.0" spacing="8.0">
@@ -70,7 +82,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="genderCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                        <ComboBox fx:id="genderCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></ComboBox>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="534.0" prefWidth="548.0" spacing="8.0">
@@ -80,7 +95,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="snilsTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="snilsTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="665.0" prefWidth="548.0" spacing="8.0">
@@ -90,7 +108,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passportSerTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="passportSerTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="796.0" prefWidth="548.0" spacing="8.0">
@@ -100,7 +121,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passportNumTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="passportNumTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="927.0" prefWidth="548.0" spacing="8.0">
@@ -110,7 +134,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="registrationDateTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" />
+                        <TextField fx:id="registrationDateTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></TextField>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="1058.0" prefWidth="548.0" spacing="8.0">
@@ -120,7 +147,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="educationGroupCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                        <ComboBox fx:id="educationGroupCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></ComboBox>
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="1189.0" prefWidth="548.0" spacing="8.0">
@@ -130,7 +160,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="statusCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" />
+                        <ComboBox fx:id="statusCB" prefHeight="78.0" prefWidth="548.0" promptText="Отсутствует" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                           <padding>
+                              <Insets left="28.0" right="28.0" />
+                           </padding></ComboBox>
                      </children>
                   </VBox>
                   <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #6478E9; -fx-text-fill: #fff; -fx-background-radius: 20;" text="Сохранить">

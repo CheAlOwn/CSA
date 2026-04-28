@@ -21,6 +21,9 @@ public class StaticObjects {
     private static SocialMonitoring socialMonitoring;
     private static SocialPassport socialPassport;
     private static WaitingListForHousing listForHousing;
+    private static Document document;
+    private static TemplateDocument template;
+    private static TemplateField field;
 
     private static User currentUser;
     private static Map<String, List<Map<String, Object>>> currentTable;
@@ -164,5 +167,29 @@ public class StaticObjects {
 
     public static void setController(MainController controller) {
         StaticObjects.controller = controller;
+    }
+
+    public static Document getDocument() {
+        return document;
+    }
+
+    public static void setDocument(Document document) {
+        StaticObjects.document = document;
+    }
+
+    public static TemplateDocument getTemplate() {
+        return template;
+    }
+
+    public static void setTemplate(TemplateDocument template) {
+        StaticObjects.template = template;
+    }
+
+    public static TemplateField getField() {
+        return field;
+    }
+
+    public static void setField(TemplateField field) {
+        StaticObjects.field = field;
     }
 }

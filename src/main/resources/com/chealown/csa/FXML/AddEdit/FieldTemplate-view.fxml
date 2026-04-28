@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fillWidth="false" prefWidth="548.0" spacing="8.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEdit.FieldTemplateController">
+   <children>
+      <Label fx:id="fieldNameLB" style="-fx-text-fill: #242424;" text="Название поля">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fieldTF" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;">
+         <padding>
+            <Insets left="28.0" right="28.0" />
+         </padding></TextField>
+   </children>
+</VBox>

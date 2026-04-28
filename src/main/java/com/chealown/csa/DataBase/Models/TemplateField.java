@@ -1,18 +1,36 @@
 package com.chealown.csa.DataBase.Models;
 
 public class TemplateField {
-    private int id;
-    private String placeholder; // Идентификатор ввода в документе
-    private String label; // Название идентификатора поля для формы редактирования
-    private boolean required; // Необходимое для заполнения поле
+    private int id = -1;
+    private int templateId;
+    private String placeholder;
+    private String label;
+    private boolean required;
     private String defaultValue;
-    private String options;
 
     public TemplateField() {}
+
+    public TemplateField(int id, int templateId, String placeholder, String label, boolean required, String defaultValue) {
+        this.id = id;
+        this.templateId = templateId;
+        this.placeholder = placeholder;
+        this.label = label;
+        this.required = required;
+        this.defaultValue = defaultValue;
+    }
 
     public TemplateField(String placeholder, String label) {
         this.placeholder = placeholder;
         this.label = label;
+        this.required = false; // По умолчанию false
+    }
+
+    public int getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(int templateId) {
+        this.templateId = templateId;
     }
 
     public int getId() {
@@ -39,7 +57,7 @@ public class TemplateField {
         this.label = label;
     }
 
-    public boolean isRequired() {
+    public boolean isRequired() {  // Метод должен называться isRequired для JavaBean convention
         return required;
     }
 
@@ -53,13 +71,5 @@ public class TemplateField {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    public String getOptions() {
-        return options;
-    }
-
-    public void setOptions(String options) {
-        this.options = options;
     }
 }

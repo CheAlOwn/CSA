@@ -1,6 +1,5 @@
 package com.chealown.csa.DataBase.Models;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +8,26 @@ public class TemplateDocument {
     private String name; // Название документа
     private String filePath;
     private List<TemplateField> fields; // Поля для ввода в документ
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String createdAt;
+    private String updatedAt;
 
     public TemplateDocument() {
         this.fields = new ArrayList<>();
+    }
+
+    public TemplateDocument(Object id, Object name, Object createdAt, Object updatedAt) {
+        this.id = id != null ? (Integer) id : -1;
+        this.name = name != null ? name.toString() : "";
+        this.createdAt = createdAt != null ? createdAt.toString() : "";
+        this.updatedAt = updatedAt != null ? updatedAt.toString() : "";
+        this.fields = new ArrayList<>();
+    }
+
+    public TemplateDocument(int id, String name, String createdAt, String updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public int getId() {
@@ -48,19 +62,19 @@ public class TemplateDocument {
         this.fields = fields;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
