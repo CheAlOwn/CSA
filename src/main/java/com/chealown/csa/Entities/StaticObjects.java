@@ -7,6 +7,7 @@ import java.util.*;
 
 public class StaticObjects {
     private static MainController controller;
+    private static String lastPage;
 
     private static Children children;
     private static EducationGroup educationGroup;
@@ -27,6 +28,14 @@ public class StaticObjects {
 
     private static User currentUser;
     private static Map<String, List<Map<String, Object>>> currentTable;
+
+    public static String getLastPage() {
+        return lastPage;
+    }
+
+    public static void setLastPage(String lastPage) {
+        StaticObjects.lastPage = lastPage;
+    }
 
     public static Children getChildren() {
         return children;

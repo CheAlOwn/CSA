@@ -105,7 +105,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="exitBtn" layoutX="539.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+      <Button fx:id="exitBtn" layoutX="530.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>

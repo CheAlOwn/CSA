@@ -4,6 +4,7 @@ import com.chealown.csa.Entities.ManageUtil;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.util.List;
 
 public class DBConnector {
     private static Connection conn;
@@ -56,6 +57,22 @@ public class DBConnector {
             throw new RuntimeException(e);
         }
     }
+
+    public static int[] batchInsert(String sql, List<Object[]> batchParams) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            for (Object[] params : batchParams) {
+                bindParams(ps, params);
+                ps.addBatch();
+            }
+
+            return ps.executeBatch(); // Выполняет все запросы одной пачкой
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static void bindParams(PreparedStatement ps, Object... params) throws SQLException {
         for (int i = 0; i < params.length; i++) {
             ps.setObject(i + 1, params[i]);

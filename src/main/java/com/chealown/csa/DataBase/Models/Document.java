@@ -1,20 +1,42 @@
 package com.chealown.csa.DataBase.Models;
 
+import java.util.ArrayList;
+
 public class Document {
     int id;
-    int templateId;
+    String template;
     String label;
     String filePath;
     String createdAt;
     int userId;
-
-    public Document(int id, int templateId, String label, String filePath, String createdAt, int userId) {
-        this.id = id;
-        this.templateId = templateId;
+//
+//    public Document(int id, String template, String label, String filePath, int userId) {
+//        this.id = id;
+//        this.template = template;
+//        this.label = label;
+//        this.filePath = filePath;
+//        this.createdAt = createdAt;
+//        this.userId = userId;
+//    }
+    public Document(String template, String label, String createdAt, int userId) {
+        this.template = template;
         this.label = label;
-        this.filePath = filePath;
         this.createdAt = createdAt;
         this.userId = userId;
+    }
+
+    public Document(Object id, Object label, Object createdAt, Object template) {
+        this.id = id != null ? (Integer) id : -1;
+        this.label = label != null ? label.toString() : "";
+        this.createdAt = createdAt != null ? createdAt.toString() : "";
+        this.template = template != null ? template.toString() : "";
+    }
+
+    public Document(String label, String createdAt, int userId, String template) {
+        this.label = label;
+        this.createdAt = createdAt;
+        this.userId = userId;
+        this.template = template;
     }
 
     public int getId() {
@@ -25,12 +47,12 @@ public class Document {
         this.id = id;
     }
 
-    public int getTemplateId() {
-        return templateId;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setTemplateId(int templateId) {
-        this.templateId = templateId;
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
     public String getLabel() {

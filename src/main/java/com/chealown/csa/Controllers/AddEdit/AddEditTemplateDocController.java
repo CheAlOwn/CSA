@@ -58,10 +58,10 @@ public class AddEditTemplateDocController {
         if (StaticObjects.getTemplate() != null) {
             pageName.setText("Редактирование");
             loadTemplateData();
-            chooseTemplateBtn.setVisible(false);
+            chooseTemplateBtn.setManaged(false);
         } else {
             pageName.setText("Добавление");
-            chooseTemplateBtn.setVisible(true);
+            chooseTemplateBtn.setManaged(true);
         }
 
         exitBtn.setOnAction(actionEvent -> {

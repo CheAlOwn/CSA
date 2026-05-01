@@ -13,6 +13,12 @@ public class DocumentField {
         this.value = value;
     }
 
+    public DocumentField(int documentId, int fieldId, String value) {
+        this.documentId = documentId;
+        this.fieldId = fieldId;
+        this.value = value;
+    }
+
     public int getId() {
         return id;
     }

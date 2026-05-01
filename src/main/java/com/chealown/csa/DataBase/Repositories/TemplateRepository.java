@@ -15,7 +15,7 @@ public class TemplateRepository {
     };
 
     private static final String QUERY = """
-            SELECT id, template_name, created_at, updated_at
+            SELECT id, template_name, created_at, updated_at, file_path
             FROM "template";
             """;
 
@@ -43,7 +43,7 @@ public class TemplateRepository {
                 template.getCreatedAt(),
         };
 
-        int returnedId =DBConnector.updateWithReturningId(sql, params);
+        int returnedId = DBConnector.updateWithReturningId(sql, params);
         return returnedId;
     }
 
@@ -71,6 +71,7 @@ public class TemplateRepository {
             templates.add(new TemplateDocument(
                     rs.getInt("id"),
                     rs.getString("template_name"),
+                    rs.getString("file_path"),
                     rs.getString("created_at"),
                     rs.getString("updated_at")
             ));

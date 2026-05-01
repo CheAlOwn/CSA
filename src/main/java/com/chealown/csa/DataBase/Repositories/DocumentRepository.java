@@ -6,18 +6,22 @@ import com.chealown.csa.DataBase.Models.Document;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class DocumentRepository {
     private static final String[] DISPLAY_COLUMNS = {
-        "ID", "Название", "Тип", "Дата создания"
+            "ID", "Название документа", "Шаблон", "Дата создания"
     };
 
     private static final String QUERY = """
-            SELECT id, template_id, user_id, file_path, created_at, archive, "label"
-            FROM "document"
+            SELECT d.id, "label", template_name, d.created_at
+            FROM "document" d
+            INNER JOIN template t ON template_id = t.id
             WHERE archive = false;
             """;
 
-    public static boolean save(Document document) {
+    public static int save(Document document) {
         if (StaticObjects.getDocument() == null) {
             System.out.println("insert");
             return insert(document);
@@ -27,43 +31,49 @@ public class DocumentRepository {
         }
     }
 
-    private static boolean insert(Document document) {
+    private static int insert(Document document) {
         String sql = """
                 INSERT INTO "document"
-                (template_id, user_id, file_path, created_at, "label")
-                VALUES(?, ?, ?, ?, ?);
+                (template_id, user_id, created_at, "label", archive)
+                VALUES(?, ?, ?, ?, false)
+                RETURNING id
                 """;
 
         Object[] params = {
-                document.getTemplateId(),
+                Integer.parseInt(document.getTemplate()),
                 document.getUserId(),
                 document.getFilePath(),
                 document.getCreatedAt(),
                 document.getLabel()
         };
-        int result = DBConnector.update(sql, params);
-        System.out.println("result: " + result);
-        return result > 0;
+
+        return DBConnector.updateWithReturningId(sql, params);
     }
 
 
-    private static boolean update(Document document) {
+    private static int update(Document document) {
         String sql = """
                 UPDATE "document"
-                SET template_id=?, user_id=?, file_path=?, created_at=?, "label"=?
+                SET template_id=?, user_id=?, created_at=?, "label"=?
                 WHERE id=?;
                 """;
 
         Object[] params = {
-                document.getTemplateId(),
+                document.getTemplate(),
                 document.getUserId(),
-                document.getFilePath(),
                 document.getCreatedAt(),
                 document.getLabel(),
                 document.getId()
         };
 
-        return DBConnector.update(sql, params) > 0;
+        return DBConnector.update(sql, params);
+    }
+
+    public static Object getData(int id, String findCol) throws SQLException {
+        ResultSet rs = DBConnector.query("SELECT * FROM document WHERE id = ?", id);
+        if (rs.next())
+            return rs.getObject(findCol);
+        return null;
     }
 
     public static void archive(Document document) {

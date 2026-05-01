@@ -68,8 +68,6 @@ public class MainController {
     @FXML
     private TextField searchTF;
     @FXML
-    private Button sortBtn;
-    @FXML
     private TableView<Map<String, Object>> tableView;
     @FXML
     private Button closeFiltersBtn;
@@ -326,7 +324,7 @@ public class MainController {
                                 throw new RuntimeException(ex);
                             }
                             break;
-                            case "Шаблоны документов":
+                        case "Шаблоны документов":
                             StaticObjects.setTemplate(new TemplateDocument(
                                     item.get("ID"),
                                     item.get("Название шаблона"),
@@ -335,6 +333,19 @@ public class MainController {
                             ));
                             try {
                                 ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditTemplateDocPage-view");
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            break;
+                        case "Документооборот":
+                            StaticObjects.setDocument(new Document(
+                                    item.get("ID"),
+                                    item.get("Название документа"),
+                                    item.get("Дата создания"),
+                                    item.get("Шаблон")
+                            ));
+                            try {
+                                ManageUtil.switchPage("Редактирование записи", "AddEdit/AddEditDocumentPage-view");
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -426,9 +437,47 @@ public class MainController {
         });
 
         // ЗАГРУЗКА ПЕРВОНАЧАЛЬНЫХ ДАННЫХ
-        loadData("Дети", ChildrenRepository.getQUERY(), ChildrenRepository.getDisplayColumns());
+        if (StaticObjects.getLastPage() == null) {
+            childHL.setOpacity(1);
+            loadData("Дети", ChildrenRepository.getQUERY(), ChildrenRepository.getDisplayColumns());
+        } else {
+            switch (StaticObjects.getLastPage()) {
+                case "Дети":
+                    loadData(StaticObjects.getLastPage(), ChildrenRepository.getQUERY(), ChildrenRepository.getDisplayColumns());
+                    childHL.setOpacity(1);
+                    break;
+                case "Социальный паспорт":
+                    loadData(StaticObjects.getLastPage(), SocialPassportRepository.getQUERY(), SocialPassportRepository.getDisplayColumns());
+                    spHL.setOpacity(1);
+                    break;
+                case "Социальный мониторинг":
+                    loadData(StaticObjects.getLastPage(), SocialMonitoringRepository.getQUERY(), SocialMonitoringRepository.getDisplayColumns());
+                    smHL.setOpacity(1);
+                    break;
+                case "Жилищные права":
+                    loadData(StaticObjects.getLastPage(), HousingRightsRepository.getQUERY(), HousingRightsRepository.getDisplayColumns());
+                    hrHL.setOpacity(1);
+                    break;
+                case "Очередь на получение жилья":
+                    loadData(StaticObjects.getLastPage(), WLFHRepository.getQUERY(), WLFHRepository.getDisplayColumns());
+                    wlfhHL.setOpacity(1);
+                    break;
+                case "Взаимодействия с внешними службами":
+                    loadData(StaticObjects.getLastPage(), InteractionRepository.getQUERY(), InteractionRepository.getDisplayColumns());
+                    interactionHL.setOpacity(1);
+                    break;
+                case "Документооборот":
+                    loadData(StaticObjects.getLastPage(), DocumentRepository.getQUERY(), DocumentRepository.getDisplayColumns());
+                    documentsHL.setOpacity(1);
+                    break;
+                case "Шаблоны документов":
+                    loadData(StaticObjects.getLastPage(), TemplateRepository.getQUERY(), TemplateRepository.getDisplayColumns());
+                    templatesHL.setOpacity(1);
+                    break;
+            }
+            ;
+        }
 
-        childHL.setOpacity(1);
 
         // ВЫХОД ИЗ АККАУНТА
         exitBtn.setOnAction(actionEvent ->
@@ -567,16 +616,19 @@ public class MainController {
                     default -> new String[0];
                 };
 
+
                 loadData(tableTitle, sql, displayColumns);
-            } else {
-                // СТРАНИЦА ДОБАВЛЕНИЯ ШАБЛОНА
-//                ManageUtil.switchPage("Добавление шаблона", "AddEdit/AddEditTemplateDocPage-view");
+
             }
         }
+
+
     }
 
     // ЗАГРУЗИТЬ ДАННЫЕ В ТАБЛИЦУ
     private void loadData(String tableName, String sql, String[] columns) {
+        StaticObjects.setLastPage(tableName);
+
         tableView.setDisable(true);
         tableView.setPlaceholder(new Label("Загрузка..."));
 
@@ -602,7 +654,9 @@ public class MainController {
                                     !columns[i].equals("Результат взаимодействия") &&
                                     !columns[i].equals("Название шаблона") &&
                                     !columns[i].equals("Дата создания") &&
-                                    !columns[i].equals("Дата изменения")
+                                    !columns[i].equals("Дата изменения") &&
+                                    !columns[i].equals("Название документа") &&
+                                    !columns[i].equals("Шаблон")
                             ) {
                                 obj = SecurityUtil.decryptSafe((String) obj, key);
                             }

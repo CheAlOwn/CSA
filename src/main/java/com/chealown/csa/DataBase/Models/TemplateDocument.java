@@ -23,9 +23,10 @@ public class TemplateDocument {
         this.fields = new ArrayList<>();
     }
 
-    public TemplateDocument(int id, String name, String createdAt, String updatedAt) {
+    public TemplateDocument(int id, String name, String filePath, String createdAt, String updatedAt) {
         this.id = id;
         this.name = name;
+        this.filePath = filePath;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

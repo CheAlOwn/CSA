@@ -14,9 +14,41 @@
 
 <AnchorPane prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #fff;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.MainController">
    <children>
+      <HBox layoutX="40.0" layoutY="24.0" prefHeight="78.0" prefWidth="1840.0" spacing="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <children>
+            <Button fx:id="menuBtn" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" HBox.hgrow="NEVER">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="searchTF" prefHeight="78.0" prefWidth="1255.0" promptText="Поиск" style="-fx-background-radius: 20; -fx-background-color: #f2f2f2; -fx-padding: 0 0 0 28;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Button fx:id="filterBtn" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" HBox.hgrow="NEVER">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/filter.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="addBtn" maxHeight="78.0" maxWidth="251.0" minHeight="78.0" minWidth="251.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="251.0" style="-fx-background-color: #6478E9; -fx-background-radius: 20; -fx-text-fill: #fff;" text="Добавить запись" HBox.hgrow="NEVER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <TableView fx:id="tableView" layoutX="40.0" layoutY="130.0" prefHeight="858.0" prefWidth="1840.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0" />
-      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <AnchorPane fx:id="burgerMenu" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 0 20 20 0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="burgerMenu" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox fx:id="modulesList" layoutX="40.0" layoutY="120.0" prefHeight="644.0" prefWidth="390.0" spacing="5.0">
                <children>
@@ -77,7 +109,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="filterMenu" layoutX="1450.0" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 20 0 0 20;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="filterMenu" layoutX="1450.0" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 20 0 0 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="closeFiltersBtn" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
                <graphic>
@@ -101,37 +133,5 @@
             </Button>
          </children>
       </AnchorPane>
-      <HBox layoutX="40.0" layoutY="24.0" prefHeight="78.0" prefWidth="1840.0" spacing="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
-         <children>
-            <Button fx:id="menuBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
-               <graphic>
-                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/menu.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <TextField fx:id="searchTF" prefHeight="78.0" prefWidth="1255.0" promptText="Поиск" style="-fx-background-radius: 20; -fx-background-color: #f2f2f2; -fx-padding: 0 0 0 28;" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </TextField>
-            <Button fx:id="filterBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
-               <graphic>
-                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/filter.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="251.0" style="-fx-background-color: #6478E9; -fx-background-radius: 20; -fx-text-fill: #fff;" text="Добавить запись">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

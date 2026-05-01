@@ -84,33 +84,43 @@
 /* кастом скролл-бара */
 
 .table-view .scroll-bar:vertical .track,
-.table-view .scroll-bar:horizontal .track {
+.table-view .scroll-bar:horizontal .track,
+.scroll-pane .scroll-bar:horizontal .track,
+.scroll-pane .scroll-bar:vertical .track{
     -fx-background-color: #e9e9e9;
     -fx-background-radius: 5px;
 }
 
 .table-view .scroll-bar:vertical .thumb,
-.table-view .scroll-bar:horizontal .thumb {
+.table-view .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb{
     -fx-background-color: rgba(0, 0, 0, 0.2);
     -fx-background-radius: 5px;
 }
 
 .table-view .scroll-bar:vertical .thumb:hover,
-.table-view .scroll-bar:horizontal .thumb:hover {
+.table-view .scroll-bar:horizontal .thumb:hover,
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb{
     -fx-background-color: rgba(0, 0, 0, 0.3);
 }
 
-.table-view .scroll-bar:vertical {
+.table-view .scroll-bar:vertical,
+.scroll-pane .scroll-bar:vertical{
     -fx-pref-width: 15px;
 }
 
-.table-view .scroll-bar:horizontal {
+.table-view .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:horizontal {
     -fx-pref-height: 15px;
 }
 
 /* Скрыть кнопки-стрелки у вертикального скролла */
 .table-view .scroll-bar:vertical .increment-button,
-.table-view .scroll-bar:vertical .decrement-button {
+.table-view .scroll-bar:vertical .decrement-button,
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
     -fx-pref-height: 0;
     -fx-max-height: 0;
     -fx-min-height: 0;
@@ -120,7 +130,9 @@
 
 /* Скрыть кнопки-стрелки у горизонтального скролла */
 .table-view .scroll-bar:horizontal .increment-button,
-.table-view .scroll-bar:horizontal .decrement-button {
+.table-view .scroll-bar:horizontal .decrement-button,
+.scroll-pane .scroll-bar:horizontal .increment-button,
+.scroll-pane .scroll-bar:horizontal .decrement-button{
     -fx-pref-width: 0;
     -fx-max-width: 0;
     -fx-min-width: 0;
@@ -134,5 +146,7 @@
     -fx-fill: #242424;
 }
 
-
-
+/* Фон области просмотра (viewport) — это важно! */
+.scroll-pane .viewport {
+    -fx-background-color: white;
+}

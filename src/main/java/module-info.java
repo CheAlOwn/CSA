@@ -7,6 +7,8 @@ module com.chealown.csa {
     requires org.apache.tika.core;
     requires org.apache.tika.parser.miscoffice;
     requires org.apache.poi.ooxml;
+    requires java.desktop;
+    requires odfdom.java;
 
     opens com.chealown.csa to javafx.fxml;
     exports com.chealown.csa;
