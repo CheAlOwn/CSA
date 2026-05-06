@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,8 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #fff;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.MainController">
+<AnchorPane prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #fff;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.UI.Controllers.MainController">
    <children>
+      <AnchorPane fx:id="tablePane" layoutX="40.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
       <HBox layoutX="40.0" layoutY="24.0" prefHeight="78.0" prefWidth="1840.0" spacing="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <children>
             <Button fx:id="menuBtn" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" HBox.hgrow="NEVER">
@@ -46,54 +48,9 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="tableView" layoutX="40.0" layoutY="130.0" prefHeight="858.0" prefWidth="1840.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0" />
-      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="darkPane" opacity="0.3" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #484848;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="burgerMenu" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox fx:id="modulesList" layoutX="40.0" layoutY="120.0" prefHeight="644.0" prefWidth="390.0" spacing="5.0">
-               <children>
-                  <Hyperlink fx:id="childHL" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Дети">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="spHL" layoutX="10.0" layoutY="10.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Социальный паспорт">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="smHL" layoutX="10.0" layoutY="40.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Социальный мониторинг">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="hrHL" layoutX="10.0" layoutY="70.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Жилищные права">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="wlfhHL" layoutX="10.0" layoutY="100.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Очередь на получение жилья">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="interactionHL" layoutX="10.0" layoutY="178.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Взаимодействия с внешними службами" wrapText="true">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="documentsHL" layoutX="10.0" layoutY="220.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Документооборот" wrapText="true">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink fx:id="templatesHL" layoutX="10.0" layoutY="291.0" onAction="#changeTable" opacity="0.5" style="-fx-text-fill: #242424;" text="Шаблоны документов" wrapText="true">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Hyperlink>
-               </children>
-            </VBox>
             <Hyperlink fx:id="exitBtn" layoutX="40.0" layoutY="925.0" style="-fx-text-fill: #FF2B2B;" text="Выйти" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="40.0">
                <font>
                   <Font size="20.0" />
@@ -107,9 +64,83 @@
                   </ImageView>
                </graphic>
             </Button>
+            <ScrollPane layoutX="40.0" layoutY="140.0" prefHeight="644.0" prefWidth="390.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="226.0" AnchorPane.topAnchor="140.0">
+               <content>
+                  <VBox fx:id="modulesList" prefWidth="370.0" spacing="20.0">
+                     <children>
+                        <VBox prefWidth="370.0" spacing="12.0">
+                           <children>
+                              <Label text="Учет" textFill="#242424">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="accountingModules" prefWidth="370.0" spacing="8.0">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="12.0">
+                           <children>
+                              <Label text="Документы" textFill="#242424">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="documentsModules" prefWidth="370.0" spacing="8.0">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="manualsBox" layoutX="10.0" layoutY="230.0" prefWidth="100.0" spacing="12.0" visible="false">
+                           <children>
+                              <Label text="Справочники" textFill="#242424">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="manualsModules" prefWidth="370.0" spacing="8.0">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="employeeBox" layoutX="10.0" layoutY="450.0" prefWidth="100.0" spacing="12.0" visible="false">
+                           <children>
+                              <Label text="Сотрудники" textFill="#242424">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="employeesModules" prefWidth="370.0" spacing="8.0">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <Label fx:id="userNameLB" layoutX="40.0" layoutY="34.0" text="Инициалы" textFill="#242424">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="roleLB" layoutX="40.0" layoutY="67.0" opacity="0.7" text="Должность" textFill="#242424">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="filterMenu" layoutX="1450.0" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 20 0 0 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="filterMenu" layoutX="1450.0" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 20 0 0 20;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="closeFiltersBtn" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
                <graphic>

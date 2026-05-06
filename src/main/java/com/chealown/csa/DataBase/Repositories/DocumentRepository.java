@@ -8,26 +8,31 @@ import com.chealown.csa.Entities.StaticObjects;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DocumentRepository {
-    private static final String[] DISPLAY_COLUMNS = {
-            "ID", "Название документа", "Шаблон", "Дата создания"
-    };
-
     private static final String QUERY = """
             SELECT d.id, "label", template_name, d.created_at
             FROM "document" d
             INNER JOIN template t ON template_id = t.id
-            WHERE archive = false;
+            WHERE archive = false or archive = ?;
             """;
 
     public static int save(Document document) {
-        if (StaticObjects.getDocument() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             System.out.println("insert");
             return insert(document);
         } else {
             System.out.println("update");
             return update(document);
+        }
+    }
+
+    public static void deleteRecord(Document document, boolean isAdmin) {
+        if (isAdmin) {
+            delete(document);
+        } else {
+            archive(document);
         }
     }
 
@@ -42,7 +47,6 @@ public class DocumentRepository {
         Object[] params = {
                 Integer.parseInt(document.getTemplate()),
                 document.getUserId(),
-                document.getFilePath(),
                 document.getCreatedAt(),
                 document.getLabel()
         };
@@ -69,6 +73,21 @@ public class DocumentRepository {
         return DBConnector.update(sql, params);
     }
 
+    public static ArrayList<Document> getAllData(boolean withArchive) throws SQLException {
+        ArrayList<Document> data = new ArrayList<>();
+        ResultSet rs = DBConnector.query(QUERY, withArchive);
+        while (rs.next()) {
+            data.add(new Document(
+                    rs.getInt("id"),
+                    rs.getString("label"),
+                    rs.getString("created_at"),
+                    rs.getString("template_name")
+                    ));
+        }
+
+        return data;
+    }
+
     public static Object getData(int id, String findCol) throws SQLException {
         ResultSet rs = DBConnector.query("SELECT * FROM document WHERE id = ?", id);
         if (rs.next())
@@ -76,7 +95,7 @@ public class DocumentRepository {
         return null;
     }
 
-    public static void archive(Document document) {
+    private static void archive(Document document) {
         String sql = """
                 UPDATE "document"
                 SET archive=true
@@ -90,8 +109,17 @@ public class DocumentRepository {
         DBConnector.update(sql, params);
     }
 
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
+    private static void delete(Document document) {
+        String sql = """
+                DELETE FROM document
+                WHERE id=?;
+                """;
+
+        Object[] params = {
+                document.getId()
+        };
+
+        DBConnector.update(sql, params);
     }
 
     public static String getQUERY() {

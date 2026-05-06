@@ -15,31 +15,29 @@ public class Children {
     StringProperty snils = new SimpleStringProperty();
     StringProperty passportNum = new SimpleStringProperty();
     StringProperty passportSer = new SimpleStringProperty();
-    StringProperty registrationDate = new SimpleStringProperty();
     StringProperty educationGroup = new SimpleStringProperty();
     StringProperty status = new SimpleStringProperty();
 
     public Children() {}
 
-    public Children(Object id, Object secondName, Object firstName, Object patronymic,
-                    Object birthdate, Object gender, Object snils, Object passportNum,
-                    Object passportSer, Object registrationDate, Object educationGroup,
-                    Object status) {
-        this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
-        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
-        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
-        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
-        this.birthdate = new SimpleStringProperty(birthdate != null ? birthdate.toString() : "");
-        this.gender = new SimpleStringProperty(gender != null ? gender.toString() : "");
-        this.snils = new SimpleStringProperty(snils != null ? snils.toString() : "");
-        this.passportNum = new SimpleStringProperty(passportNum != null ? passportNum.toString() : "");
-        this.passportSer = new SimpleStringProperty(passportSer != null ? passportSer.toString() : "");
-        this.registrationDate = new SimpleStringProperty(registrationDate != null ? registrationDate.toString() : "");
-        this.educationGroup = new SimpleStringProperty(educationGroup != null ? educationGroup.toString() : "");
-        this.status = new SimpleStringProperty(status != null ? status.toString() : "");
+    public Children(int id, String secondName, String firstName, String patronymic,
+                    String birthdate, String gender, String snils, String passportNum,
+                    String passportSer, String educationGroup,
+                    String status) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.birthdate = new SimpleStringProperty(birthdate != null ? birthdate : "");
+        this.gender = new SimpleStringProperty(gender != null ? gender : "");
+        this.snils = new SimpleStringProperty(snils != null ? snils : "");
+        this.passportNum = new SimpleStringProperty(passportNum != null ? passportNum : "");
+        this.passportSer = new SimpleStringProperty(passportSer != null ? passportSer : "");
+        this.educationGroup = new SimpleStringProperty(educationGroup != null ? educationGroup : "");
+        this.status = new SimpleStringProperty(status != null ? status : "");
     }
 
-    public Children(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty birthdate, StringProperty gender, StringProperty snils, StringProperty passportNum, StringProperty passportSer, StringProperty registrationDate, StringProperty educationGroup, StringProperty status) {
+    public Children(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty birthdate, StringProperty gender, StringProperty snils, StringProperty passportNum, StringProperty passportSer, StringProperty educationGroup, StringProperty status) {
         this.id = id;
         this.secondName = secondName;
         this.firstName = firstName;
@@ -49,7 +47,6 @@ public class Children {
         this.snils = snils;
         this.passportNum = passportNum;
         this.passportSer = passportSer;
-        this.registrationDate = registrationDate;
         this.educationGroup = educationGroup;
         this.status = status;
     }
@@ -162,17 +159,6 @@ public class Children {
         this.passportSer.set(passportSer);
     }
 
-    public String getRegistrationDate() {
-        return registrationDate.get();
-    }
-
-    public StringProperty registrationDateProperty() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate.set(registrationDate);
-    }
 
     public String getEducationGroup() {
         return educationGroup.get();

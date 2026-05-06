@@ -14,14 +14,18 @@ public class Employee {
     StringProperty phone = new SimpleStringProperty();
     StringProperty post = new SimpleStringProperty();
 
-    public Employee(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty email, StringProperty phone, StringProperty post) {
-        this.id = id;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.email = email;
-        this.phone = phone;
-        this.post = post;
+    public Employee(int id, String secondName, String firstName, String patronymic, String email, String phone, String post) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.email = new SimpleStringProperty(email != null ? email : "");
+        this.phone = new SimpleStringProperty(phone != null ? phone : "");
+        this.post = new SimpleStringProperty(post != null ? post : "");
+    }
+
+    public Employee() {
+
     }
 
     public int getId() {

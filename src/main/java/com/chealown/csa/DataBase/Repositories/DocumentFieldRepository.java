@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DocumentFieldRepository {
-    private static final String[] DISPLAY_COLUMNS = {};
 
     private static final String QUERY = """
             SELECT id, document_id, field_id, value
@@ -21,7 +20,7 @@ public class DocumentFieldRepository {
             """;
 
     public static boolean save(ArrayList<DocumentField> fields) {
-        if (StaticObjects.getDocument() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             System.out.println("insert");
             return insert(fields);
         } else {
@@ -92,10 +91,6 @@ public class DocumentFieldRepository {
             ));
         }
         return docFields;
-    }
-
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
     }
 
     public static String getQUERY() {

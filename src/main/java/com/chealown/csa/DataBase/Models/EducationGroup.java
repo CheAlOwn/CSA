@@ -8,12 +8,38 @@ import javafx.beans.property.StringProperty;
 public class EducationGroup {
     IntegerProperty id = new SimpleIntegerProperty();
     StringProperty groupName = new SimpleStringProperty();
-    StringProperty tutor = new SimpleStringProperty();
+    IntegerProperty tutorId = new SimpleIntegerProperty();
+    StringProperty secondName = new SimpleStringProperty();
+    StringProperty firstName = new SimpleStringProperty();
+    StringProperty patronymic = new SimpleStringProperty();
 
-    public EducationGroup(IntegerProperty id, StringProperty groupName, StringProperty tutor) {
+
+    public EducationGroup(IntegerProperty id, StringProperty groupName, IntegerProperty tutorId) {
         this.id = id;
         this.groupName = groupName;
-        this.tutor = tutor;
+        this.tutorId = tutorId;
+    }
+    public EducationGroup(int id, String groupName, int tutor) {
+        this.id = new SimpleIntegerProperty(id);
+        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
+        this.tutorId = new SimpleIntegerProperty(tutor);
+    }
+    public EducationGroup(String groupName, int tutor) {
+        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
+        this.tutorId = new SimpleIntegerProperty(tutor);
+    }
+
+    public EducationGroup(int id, String groupName, int tutor, String secondName, String firstName, String patronymic) {
+        this.id = new SimpleIntegerProperty(id);
+        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
+        this.tutorId = new SimpleIntegerProperty(tutor);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+    }
+
+    public EducationGroup() {
+
     }
 
     public int getId() {
@@ -40,15 +66,51 @@ public class EducationGroup {
         this.groupName.set(groupName);
     }
 
-    public String getTutor() {
-        return tutor.get();
+    public int getTutorId() {
+        return tutorId.get();
     }
 
-    public StringProperty tutorProperty() {
-        return tutor;
+    public IntegerProperty tutorIdProperty() {
+        return tutorId;
     }
 
-    public void setTutor(String tutor) {
-        this.tutor.set(tutor);
+    public void setTutorId(int tutorId) {
+        this.tutorId.set(tutorId);
+    }
+
+    public String getSecondName() {
+        return secondName.get();
+    }
+
+    public StringProperty secondNameProperty() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName.set(secondName);
+    }
+
+    public String getFirstName() {
+        return firstName.get();
+    }
+
+    public StringProperty firstNameProperty() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
+    }
+
+    public String getPatronymic() {
+        return patronymic.get();
+    }
+
+    public StringProperty patronymicProperty() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic.set(patronymic);
     }
 }

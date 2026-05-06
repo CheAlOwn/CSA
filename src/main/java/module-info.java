@@ -12,11 +12,11 @@ module com.chealown.csa {
 
     opens com.chealown.csa to javafx.fxml;
     exports com.chealown.csa;
-    opens com.chealown.csa.Controllers to javafx.fxml;
-    exports com.chealown.csa.Controllers;
-    opens com.chealown.csa.Controllers.Filters to javafx.fxml;
-    exports com.chealown.csa.Controllers.Filters;
-    exports com.chealown.csa.Controllers.AddEdit;
-    opens com.chealown.csa.Controllers.AddEdit to javafx.fxml;
+    opens com.chealown.csa.UI.Controllers to javafx.fxml;
+    exports com.chealown.csa.UI.Controllers;
+    opens com.chealown.csa.UI.Controllers.Filters to javafx.fxml;
+    exports com.chealown.csa.UI.Controllers.Filters;
+    exports com.chealown.csa.UI.Controllers.AddEdit;
+    opens com.chealown.csa.UI.Controllers.AddEdit to javafx.fxml;
     exports com.chealown.csa.DataBase.Models;
 }

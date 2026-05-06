@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.UI.Controllers.Filters.EmployeeFiltersController">
+    <content>
+        <VBox prefHeight="730.0" prefWidth="380.0" spacing="16.0" style="-fx-background-color: #fff;">
+            <children>
+            <VBox fillWidth="false" prefWidth="380.0" spacing="8.0">
+               <children>
+                  <Label prefHeight="29.0" prefWidth="180.0" style="-fx-text-fill: #242424;" text="Должность" textFill="#242424">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="postCB" onAction="#apply" prefHeight="78.0" prefWidth="548.0" promptText="Все" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </ComboBox>
+               </children>
+            </VBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

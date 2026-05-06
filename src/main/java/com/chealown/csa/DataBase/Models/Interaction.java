@@ -19,16 +19,16 @@ public class Interaction {
 
     public Interaction() {}
 
-    public Interaction(Object id, Object organization, Object secondName, Object firstName, Object patronymic, Object interactionDate, Object interactionType, Object interactionResult, Object idChildren) {
-        this.id = new SimpleIntegerProperty(id != null ? Integer.parseInt(String.valueOf(id)) : -1);
-        this.organization = new SimpleStringProperty(organization != null ? organization.toString() : "");
-        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
-        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
-        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
-        this.interactionDate = new SimpleStringProperty(interactionDate != null ? interactionDate.toString() : "");
-        this.interactionType = new SimpleStringProperty(interactionType != null ? interactionType.toString() : "");
-        this.interactionResult = new SimpleStringProperty(interactionResult != null ? interactionResult.toString() : "");
-        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
+    public Interaction(int id, String organization, String secondName, String firstName, String patronymic, String interactionDate, String interactionType, String interactionResult, int idChildren) {
+        this.id = new SimpleIntegerProperty(id);
+        this.organization = new SimpleStringProperty(organization != null ? organization : "");
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.interactionDate = new SimpleStringProperty(interactionDate != null ? interactionDate : "");
+        this.interactionType = new SimpleStringProperty(interactionType != null ? interactionType : "");
+        this.interactionResult = new SimpleStringProperty(interactionResult != null ? interactionResult : "");
+        this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
     public int getId() {

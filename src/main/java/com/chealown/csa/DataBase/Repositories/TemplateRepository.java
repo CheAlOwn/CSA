@@ -1,6 +1,7 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
+import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.TemplateDocument;
 import com.chealown.csa.Entities.StaticObjects;
 
@@ -10,17 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TemplateRepository {
-    private static final String[] DISPLAY_COLUMNS = {
-            "ID", "Название шаблона", "Дата создания", "Дата изменения"
-    };
-
     private static final String QUERY = """
             SELECT id, template_name, created_at, updated_at, file_path
             FROM "template";
             """;
 
     public static int save(TemplateDocument template) {
-        if (StaticObjects.getTemplate() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             System.out.println("insert");
             return insert(template);
         } else {
@@ -64,6 +61,20 @@ public class TemplateRepository {
         return DBConnector.update(sql, params);
     }
 
+    public static void delete(TemplateDocument template) {
+        String sql = """
+                DELETE FROM template
+                WHERE id=?;
+                """;
+
+        Object[] params = {
+                template.getId()
+        };
+
+        DBConnector.update(sql, params);
+    }
+
+
     public static ArrayList<TemplateDocument> getAllData() throws SQLException {
         ResultSet rs = DBConnector.query(QUERY);
         ArrayList<TemplateDocument> templates = new ArrayList<>();
@@ -81,9 +92,5 @@ public class TemplateRepository {
 
     public static String getQUERY() {
         return QUERY;
-    }
-
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
     }
 }

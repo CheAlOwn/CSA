@@ -3,30 +3,43 @@ package com.chealown.csa.DataBase.Repositories;
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Interaction;
+import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
+import javax.crypto.SecretKey;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class InteractionRepository {
-    private static final String[] DISPLAY_COLUMNS = {
-            "ID", "Фамилия", "Имя", "Отчество", "ID ребенка", "Название организации",
-            "Тип взаимодействия", "Дата взаимодействия", "Результат взаимодействия"
-    };
+    private static final SecretKey ENCRYPTION_KEY = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
+
     private static final String QUERY = """
-                        SELECT i.id, c.second_name, c.first_name, c.patronymic, c.id, o.organization_name, 
-                        it.interaction_name, interaction_date, interaction_result
-                        FROM interaction i
-                        INNER JOIN children_interaction ci ON i.id = ci.id_interaction
-                        INNER JOIN children c ON ci.id_children = c.id
-                        INNER JOIN organization o ON id_organization = o.id
-                        INNER JOIN interaction_type it ON interaction_type = it.id
-                        WHERE i.archive = false
-                        """;
+            SELECT i.id, c.second_name, c.first_name, c.patronymic, c.id as id_children, o.organization_name, 
+            it.interaction_name, interaction_date, interaction_result
+            FROM interaction i
+            INNER JOIN children_interaction ci ON i.id = ci.id_interaction
+            INNER JOIN children c ON ci.id_children = c.id
+            INNER JOIN organization o ON id_organization = o.id
+            INNER JOIN interaction_type it ON interaction_type = it.id
+            WHERE i.archive = ? or i.archive = false
+            """;
 
 
     public static boolean save(Interaction interaction) {
-        if (StaticObjects.getInteraction() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             return insert(interaction);
         } else {
             return update(interaction);
+        }
+    }
+
+    public static void deleteRecord(Interaction interaction, boolean isAdmin) {
+        if (isAdmin) {
+            delete(interaction);
+        } else {
+            archive(interaction);
         }
     }
 
@@ -98,7 +111,7 @@ public class InteractionRepository {
         return result1 + result1 > 1;
     }
 
-    public static void archive(Interaction interaction) {
+    private static void archive(Interaction interaction) {
         String sql = """
                 UPDATE interaction
                 SET archive=true
@@ -112,11 +125,41 @@ public class InteractionRepository {
         DBConnector.update(sql, params);
     }
 
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
+    private static void delete(Interaction interaction) {
+        String sql = """
+                DELETE FROM interaction
+                WHERE id=?;
+                """;
+
+        Object[] params = {
+                interaction.getId()
+        };
+
+        DBConnector.update(sql, params);
     }
+
 
     public static String getQUERY() {
         return QUERY;
+    }
+
+    public static List<Interaction> getAllData(boolean withArchive) throws SQLException {
+        ArrayList<Interaction> data = new ArrayList<>();
+        ResultSet rs = DBConnector.query(QUERY, withArchive);
+        while (rs.next()) {
+            data.add(new Interaction(
+                    rs.getInt("id"),
+                    rs.getString("organization_name"),
+                    SecurityUtil.decryptSafe(rs.getString("second_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("first_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("patronymic"), ENCRYPTION_KEY),
+                    rs.getString("interaction_date"),
+                    rs.getString("interaction_name"),
+                    rs.getString("interaction_result"),
+                    rs.getInt("id_children")
+            ));
+        }
+
+        return data;
     }
 }

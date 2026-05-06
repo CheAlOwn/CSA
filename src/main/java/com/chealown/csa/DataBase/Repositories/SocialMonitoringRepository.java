@@ -7,35 +7,41 @@ import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
 import javax.crypto.SecretKey;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SocialMonitoringRepository {
     private static final SecretKey ENCRYPTION_KEY = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
-    private static final String[] DISPLAY_COLUMNS = {
-            "ID", "Фамилия ребенка", "Имя ребенка",
-            "Отчество ребенка", "ID ребенка", "Дата фиксации", "Тип мониторинга", "Старое значение", "Новое значение",
-            "Причина изменения"
-    };
+
     private static final String QUERY = """
-                        SELECT s.id, c.second_name AS child_surname, c.first_name AS child_first, c.patronymic AS child_patronymic, c.id,
-                               s.date_of_fixation, mt.monitoring_name, s.old_value,
-                               s.new_value, s.change_reason,
-                               e.second_name AS emp_surname, e.first_name AS emp_first, e.patronymic AS emp_patronymic, u.id
-                        FROM social_monitoring s
-                        INNER JOIN children c ON s.id_children = c.id
-                        INNER JOIN monitoring_type mt ON s.id_monitoring_type = mt.id
-                        INNER JOIN "user" u ON s.id_user = u.id
-                        INNER JOIN employee e ON u.id_employee = e.id
-                        WHERE s.archive = false
-                        """;
+            SELECT s.id, c.second_name, c.first_name, c.patronymic, c.id as id_child,
+                   s.date_of_fixation, mt.monitoring_name, s.old_value,
+                   s.new_value, s.change_reason, u.id as id_user
+            FROM social_monitoring s
+            INNER JOIN children c ON s.id_children = c.id
+            INNER JOIN monitoring_type mt ON s.id_monitoring_type = mt.id
+            inner join "user" u on s.id_user = u.id
+            WHERE s.archive = ? or s.archive = false
+            """;
 
 
     public static boolean save(SocialMonitoring socialMonitoring) {
-        if (StaticObjects.getSocialMonitoring() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             System.out.println("insert");
             return insert(socialMonitoring);
         } else {
             System.out.println("update");
             return update(socialMonitoring);
+        }
+    }
+
+    public static void deleteRecord(SocialMonitoring socialMonitoring, boolean isAdmin) {
+        if (isAdmin) {
+            delete(socialMonitoring);
+        } else {
+            archive(socialMonitoring);
         }
     }
 
@@ -86,7 +92,7 @@ public class SocialMonitoringRepository {
         return DBConnector.update(sql, params) > 0;
     }
 
-    public static void archive(SocialMonitoring socialMonitoring) {
+    private static void archive(SocialMonitoring socialMonitoring) {
         String sql = """
                 UPDATE social_monitoring
                 SET archive=true
@@ -100,11 +106,41 @@ public class SocialMonitoringRepository {
         DBConnector.update(sql, params);
     }
 
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
+    private static void delete(SocialMonitoring monitoring) {
+        String sql = """
+                DELETE FROM social_monitoring
+                WHERE id=?;
+                """;
+
+        Object[] params = {
+                monitoring.getId()
+        };
+
+        DBConnector.update(sql, params);
     }
 
     public static String getQUERY() {
         return QUERY;
+    }
+
+    public static List<SocialMonitoring> getAllData(boolean withArchive) throws SQLException {
+        ArrayList<SocialMonitoring> data = new ArrayList<>();
+        ResultSet rs = DBConnector.query(QUERY, withArchive);
+        while (rs.next()) {
+            data.add(new SocialMonitoring(
+                    rs.getInt("id"),
+                    SecurityUtil.decryptSafe(rs.getString("second_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("first_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("patronymic"), ENCRYPTION_KEY),
+                    rs.getString("date_of_fixation"),
+                    rs.getString("monitoring_name"),
+                    SecurityUtil.decryptSafe(rs.getString("old_value"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("new_value"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("change_reason"), ENCRYPTION_KEY),
+                    rs.getInt("id_user")
+            ));
+        }
+
+        return data;
     }
 }

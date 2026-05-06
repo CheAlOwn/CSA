@@ -11,16 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateFieldRepository {
-    private static final String[] DISPLAY_COLUMNS = {
-    };
-
     private static final String QUERY = """
             SELECT id, template_id, placeholder, "label", is_required, default_value
             FROM template_field;
             """;
 
     public static boolean save(List<TemplateField> fields) {
-        if (StaticObjects.getTemplate() == null) {
+        if (StaticObjects.getSelectedObject() == null) {
             System.out.println("insert");
             return insert(fields);
         } else {
@@ -101,9 +98,5 @@ public class TemplateFieldRepository {
 
     public static String getQUERY() {
         return QUERY;
-    }
-
-    public static String[] getDisplayColumns() {
-        return DISPLAY_COLUMNS;
     }
 }

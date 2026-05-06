@@ -9,9 +9,13 @@ public class HealthGroup {
     IntegerProperty id = new SimpleIntegerProperty();
     StringProperty groupName = new SimpleStringProperty();
 
-    public HealthGroup(IntegerProperty id, StringProperty groupName) {
-        this.id = id;
-        this.groupName = groupName;
+    public HealthGroup(int id, String groupName) {
+        this.id = new SimpleIntegerProperty(id);
+        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
+    }
+
+    public HealthGroup() {
+
     }
 
     public int getId() {

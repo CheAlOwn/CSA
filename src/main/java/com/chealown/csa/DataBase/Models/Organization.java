@@ -15,15 +15,19 @@ public class Organization {
     StringProperty email = new SimpleStringProperty();
     StringProperty type = new SimpleStringProperty();
 
-    public Organization(IntegerProperty id, StringProperty organizationName, StringProperty city, StringProperty street, StringProperty build, StringProperty phone, StringProperty email, StringProperty type) {
-        this.id = id;
-        this.organizationName = organizationName;
-        this.city = city;
-        this.street = street;
-        this.build = build;
-        this.phone = phone;
-        this.email = email;
-        this.type = type;
+    public Organization(int id, String organizationName, String city, String street, String build, String phone, String email, String type) {
+        this.id = new SimpleIntegerProperty(id);
+        this.organizationName = new SimpleStringProperty(organizationName != null ? organizationName : "");
+        this.city = new SimpleStringProperty(city != null ? city : "");
+        this.street = new SimpleStringProperty(street != null ? street : "");
+        this.build = new SimpleStringProperty(build != null ? build : "");
+        this.phone = new SimpleStringProperty(phone != null ? phone : "");
+        this.email = new SimpleStringProperty(email != null ? email : "");
+        this.type = new SimpleStringProperty(type != null ? type : "");
+    }
+
+    public Organization() {
+
     }
 
     public int getId() {

@@ -140,13 +140,20 @@
     -fx-opacity: 0;
 }
 
-.hyperlink {
-    -fx-underline: false; /* альтернативный параметр */
-    -fx-border-color: transparent;
-    -fx-fill: #242424;
-}
-
 /* Фон области просмотра (viewport) — это важно! */
 .scroll-pane .viewport {
     -fx-background-color: white;
 }
+
+.tree-cell .hyperlink {
+    -fx-font-size: 20;
+    -fx-border-color: transparent;
+    -fx-text-fill:#242424;
+    -fx-underline:false;
+}
+
+.tree-cell:selected{
+    -fx-background-color: transparent; /* убираем фон выделения */
+}
+
+

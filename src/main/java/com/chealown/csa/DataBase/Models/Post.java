@@ -9,9 +9,13 @@ public class Post {
     IntegerProperty id = new SimpleIntegerProperty();
     StringProperty postName = new SimpleStringProperty();
 
-    public Post(IntegerProperty id, StringProperty postName) {
-        this.id = id;
-        this.postName = postName;
+    public Post(int id, String postName) {
+        this.id = new SimpleIntegerProperty(id);
+        this.postName = new SimpleStringProperty(postName != null ? postName : "");
+    }
+
+    public Post() {
+
     }
 
     public int getId() {

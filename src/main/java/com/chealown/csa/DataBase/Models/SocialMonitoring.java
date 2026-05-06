@@ -7,33 +7,30 @@ import javafx.beans.property.StringProperty;
 
 public class SocialMonitoring {
     IntegerProperty id = new SimpleIntegerProperty();
-    StringProperty secondNameChildren = new SimpleStringProperty();
-    StringProperty firstNameChildren = new SimpleStringProperty();
-    StringProperty patronymicChildren = new SimpleStringProperty();
+    StringProperty secondName = new SimpleStringProperty();
+    StringProperty firstName = new SimpleStringProperty();
+    StringProperty patronymic= new SimpleStringProperty();
     StringProperty dateOfFixation = new SimpleStringProperty();
     StringProperty monitoringType = new SimpleStringProperty();
     StringProperty oldValue = new SimpleStringProperty();
     StringProperty newValue = new SimpleStringProperty();
     StringProperty changeReason = new SimpleStringProperty();
-    StringProperty secondNameUser = new SimpleStringProperty();
-    StringProperty firstNameUser = new SimpleStringProperty();
-    StringProperty patronymicUser = new SimpleStringProperty();
     IntegerProperty idChildren = new SimpleIntegerProperty();
     IntegerProperty idUser = new SimpleIntegerProperty();
 
-    public SocialMonitoring(Object id, Object secondNameChildren, Object firstNameChildren, Object patronymicChildren,
-                            Object dateOfFixation, Object monitoringType, Object oldValue, Object newValue,
-                            Object changeReason, Object idChildren) {
-        this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
-        this.secondNameChildren = new SimpleStringProperty(secondNameChildren != null ? secondNameChildren.toString() : "");
-        this.firstNameChildren = new SimpleStringProperty(firstNameChildren != null ? firstNameChildren.toString() : "");
-        this.patronymicChildren = new SimpleStringProperty(patronymicChildren != null ? patronymicChildren.toString() : "");
-        this.dateOfFixation = new SimpleStringProperty(dateOfFixation != null ? dateOfFixation.toString() : "");
-        this.monitoringType = new SimpleStringProperty(monitoringType != null ? monitoringType.toString() : "");
-        this.oldValue = new SimpleStringProperty(oldValue != null ? oldValue.toString() : "");
-        this.newValue = new SimpleStringProperty(newValue != null ? newValue.toString() : "");
-        this.changeReason = new SimpleStringProperty(changeReason != null ? changeReason.toString() : "");
-        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
+    public SocialMonitoring(int id, String secondName, String firstName, String patronymic,
+                            String dateOfFixation, String monitoringType, String oldValue, String newValue,
+                            String changeReason, int idChildren) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.dateOfFixation = new SimpleStringProperty(dateOfFixation != null ? dateOfFixation : "");
+        this.monitoringType = new SimpleStringProperty(monitoringType != null ? monitoringType : "");
+        this.oldValue = new SimpleStringProperty(oldValue != null ? oldValue : "");
+        this.newValue = new SimpleStringProperty(newValue != null ? newValue : "");
+        this.changeReason = new SimpleStringProperty(changeReason != null ? changeReason : "");
+        this.idChildren = new SimpleIntegerProperty(id);
     }
 
     public SocialMonitoring() {}
@@ -72,42 +69,6 @@ public class SocialMonitoring {
 
     public void setId(int id) {
         this.id.set(id);
-    }
-
-    public String getSecondNameChildren() {
-        return secondNameChildren.get();
-    }
-
-    public StringProperty secondNameChildrenProperty() {
-        return secondNameChildren;
-    }
-
-    public void setSecondNameChildren(String secondNameChildren) {
-        this.secondNameChildren.set(secondNameChildren);
-    }
-
-    public String getFirstNameChildren() {
-        return firstNameChildren.get();
-    }
-
-    public StringProperty firstNameChildrenProperty() {
-        return firstNameChildren;
-    }
-
-    public void setFirstNameChildren(String firstNameChildren) {
-        this.firstNameChildren.set(firstNameChildren);
-    }
-
-    public String getPatronymicChildren() {
-        return patronymicChildren.get();
-    }
-
-    public StringProperty patronymicChildrenProperty() {
-        return patronymicChildren;
-    }
-
-    public void setPatronymicChildren(String patronymicChildren) {
-        this.patronymicChildren.set(patronymicChildren);
     }
 
     public String getDateOfFixation() {
@@ -170,39 +131,39 @@ public class SocialMonitoring {
         this.changeReason.set(changeReason);
     }
 
-    public String getSecondNameUser() {
-        return secondNameUser.get();
+    public String getSecondName() {
+        return secondName.get();
     }
 
-    public StringProperty secondNameUserProperty() {
-        return secondNameUser;
+    public StringProperty secondNameProperty() {
+        return secondName;
     }
 
-    public void setSecondNameUser(String secondNameUser) {
-        this.secondNameUser.set(secondNameUser);
+    public void setSecondName(String secondName) {
+        this.secondName.set(secondName);
     }
 
-    public String getFirstNameUser() {
-        return firstNameUser.get();
+    public String getFirstName() {
+        return firstName.get();
     }
 
-    public StringProperty firstNameUserProperty() {
-        return firstNameUser;
+    public StringProperty firstNameProperty() {
+        return firstName;
     }
 
-    public void setFirstNameUser(String firstNameUser) {
-        this.firstNameUser.set(firstNameUser);
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
 
-    public String getPatronymicUser() {
-        return patronymicUser.get();
+    public String getPatronymic() {
+        return patronymic.get();
     }
 
-    public StringProperty patronymicUserProperty() {
-        return patronymicUser;
+    public StringProperty patronymicProperty() {
+        return patronymic;
     }
 
-    public void setPatronymicUser(String patronymicUser) {
-        this.patronymicUser.set(patronymicUser);
+    public void setPatronymic(String patronymic) {
+        this.patronymic.set(patronymic);
     }
 }

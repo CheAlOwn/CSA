@@ -9,9 +9,16 @@ public class FamilySituation {
     IntegerProperty id = new SimpleIntegerProperty();
     StringProperty situationName = new SimpleStringProperty();
 
-    public FamilySituation(IntegerProperty id, StringProperty situationName) {
-        this.id = id;
-        this.situationName = situationName;
+    public FamilySituation(int id, String situationName) {
+        this.id = new SimpleIntegerProperty(id);
+        this.situationName = new SimpleStringProperty(situationName != null ? situationName : "");
+    }
+    public FamilySituation(String situationName) {
+        this.situationName = new SimpleStringProperty(situationName != null ? situationName : "");
+    }
+
+    public FamilySituation() {
+
     }
 
     public int getId() {

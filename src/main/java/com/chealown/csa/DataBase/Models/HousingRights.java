@@ -17,20 +17,20 @@ public class HousingRights {
 
     public HousingRights() {}
 
-    public HousingRights(Object id, Object secondName, Object firstName, Object patronymic,
-                         Object availabilityOfHousing, Object formOfOwnership, Object registrationDate,
-                         Object city, Object street, Object build, Object idChildren) {
-        this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
-        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
-        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
-        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
-        this.availabilityOfHousing = new SimpleStringProperty(availabilityOfHousing != null ? availabilityOfHousing.toString() : "");
-        this.formOfOwnership = new SimpleStringProperty(formOfOwnership != null ? formOfOwnership.toString() : "");
-        this.registrationDate = new SimpleStringProperty(registrationDate != null ? registrationDate.toString() : "");
-        this.city = new SimpleStringProperty(city != null ? city.toString() : "");
-        this.street = new SimpleStringProperty(street != null ? street.toString() : "");
-        this.build = new SimpleStringProperty(build != null ? build.toString() : "");
-        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
+    public HousingRights(int id, String secondName, String firstName, String patronymic,
+                         String availabilityOfHousing, String formOfOwnership, String registrationDate,
+                         String city, String street, String build, int idChildren) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.availabilityOfHousing = new SimpleStringProperty(availabilityOfHousing != null ? availabilityOfHousing : "");
+        this.formOfOwnership = new SimpleStringProperty(formOfOwnership != null ? formOfOwnership : "");
+        this.registrationDate = new SimpleStringProperty(registrationDate != null ? registrationDate : "");
+        this.city = new SimpleStringProperty(city != null ? city : "");
+        this.street = new SimpleStringProperty(street != null ? street : "");
+        this.build = new SimpleStringProperty(build != null ? build : "");
+        this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
     public HousingRights(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty availabilityOfHousing, StringProperty formOfOwnership, StringProperty registrationDate, StringProperty city, StringProperty street, StringProperty build) {

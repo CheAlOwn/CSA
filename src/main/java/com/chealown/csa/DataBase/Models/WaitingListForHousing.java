@@ -16,18 +16,18 @@ public class WaitingListForHousing {
     StringProperty currentStep = new SimpleStringProperty();
     IntegerProperty idChildren = new SimpleIntegerProperty();
 
-    public WaitingListForHousing(Object id, Object secondName, Object firstName, Object patronymic,
-                                 Object numberInTheQueue, Object dateAdded, Object expectedDateOfIssue,
-                                 Object currentStep, Object idChildren) {
-        this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
-        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
-        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
-        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
-        this.numberInTheQueue = new SimpleIntegerProperty(numberInTheQueue != null ? Integer.parseInt(numberInTheQueue.toString()) : 0);
-        this.dateAdded = new SimpleStringProperty(dateAdded != null ? dateAdded.toString() : "");
-        this.expectedDateOfIssue = new SimpleStringProperty(expectedDateOfIssue != null ? expectedDateOfIssue.toString() : "");
-        this.currentStep = new SimpleStringProperty(currentStep != null ? currentStep.toString() : "");
-        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
+    public WaitingListForHousing(int id, String secondName, String firstName, String patronymic,
+                                 String numberInTheQueue, String dateAdded, String expectedDateOfIssue,
+                                 String currentStep, int idChildren) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.numberInTheQueue = new SimpleIntegerProperty(numberInTheQueue != null ? Integer.parseInt(numberInTheQueue) : 0);
+        this.dateAdded = new SimpleStringProperty(dateAdded != null ? dateAdded : "");
+        this.expectedDateOfIssue = new SimpleStringProperty(expectedDateOfIssue != null ? expectedDateOfIssue : "");
+        this.currentStep = new SimpleStringProperty(currentStep != null ? currentStep : "");
+        this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
     public WaitingListForHousing() {}

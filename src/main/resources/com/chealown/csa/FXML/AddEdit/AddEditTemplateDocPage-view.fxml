@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="1095.0" style="-fx-background-color: #fff;" stylesheets="@../../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.Controllers.AddEdit.AddEditTemplateDocController">
+<AnchorPane prefHeight="770.0" prefWidth="1095.0" style="-fx-background-color: #fff;" stylesheets="@../../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.UI.Controllers.AddEdit.AddEditTemplateDocController">
    <children>
       <Label fx:id="pageName" alignment="CENTER" contentDisplay="CENTER" layoutX="423.0" layoutY="48.0" style="-fx-text-fill: #242424;" text="Название страницы" textAlignment="CENTER" AnchorPane.leftAnchor="423.0" AnchorPane.rightAnchor="423.0">
          <font>

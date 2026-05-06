@@ -1,89 +1,90 @@
 package com.chealown.csa.DataBase.Models;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 
 public class Document {
-    int id;
-    String template;
-    String label;
-    String filePath;
-    String createdAt;
-    int userId;
-//
-//    public Document(int id, String template, String label, String filePath, int userId) {
-//        this.id = id;
-//        this.template = template;
-//        this.label = label;
-//        this.filePath = filePath;
-//        this.createdAt = createdAt;
-//        this.userId = userId;
-//    }
+    IntegerProperty id = new SimpleIntegerProperty();
+    StringProperty template = new SimpleStringProperty();
+    StringProperty label = new SimpleStringProperty();
+    StringProperty createdAt = new SimpleStringProperty();
+    IntegerProperty userId = new SimpleIntegerProperty();
+
     public Document(String template, String label, String createdAt, int userId) {
-        this.template = template;
-        this.label = label;
-        this.createdAt = createdAt;
-        this.userId = userId;
+        this.template = new SimpleStringProperty(template != null ? template : "");
+        this.label = new SimpleStringProperty(label != null ? label : "");
+        this.createdAt = new SimpleStringProperty(createdAt != null ? createdAt : "");
+        this.userId = new SimpleIntegerProperty(userId);
     }
 
-    public Document(Object id, Object label, Object createdAt, Object template) {
-        this.id = id != null ? (Integer) id : -1;
-        this.label = label != null ? label.toString() : "";
-        this.createdAt = createdAt != null ? createdAt.toString() : "";
-        this.template = template != null ? template.toString() : "";
-    }
-
-    public Document(String label, String createdAt, int userId, String template) {
-        this.label = label;
-        this.createdAt = createdAt;
-        this.userId = userId;
-        this.template = template;
+    public Document(int id, String label, String createdAt, String template) {
+        this.id = new SimpleIntegerProperty(id);
+        this.label = new SimpleStringProperty(label != null ? label : "");
+        this.createdAt = new SimpleStringProperty(createdAt != null ? createdAt : "");
+        this.template = new SimpleStringProperty(template != null ? template : "");
     }
 
     public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public String getTemplate() {
+        return template.get();
+    }
+
+    public StringProperty templateProperty() {
         return template;
     }
 
     public void setTemplate(String template) {
-        this.template = template;
+        this.template.set(template);
     }
 
     public String getLabel() {
+        return label.get();
+    }
+
+    public StringProperty labelProperty() {
         return label;
     }
 
     public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        this.label.set(label);
     }
 
     public String getCreatedAt() {
+        return createdAt.get();
+    }
+
+    public StringProperty createdAtProperty() {
         return createdAt;
     }
 
     public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt.set(createdAt);
     }
 
     public int getUserId() {
+        return userId.get();
+    }
+
+    public IntegerProperty userIdProperty() {
         return userId;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.userId.set(userId);
     }
 }

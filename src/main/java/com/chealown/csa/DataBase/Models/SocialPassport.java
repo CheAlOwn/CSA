@@ -14,19 +14,19 @@ public class SocialPassport {
     StringProperty dateCreate = new SimpleStringProperty();
     IntegerProperty idChildren = new SimpleIntegerProperty();
 
-    public SocialPassport(Object id, Object secondName, Object firstName, Object patronymic,
-                          Object education, Object healthGroup, Object familySituation,
-                          Object havingADisability, Object dateCreate, Object idChildren) {
-        this.id = new SimpleIntegerProperty(id != null ? (Integer) id : -1);
-        this.secondName = new SimpleStringProperty(secondName != null ? secondName.toString() : "");
-        this.firstName = new SimpleStringProperty(firstName != null ? firstName.toString() : "");
-        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic.toString() : "");
-        this.education = new SimpleStringProperty(education != null ? education.toString() : "");
-        this.healthGroup = new SimpleStringProperty(healthGroup != null ? healthGroup.toString() : "");
-        this.familySituation = new SimpleStringProperty(familySituation != null ? familySituation.toString() : "");
-        this.havingADisability = new SimpleStringProperty(havingADisability != null ? havingADisability.toString() : "");
-        this.dateCreate = new SimpleStringProperty(dateCreate != null ? dateCreate.toString() : "");
-        this.idChildren = new SimpleIntegerProperty(idChildren != null ? (Integer) idChildren : -1);
+    public SocialPassport(int id, String secondName, String firstName, String patronymic,
+                          String education, String healthGroup, String familySituation,
+                          String havingADisability, String dateCreate, int idChildren) {
+        this.id = new SimpleIntegerProperty(id);
+        this.secondName = new SimpleStringProperty(secondName != null ? secondName : "");
+        this.firstName = new SimpleStringProperty(firstName != null ? firstName : "");
+        this.patronymic = new SimpleStringProperty(patronymic != null ? patronymic : "");
+        this.education = new SimpleStringProperty(education != null ? education : "");
+        this.healthGroup = new SimpleStringProperty(healthGroup != null ? healthGroup : "");
+        this.familySituation = new SimpleStringProperty(familySituation != null ? familySituation : "");
+        this.havingADisability = new SimpleStringProperty(havingADisability != null ? havingADisability : "");
+        this.dateCreate = new SimpleStringProperty(dateCreate != null ? dateCreate : "");
+        this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
     public SocialPassport() {
