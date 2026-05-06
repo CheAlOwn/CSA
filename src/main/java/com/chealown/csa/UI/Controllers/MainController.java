@@ -695,7 +695,7 @@ public class MainController {
                 ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditStatusPage-view");
                 break;
             case "Типы взаимодействий":
-                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditITPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditInteractionTypePage-view");
                 break;
             case "Типы организаций":
                 ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditOPPage-view");

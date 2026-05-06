@@ -5,17 +5,23 @@ import com.chealown.csa.DataBase.Repositories.WLFHRepository;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.StaticObjects;
+import com.chealown.csa.UI.Tables.ChildrenTableModule;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddEditWLFHController {
 
+    public VBox tableBox;
+    public HBox tablePane;
     @FXML
     private TextField childTF;
 
@@ -42,11 +48,15 @@ public class AddEditWLFHController {
 
 
     WaitingListForHousing wlfh = (WaitingListForHousing) StaticObjects.getSelectedObject();
+    boolean flag = false;
 
     @FXML
     private void initialize() {
+        MaskUtil.applyNumberMask(childTF, 6);
         MaskUtil.applyDateMask(dateAddedTF);
         MaskUtil.applyNumberMask(numberInQueueTF, 4);
+
+        showTableBox(false);
 
         btnSave.setOnAction(actionEvent -> {
             try {
@@ -107,6 +117,31 @@ public class AddEditWLFHController {
                 ManageUtil.switchPage("Главная", "MainPage-view");
             } else
                 ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), messagePart + " не удалось");
+        }
+    }
+
+    private void showTableBox(boolean val) {
+        tableBox.setManaged(val);
+        tableBox.setVisible(val);
+    }
+
+    @FXML
+    private void showTable(ActionEvent actionEvent) throws SQLException {
+        tablePane.getChildren().clear();
+
+        if (!flag) {
+            showTableBox(true);
+            ChildrenTableModule module = new ChildrenTableModule();
+            tablePane.getChildren().add(module.getTableView());
+
+            module.getTableView().getSelectionModel().selectedItemProperty().addListener(lst -> {
+                childTF.setText(String.valueOf(module.getTableView().getSelectionModel().getSelectedItem().getId()));
+            });
+
+            flag = true;
+        } else {
+            showTableBox(false);
+            flag = false;
         }
     }
 }

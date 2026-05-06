@@ -7,8 +7,12 @@ import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
+import com.chealown.csa.UI.Tables.ChildrenTableModule;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
@@ -18,6 +22,8 @@ import java.time.LocalDate;
 
 public class AddEditSPController {
 
+    public HBox tablePane;
+    public VBox tableBox;
     @FXML
     private TextField childTF;
 
@@ -44,11 +50,14 @@ public class AddEditSPController {
 
     SocialPassport socialPassport = (SocialPassport) StaticObjects.getSelectedObject();
     SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
+    boolean flag = false;
 
     @FXML
     private void initialize() throws SQLException {
+        MaskUtil.applyNumberMask(childTF, 6);
 
         fillComboBoxes();
+        showTableBox(false);
 
         btnSave.setOnAction(actionEvent -> {
             try {
@@ -151,5 +160,30 @@ public class AddEditSPController {
 
         }
         return null;
+    }
+
+    private void showTableBox(boolean val) {
+        tableBox.setManaged(val);
+        tableBox.setVisible(val);
+    }
+
+    @FXML
+    private void showTable(ActionEvent actionEvent) throws SQLException {
+        tablePane.getChildren().clear();
+
+        if (!flag) {
+            showTableBox(true);
+            ChildrenTableModule module = new ChildrenTableModule();
+            tablePane.getChildren().add(module.getTableView());
+
+            module.getTableView().getSelectionModel().selectedItemProperty().addListener(lst -> {
+                childTF.setText(String.valueOf(module.getTableView().getSelectionModel().getSelectedItem().getId()));
+            });
+
+            flag = true;
+        } else {
+            showTableBox(false);
+            flag = false;
+        }
     }
 }

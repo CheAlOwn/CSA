@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="560.0" maxWidth="650.0" minHeight="560.0" minWidth="650.0" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #fff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.UI.Controllers.AuthorizationController">
+<AnchorPane stylesheets="@../CSS/style.css" maxHeight="560.0" maxWidth="650.0" minHeight="560.0" minWidth="650.0" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #fff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chealown.csa.UI.Controllers.AuthorizationController">
    <children>
       <Label layoutX="210.0" layoutY="50.0" text="Авторизация" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="50.0">
          <font>
@@ -31,7 +31,7 @@
             <Insets left="28.0" right="28.0" />
          </padding>
       </PasswordField>
-      <Button fx:id="entryTF" layoutX="123.0" layoutY="400.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="400.0" style="-fx-background-color: #6478E9; -fx-background-radius: 20;" text="Войти" textFill="WHITE" AnchorPane.bottomAnchor="82.0">
+      <Button fx:id="entryTF" layoutX="123.0" layoutY="400.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="400.0" styleClass="accent-button" text="Войти" textFill="WHITE" AnchorPane.bottomAnchor="82.0">
          <font>
             <Font size="20.0" />
          </font>

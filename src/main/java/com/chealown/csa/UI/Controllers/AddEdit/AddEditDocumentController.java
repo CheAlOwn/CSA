@@ -15,8 +15,11 @@ import com.chealown.csa.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -141,14 +144,8 @@ public class AddEditDocumentController {
 
     private void addSaveBtnToForm() {
         Button saveBtn = new Button();
-        saveBtn.setStyle(
-                "-fx-background-color: #6478E9; " +
-                        "-fx-text-fill: #fff; " +
-                        "-fx-background-radius: 20; " +
-                        "-fx-pref-height: 78; " +
-                        "-fx-pref-width: 548; " +
-                        "-fx-font-size: 20"
-        );
+        saveBtn.getStyleClass().add("accent-button");
+        saveBtn.setPrefWidth(548);
         saveBtn.setText("Сохранить");
         saveBtn.setOnAction(event -> {
             try {
@@ -160,6 +157,8 @@ public class AddEditDocumentController {
             }
         });
         docFieldsVB.getChildren().add(saveBtn);
+        VBox.setMargin(saveBtn, new Insets(16, 0, 16, 0));
+
     }
 
     @FXML

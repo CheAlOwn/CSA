@@ -20,7 +20,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="exitBtn" layoutX="530.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
+      <Button fx:id="exitBtn" layoutX="530.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" styleClass="no-accent-button" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,7 +31,7 @@
       </Button>
       <ScrollPane layoutX="40.0" layoutY="218.0" prefHeight="512.0" prefWidth="568.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="218.0">
          <content>
-            <VBox fx:id="docFieldsVB" fillWidth="false" prefWidth="548.0" spacing="16.0" style="-fx-background-color: #fff;" />
+            <VBox fx:id="docFieldsVB" prefWidth="548.0" spacing="16.0" style="-fx-background-color: #fff;" />
          </content>
       </ScrollPane>
       <HBox layoutX="40.0" layoutY="120.0" prefHeight="78.0" prefWidth="568.0" spacing="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0">
@@ -54,7 +54,7 @@
             </ComboBox>
          </children>
       </HBox>
-      <Button fx:id="exportDocBtn" layoutX="40.0" layoutY="26.0" mnemonicParsing="false"  prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="26.0">
+      <Button fx:id="exportDocBtn" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" styleClass="no-accent-button" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="26.0">
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>

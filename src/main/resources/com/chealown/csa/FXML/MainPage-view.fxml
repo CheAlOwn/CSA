@@ -18,7 +18,7 @@
       <AnchorPane fx:id="tablePane" layoutX="40.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
       <HBox layoutX="40.0" layoutY="24.0" prefHeight="78.0" prefWidth="1840.0" spacing="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <children>
-            <Button fx:id="menuBtn" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" HBox.hgrow="NEVER">
+            <Button fx:id="menuBtn" styleClass="no-accent-button" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" HBox.hgrow="NEVER">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -32,7 +32,7 @@
                   <Font size="20.0" />
                </font>
             </TextField>
-            <Button fx:id="filterBtn" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" HBox.hgrow="NEVER">
+            <Button fx:id="filterBtn" styleClass="no-accent-button" maxHeight="78.0" maxWidth="78.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" HBox.hgrow="NEVER">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="addBtn" maxHeight="78.0" maxWidth="251.0" minHeight="78.0" minWidth="251.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="251.0" style="-fx-background-color: #6478E9; -fx-background-radius: 20; -fx-text-fill: #fff;" text="Добавить запись" HBox.hgrow="NEVER">
+            <Button fx:id="addBtn" styleClass="accent-button" maxHeight="78.0" maxWidth="251.0" minHeight="78.0" minWidth="251.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="251.0" text="Добавить запись" HBox.hgrow="NEVER">
                <font>
                   <Font size="20.0" />
                </font>
@@ -55,7 +55,7 @@
                <font>
                   <Font size="20.0" />
                </font></Hyperlink>
-            <Button fx:id="closeMenuBtn" layoutX="352.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+            <Button fx:id="closeMenuBtn" styleClass="no-accent-button" layoutX="352.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -142,7 +142,7 @@
       </AnchorPane>
       <AnchorPane fx:id="filterMenu" layoutX="1450.0" prefHeight="1010.0" prefWidth="470.0" style="-fx-background-color: #fff; -fx-background-radius: 20 0 0 20;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="closeFiltersBtn" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;">
+            <Button fx:id="closeFiltersBtn" styleClass="no-accent-button" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -157,7 +157,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="clearFiltersBtn" layoutX="40.0" layoutY="882.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="390.0" style="-fx-background-color: #fff; -fx-background-radius: 20; -fx-border-color: #FF2B2B; -fx-border-radius: 20; -fx-border-width: 2;" text="Сбросить фильтры" textFill="#242424" AnchorPane.bottomAnchor="50.0">
+            <Button fx:id="clearFiltersBtn" styleClass="clear-button" layoutX="40.0" layoutY="882.0" mnemonicParsing="false" onAction="#addNewData" prefHeight="78.0" prefWidth="390.0" text="Сбросить фильтры" textFill="#242424" AnchorPane.bottomAnchor="50.0">
                <font>
                   <Font size="20.0" />
                </font>

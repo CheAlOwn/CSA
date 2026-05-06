@@ -37,9 +37,19 @@
                                  <padding>
                                     <Insets left="28.0" right="28.0" />
                                  </padding></TextField>
-                              <Button fx:id="chooseChildrenBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" text="..." />
+                              <Button fx:id="chooseChildrenBtn" onAction="#showTable" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" styleClass="no-accent-button" text="..." />
                            </children>
                         </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="tableBox" fillWidth="false" prefWidth="548.0" spacing="8.0">
+                     <children>
+                        <Label opacity="0.5" style="-fx-text-fill: #242424;" text="Чтобы указать ID выберите запись из таблицы">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <HBox fx:id="tablePane" prefHeight="240.0" prefWidth="548.0" spacing="22.0" />
                      </children>
                   </VBox>
                   <VBox fillWidth="false" layoutX="20.0" layoutY="403.0" prefWidth="548.0" spacing="8.0">
@@ -94,7 +104,7 @@
                            </padding></TextField>
                      </children>
                   </VBox>
-                  <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="78.0" prefWidth="548.0" style="-fx-background-color: #6478E9; -fx-text-fill: #fff; -fx-background-radius: 20;" text="Сохранить">
+                  <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="78.0" prefWidth="548.0" styleClass="accent-button" text="Сохранить">
                      <VBox.margin>
                         <Insets bottom="16.0" top="16.0" />
                      </VBox.margin>
@@ -106,7 +116,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="exitBtn" layoutX="530.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
+      <Button fx:id="exitBtn" layoutX="530.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" styleClass="no-accent-button" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>

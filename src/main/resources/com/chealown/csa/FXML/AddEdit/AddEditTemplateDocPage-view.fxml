@@ -20,7 +20,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="exitBtn" layoutX="977.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #F2f2f2; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
+      <Button fx:id="exitBtn" layoutX="977.0" layoutY="25.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="78.0" styleClass="no-accent-button" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
          <graphic>
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -42,14 +42,14 @@
                   <Font size="20.0" />
                </font>
             </TextField>
-            <Button fx:id="chooseTemplateBtn" maxHeight="78.0" maxWidth="269.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" onAction="#chooseTemplate" prefHeight="78.0" prefWidth="269.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 20;" text="Выбрать шаблон">
+            <Button fx:id="chooseTemplateBtn" maxHeight="78.0" maxWidth="269.0" minHeight="78.0" minWidth="78.0" mnemonicParsing="false" onAction="#chooseTemplate" prefHeight="78.0" prefWidth="269.0" styleClass="no-accent-button" text="Выбрать шаблон">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
          </children>
       </HBox>
-      <Button fx:id="btnSave" layoutX="40.0" layoutY="671.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="78.0" prefWidth="568.0" style="-fx-background-color: #6478E9; -fx-text-fill: #fff; -fx-background-radius: 20;" text="Сохранить" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+      <Button fx:id="btnSave" layoutX="40.0" layoutY="671.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="78.0" prefWidth="568.0" styleClass="accent-button" text="Сохранить" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <font>
             <Font size="20.0" />
          </font>

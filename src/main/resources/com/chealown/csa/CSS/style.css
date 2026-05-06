@@ -156,4 +156,60 @@
     -fx-background-color: transparent; /* убираем фон выделения */
 }
 
+/* 1. Фон при наведении / фокусе (выделение строки) */
+.menu-item:focused,
+.menu-item:hover {
+    -fx-background-color: #6477e2; /* Ваш цвет выделения */
+}
+/* Кнопка без акцента */
+.no-accent-button {
+    -fx-background-color: #F2f2f2;
+    -fx-background-radius: 20;
+}
+
+.no-accent-button:hover {
+    -fx-background-color:#E8E8E8;
+}
+
+.no-accent-button:pressed {
+    -fx-background-color:#DEDEDE;
+}
+
+/* Кнопка с акцентом */
+.accent-button {
+    -fx-background-color: #6478E9;
+    -fx-background-radius: 20;
+    -fx-text-fill: #fff;
+    -fx-pref-height: 78;
+    -fx-font-size: 20;
+}
+
+.accent-button:hover {
+    -fx-background-color:#5A6EDF;
+}
+
+.accent-button:pressed {
+    -fx-background-color:#5064D5;
+}
+
+/* Кнопка очищения фильтров */
+.clear-button {
+    -fx-background-color: #fff;
+    -fx-background-radius: 20;
+    -fx-border-color: #FF2B2B;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+}
+.clear-button:hover {
+    -fx-background-color:#FF2B2B;
+    -fx-text-fill: white;
+}
+.clear-button:pressed {
+    -fx-background-color:#EB1717;
+    -fx-text-fill: white;
+        -fx-border-color: #EB1717;
+}
+
+
+
 
