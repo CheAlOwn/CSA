@@ -22,7 +22,7 @@ public class TemplateField {
     public TemplateField(String placeholder, String label) {
         this.placeholder = placeholder;
         this.label = label;
-        this.required = false; // По умолчанию false
+        this.required = false;
     }
 
     public int getTemplateId() {

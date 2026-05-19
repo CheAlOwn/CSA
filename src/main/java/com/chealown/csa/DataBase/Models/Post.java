@@ -14,9 +14,7 @@ public class Post {
         this.postName = new SimpleStringProperty(postName != null ? postName : "");
     }
 
-    public Post() {
-
-    }
+    public Post() {}
 
     public int getId() {
         return id.get();

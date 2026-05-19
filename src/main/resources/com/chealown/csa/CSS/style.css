@@ -210,6 +210,17 @@
         -fx-border-color: #EB1717;
 }
 
+.text-field,
+.combo-box,
+.password-field{
+    -fx-padding: 20, 0, 20, 0;
+    -fx-font-size: 20;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #6477e2;
+}
+
 
 
 

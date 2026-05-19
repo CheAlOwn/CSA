@@ -1,12 +1,9 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Document;
 import com.chealown.csa.DataBase.Models.DocumentField;
-import com.chealown.csa.DataBase.Models.TemplateField;
 import com.chealown.csa.Entities.StaticObjects;
 
-import javax.print.Doc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,7 +44,6 @@ public class DocumentFieldRepository {
 
         int[] result = DBConnector.batchInsert(sql, params);
 
-        // Если батч выполнился без исключений - считаем успехом
         return result != null && result.length > 0;
     }
 
@@ -71,7 +67,6 @@ public class DocumentFieldRepository {
 
         int[] result = DBConnector.batchInsert(sql, params);
 
-        // Если батч выполнился без исключений - считаем успехом
         return result != null && result.length > 0;
     }
 

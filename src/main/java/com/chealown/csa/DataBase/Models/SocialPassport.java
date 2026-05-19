@@ -29,9 +29,7 @@ public class SocialPassport {
         this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
-    public SocialPassport() {
-
-    }
+    public SocialPassport() {}
 
     public int getId() {
         return id.get();

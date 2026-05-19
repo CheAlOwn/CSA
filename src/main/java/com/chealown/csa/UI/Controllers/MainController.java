@@ -2,11 +2,7 @@ package com.chealown.csa.UI.Controllers;
 
 import com.chealown.csa.DataBase.Models.*;
 import com.chealown.csa.DataBase.Repositories.*;
-import com.chealown.csa.Entities.ManageUtil; // Убедитесь, что путь соответствует вашему проекту
-//import com.chealown.csa.Entities.SearchUtil;
-import com.chealown.csa.Entities.SearchUtil;
-import com.chealown.csa.Entities.SecurityUtil;
-import com.chealown.csa.Entities.StaticObjects;
+import com.chealown.csa.Entities.*;
 import com.chealown.csa.MainApplication;
 import com.chealown.csa.UI.Tables.*;
 import javafx.animation.TranslateTransition;
@@ -15,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -233,12 +228,18 @@ public class MainController {
         setTreeModules();
         loadData(StaticObjects.getLastPage());
 
-
-        // ВЫХОД ИЗ АККАУНТА
         exitBtn.setOnAction(actionEvent -> {
             try {
+                SecurityLogUtil.log(
+                        SecurityLogUtil.EventType.LOGOUT,
+                        SecurityLogUtil.EventResult.SUCCESS,
+                        StaticObjects.getCurrentUser().getLogin(),
+                        "Пользователь вышел из учетной записи"
+                );
                 ManageUtil.switchPage("Авторизация", "AuthorizationPage-view");
                 StaticObjects.setCurrentUser(null);
+                StaticObjects.setLastPage(null);
+                StaticObjects.setFirstRun(true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -279,7 +280,7 @@ public class MainController {
         accountingModules.getChildren().addAll(accounting);
         documentsModules.getChildren().add(documents[0]);
 
-        if (StaticObjects.getCurrentUser().getPost().equals("Администратор ПО")) {
+        if (StaticObjects.getCurrentUser().getPost().equals("Администратор")) {
             documentsModules.getChildren().add(documents[1]);
             manualsBox.setVisible(true);
             employeeBox.setVisible(true);
@@ -310,8 +311,6 @@ public class MainController {
                 if (StaticObjects.getLastPage().getText().equals(hl.getText())) {
                     selectTableModule(hl);
                 }
-
-
             }
         }
     }
@@ -321,7 +320,6 @@ public class MainController {
         hl.setStyle("-fx-font-size:20; -fx-text-fill: #6b7ee9; -fx-border-color:transparent;");
     }
 
-    // ИЗНАЧАЛЬНЫЙ ВИД МЕНЮ
     private void setBaseView() {
         filterMenu.setVisible(false);
         filterMenu.setDisable(true);
@@ -411,18 +409,14 @@ public class MainController {
                 break;
         }
         node = module.getTableView();
-        // добавление таблицы на форму
         tablePane.getChildren().add(node);
 
-        // установка ссылки на текущую таблицу
         tv = module.getTableView();
 
-        // учтановка модуля для текущей таблицы
         this.module = module;
 
         setContextMenu();
 
-        // установка данных и названия текщей таблицы
         StaticObjects.setLastPage(table);
     }
 
@@ -460,7 +454,7 @@ public class MainController {
                 alert.setTitle("Удаление записи");
                 Optional<ButtonType> buttonType = alert.showAndWait();
 
-                boolean isAdmin = StaticObjects.getCurrentUser().getPost().equals("Администратор ПО");
+                boolean isAdmin = StaticObjects.getCurrentUser().getPost().equals("Администратор");
 
                 if (buttonType.isPresent() && buttonType.get() == ButtonType.OK) {
                     Object item = row.getItem();
@@ -489,6 +483,7 @@ public class MainController {
                                 break;
                             case "Шаблоны документов":
                                 TemplateRepository.delete((TemplateDocument) item);
+                                break;
                             case "Группы здоровья":
                                 HealthGroupRepository.delete((HealthGroup) item);
                                 break;
@@ -533,7 +528,6 @@ public class MainController {
                     throw new RuntimeException(ex);
                 }
             });
-//
             contextMenu.getItems().addAll(editItem, deleteItem);
 
             row.emptyProperty().addListener((obs, wasEmpty, isEmpty) -> {
@@ -542,7 +536,6 @@ public class MainController {
                 else
                     row.setContextMenu(contextMenu);
             });
-//
             return row;
         });
     }
@@ -607,7 +600,6 @@ public class MainController {
             startDate = controller.getStartDateList();
             endDate = controller.getEndDateList();
         }
-        // Очистка таблицы перед обновлением
         tv.getItems().clear();
 
         List<Object> filteredData = SearchUtil.searchData(
@@ -621,13 +613,13 @@ public class MainController {
                 startDate,
                 endDate
         );
-//         Добавляем отфильтрованные данные в таблицу
         module.loadData(filteredData);
     }
 
-    // ПЕРЕКЛЮЧЕНИЕ МЕЖДУ МОДУЛЯМИ
     private void changeTable(ActionEvent actionEvent, Hyperlink[] allLinks) throws IOException, SQLException {
         searchTF.setText("");
+        if (controller !=  null)
+            controller.clearFilters();
 
         if (actionEvent.getSource() instanceof Hyperlink link) {
             for (Hyperlink h : allLinks) {
@@ -645,7 +637,6 @@ public class MainController {
         hl.setUnderline(false);
         hl.setStyle("-fx-font-size:20; -fx-text-fill:#242424; -fx-border-color:transparent");
         hl.setWrapText(true);
-//        hl.setMaxWidth(();
     }
 
     @FXML
@@ -689,7 +680,7 @@ public class MainController {
                 ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditOrganizationPage-view");
                 break;
             case "Семейные положения":
-                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditStatusPage-view");
+                ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditFSPage-view");
                 break;
             case "Статусы":
                 ManageUtil.switchPage("Добавление записи", "AddEdit/AddEditStatusPage-view");

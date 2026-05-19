@@ -107,6 +107,7 @@ public class AddEditEmployeeController {
             employee.setFirstName(firstNameTF.getText());
             employee.setPatronymic(patronymicTF.getText());
             employee.setPhone(phoneTF.getText());
+            employee.setEmail(emailTF.getText());
             employee.setPost(getData("post", "post_name", postCB.getSelectionModel().getSelectedItem(), "id"));
 
             String messagePart = "Добавление записи";

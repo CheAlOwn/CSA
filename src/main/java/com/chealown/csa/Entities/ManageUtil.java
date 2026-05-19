@@ -20,7 +20,6 @@ public class ManageUtil {
         MainApplication.getCurrentStage().setTitle(title);
         MainApplication.getCurrentStage().setScene(scene);
 
-        // Получить контроллер главной страницы
         if (path.equals("MainPage-view")) {
             StaticObjects.setController(loader.getController());
         }

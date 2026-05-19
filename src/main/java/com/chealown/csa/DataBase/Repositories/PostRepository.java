@@ -1,14 +1,9 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.EducationGroup;
 import com.chealown.csa.DataBase.Models.Post;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
-import javafx.geometry.Pos;
 
-import javax.crypto.SecretKey;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +14,6 @@ public class PostRepository {
             SELECT id, post_name
             FROM post;
             """;
-
 
     public static boolean save(Post post) {
         if (StaticObjects.getSelectedObject() == null) {
@@ -44,7 +38,6 @@ public class PostRepository {
         int result = DBConnector.update(sql, params);
         return result > 0;
     }
-
 
     private static boolean update(Post post) {
         String sql = """
@@ -73,7 +66,6 @@ public class PostRepository {
 
         DBConnector.update(sql, params);
     }
-
 
     public static List<Post> getAllData() throws SQLException {
         ArrayList<Post> data = new ArrayList<>();

@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Document;
-import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.DocumentRepository;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.collections.FXCollections;
@@ -53,7 +51,7 @@ public class DocumentTableModule extends TableModule<Document> {
             @Override
             protected ObservableList<Document> call() throws Exception {
                 List<Document> list = DocumentRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

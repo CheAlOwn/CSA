@@ -2,10 +2,10 @@ package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.HousingRights;
+import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.HousingRightsRepository;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import com.chealown.csa.UI.Tables.ChildrenTableModule;
 import javafx.event.ActionEvent;
@@ -14,17 +14,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddEditHRController {
 
-    public VBox tableBox;
-    public HBox tablePane;
     @FXML
-    private Button chooseChildrenBtn;
+    private VBox tableBox;
+
+    @FXML
+    private HBox tablePane;
 
     @FXML
     private TextField childTF;
@@ -57,7 +57,6 @@ public class AddEditHRController {
     private TextField streetTF;
 
     HousingRights housingRights = (HousingRights) StaticObjects.getSelectedObject();
-    SecretKey key = SecurityUtil.loadKeyFromEnv("APP_ENCRYPTION_KEY");
 
     boolean flag = false;
 
@@ -127,13 +126,25 @@ public class AddEditHRController {
         } else {
             if (housingRights == null)
                 housingRights = new HousingRights();
-            housingRights.setIdChildren(Integer.parseInt(childTF.getText()));
+
+            if (ChildrenRepository.haveChildWithId(StaticObjects.getCurrentUser().getPost().equals("Администратор"), Integer.parseInt(childTF.getText()))) {
+                housingRights.setIdChildren(Integer.parseInt(childTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
+
             housingRights.setAvailabilityOfHousing(availabilityHousingCB.getSelectionModel().getSelectedItem());
             housingRights.setFormOfOwnership(getData("ownership_form", "form_name", formOwnershipCB.getSelectionModel().getSelectedItem(), "id"));
             housingRights.setBuild(buildTF.getText());
             housingRights.setStreet(streetTF.getText());
             housingRights.setCity(cityTF.getText());
-            housingRights.setRegistrationDate(registrationDateTF.getText());
+            if (registrationDateTF.getText().length() == 10)
+                housingRights.setRegistrationDate(registrationDateTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат даты");
+                return;
+            }
 
             String messagePart = "Добавление записи";
             if (StaticObjects.getSelectedObject() != null)
@@ -145,7 +156,6 @@ public class AddEditHRController {
 
             } else
                 ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), messagePart + " не удалось");
-
         }
     }
 
@@ -186,6 +196,4 @@ public class AddEditHRController {
             flag = false;
         }
     }
-
-
 }

@@ -1,10 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Employee;
-import com.chealown.csa.DataBase.Models.HousingRights;
-import com.chealown.csa.DataBase.Models.InteractionType;
 import com.chealown.csa.DataBase.Models.Organization;
-import com.chealown.csa.DataBase.Repositories.EmployeeRepository;
 import com.chealown.csa.DataBase.Repositories.OrganizationRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -13,9 +13,6 @@ public class FamilySituation {
         this.id = new SimpleIntegerProperty(id);
         this.situationName = new SimpleStringProperty(situationName != null ? situationName : "");
     }
-    public FamilySituation(String situationName) {
-        this.situationName = new SimpleStringProperty(situationName != null ? situationName : "");
-    }
 
     public FamilySituation() {
 

@@ -47,7 +47,6 @@ public class AddEditTemplateDocController {
 
     private TemplateDocument template = (TemplateDocument) StaticObjects.getSelectedObject();
     private File uploadFile;
-    private boolean isEditMode = false;
 
     @FXML
     private void initialize() {
@@ -80,19 +79,16 @@ public class AddEditTemplateDocController {
 
         fieldsTV.setEditable(true);
 
-        // TextField: коммит по Enter или потере фокуса
         labelCol.setCellFactory(TextFieldTableCell.forTableColumn());
         labelCol.setOnEditCommit(event -> {
             event.getRowValue().setLabel(event.getNewValue());
-            fieldsTV.refresh(); // Принудительно обновляем таблицу
+            fieldsTV.refresh();
         });
 
-        // Исправленный CheckBox
         requiredCol.setCellFactory(column -> new CheckBoxTableCell<TemplateField, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
 
             {
-                // Слушаем изменения CheckBox
                 checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
                     TemplateField field = getTableRow().getItem();
                     if (field != null) {
@@ -191,7 +187,6 @@ public class AddEditTemplateDocController {
             return;
         }
 
-        // Гарантированно забираем актуальные данные из таблицы
         List<TemplateField> fields = getCommittedFieldsList();
 
         if (fields.isEmpty()) {
@@ -202,7 +197,6 @@ public class AddEditTemplateDocController {
             }
         }
 
-        // Валидация
         List<String> errors = new ArrayList<>();
         for (int i = 0; i < fields.size(); i++) {
             TemplateField f = fields.get(i);
@@ -233,14 +227,11 @@ public class AddEditTemplateDocController {
         }
     }
 
-    /**
-     * Фиксирует активное редактирование и возвращает копии объектов с актуальными значениями.
-     */
     private List<TemplateField> getCommittedFieldsList() {
         List<TemplateField> result = new ArrayList<>();
 
-        fieldsTV.edit(-1, null); // Завершаем редактирование, если ячейка активна
-        fieldsTV.refresh();      // Обновляем UI
+        fieldsTV.edit(-1, null);
+        fieldsTV.refresh();
 
         for (TemplateField field : fieldsTV.getItems()) {
             System.out.println(field.isRequired());

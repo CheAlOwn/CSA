@@ -1,7 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.WaitingListForHousing;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -46,9 +45,9 @@ public class WLFHRepository {
         String sql = """
                 INSERT INTO waiting_list_for_housing (
                 id_children, number_in_the_queue, date_added, 
-                expected_date_of_issue, current_step
+                expected_date_of_issue, current_step, archive
                 )
-                VALUES(?, ?, ?, ?, ?);
+                VALUES(?, ?, ?, ?, ?, false);
                 """;
 
         Object[] params = {
@@ -68,7 +67,7 @@ public class WLFHRepository {
         String sql = """
                 UPDATE waiting_list_for_housing
                     SET id_children = ?, number_in_the_queue = ?, date_added = ?, 
-                    expected_date_of_issue = ?, current_step = ?
+                    expected_date_of_issue = ?, current_step = ?, archive=false
                     WHERE id = ?;
             """;
 

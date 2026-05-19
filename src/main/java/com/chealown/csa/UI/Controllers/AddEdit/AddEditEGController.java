@@ -1,8 +1,8 @@
 package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.Models.EducationGroup;
-import com.chealown.csa.DataBase.Models.Employee;
 import com.chealown.csa.DataBase.Repositories.EducationGroupRepository;
+import com.chealown.csa.DataBase.Repositories.EmployeeRepository;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -20,14 +20,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddEditEGController {
+    @FXML
+    private HBox tablePane;
 
-    public HBox tablePane;
-    public VBox tableBox;
+    @FXML
+    private VBox tableBox;
     @FXML
     private Button btnSave;
-
-    @FXML
-    private Button chooseTutorBtn;
 
     @FXML
     private Button exitBtn;
@@ -52,7 +51,7 @@ public class AddEditEGController {
         btnSave.setOnAction(actionEvent -> {
             try {
                 saveChanges();
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -78,8 +77,9 @@ public class AddEditEGController {
         tutorIdTF.setText(String.valueOf(educationGroup.getTutorId()));
     }
 
-    private void saveChanges() throws IOException {
-        if (groupNameTF.getText().isEmpty()) {
+    private void saveChanges() throws IOException, SQLException {
+        if (
+                tutorIdTF.getText().isEmpty() || groupNameTF.getText().isEmpty()) {
             ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Не все обязательные поля заполнены");
         } else {
             if (educationGroup == null) {
@@ -87,7 +87,12 @@ public class AddEditEGController {
             }
 
             educationGroup.setGroupName(groupNameTF.getText());
-            educationGroup.setTutorId(Integer.parseInt(tutorIdTF.getText()));
+            if (EmployeeRepository.haveEmployeeWithId(Integer.parseInt(tutorIdTF.getText()))) {
+                educationGroup.setTutorId(Integer.parseInt(tutorIdTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
 
             String messagePart = "Добавление записи";
             if (StaticObjects.getSelectedObject() != null)

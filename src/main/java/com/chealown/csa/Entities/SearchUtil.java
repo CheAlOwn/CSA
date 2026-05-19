@@ -25,7 +25,6 @@ public class SearchUtil {
         List<Object> result = new ArrayList<>();
         if (currentData.isEmpty()) return result;
 
-        // Парсим границы дат заранее
         int dateLen = (dateColumns != null) ? dateColumns.length : 0;
         LocalDate[] starts = new LocalDate[dateLen];
         LocalDate[] ends = new LocalDate[dateLen];
@@ -43,7 +42,6 @@ public class SearchUtil {
             Map<String, Object> row = currentData.get(i);
             if (row == null) continue;
 
-            // Текстовый поиск (ИЛИ по колонкам)
             if (searchLower != null && !searchLower.isEmpty() && searchColumns != null) {
                 boolean found = false;
                 for (int j = 0; j < searchColumns.length; j++) {
@@ -57,7 +55,6 @@ public class SearchUtil {
                 if (!found) continue;
             }
 
-            // Фильтры (И по всем указанным колонкам)
             if (filterData != null && filterColumns != null &&
                     filterData.length == filterColumns.length) {
                 boolean allMatch = true;
@@ -75,7 +72,6 @@ public class SearchUtil {
                 if (!allMatch) continue;
             }
 
-            // Диапазон дат
             boolean datesOk = true;
             for (int m = 0; m < dateLen; m++) {
                 LocalDate start = starts[m];

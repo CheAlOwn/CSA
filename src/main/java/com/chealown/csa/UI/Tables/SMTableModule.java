@@ -1,14 +1,8 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Interaction;
 import com.chealown.csa.DataBase.Models.SocialMonitoring;
-import com.chealown.csa.DataBase.Repositories.InteractionRepository;
 import com.chealown.csa.DataBase.Repositories.SocialMonitoringRepository;
 import com.chealown.csa.Entities.StaticObjects;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -80,7 +74,7 @@ public class SMTableModule extends TableModule<SocialMonitoring> {
             @Override
             protected ObservableList<SocialMonitoring> call() throws Exception {
                 List<SocialMonitoring> list = SocialMonitoringRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

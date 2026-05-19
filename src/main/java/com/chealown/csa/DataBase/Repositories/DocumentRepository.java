@@ -1,9 +1,7 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Document;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
 import java.sql.ResultSet;
@@ -58,7 +56,7 @@ public class DocumentRepository {
     private static int update(Document document) {
         String sql = """
                 UPDATE "document"
-                SET template_id=?, user_id=?, created_at=?, "label"=?
+                SET template_id=?, user_id=?, created_at=?, "label"=?, archive=false
                 WHERE id=?;
                 """;
 

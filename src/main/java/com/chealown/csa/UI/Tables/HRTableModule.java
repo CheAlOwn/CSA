@@ -1,9 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Employee;
-import com.chealown.csa.DataBase.Models.HealthGroup;
 import com.chealown.csa.DataBase.Models.HousingRights;
-import com.chealown.csa.DataBase.Repositories.HealthGroupRepository;
 import com.chealown.csa.DataBase.Repositories.HousingRightsRepository;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.collections.FXCollections;
@@ -84,7 +81,7 @@ public class HRTableModule extends TableModule<HousingRights> {
             @Override
             protected ObservableList<HousingRights> call() throws Exception {
                 List<HousingRights> list = HousingRightsRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

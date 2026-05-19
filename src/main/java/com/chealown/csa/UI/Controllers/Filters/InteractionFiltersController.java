@@ -1,5 +1,6 @@
 package com.chealown.csa.UI.Controllers.Filters;
 
+import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.UI.Controllers.FiltersController;
 import com.chealown.csa.UI.Controllers.MainController;
 import com.chealown.csa.DataBase.DBConnector;
@@ -27,6 +28,9 @@ public class InteractionFiltersController implements FiltersController {
     @FXML
     private void initialize() throws SQLException {
         fillComboBoxes();
+
+        MaskUtil.applyDateMask(startDateTF);
+        MaskUtil.applyDateMask(endDateTF);
 
         interactionTypeCB.setOnAction(actionEvent -> {
             try {

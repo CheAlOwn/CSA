@@ -13,22 +13,6 @@ public class EducationGroup {
     StringProperty firstName = new SimpleStringProperty();
     StringProperty patronymic = new SimpleStringProperty();
 
-
-    public EducationGroup(IntegerProperty id, StringProperty groupName, IntegerProperty tutorId) {
-        this.id = id;
-        this.groupName = groupName;
-        this.tutorId = tutorId;
-    }
-    public EducationGroup(int id, String groupName, int tutor) {
-        this.id = new SimpleIntegerProperty(id);
-        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
-        this.tutorId = new SimpleIntegerProperty(tutor);
-    }
-    public EducationGroup(String groupName, int tutor) {
-        this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
-        this.tutorId = new SimpleIntegerProperty(tutor);
-    }
-
     public EducationGroup(int id, String groupName, int tutor, String secondName, String firstName, String patronymic) {
         this.id = new SimpleIntegerProperty(id);
         this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");

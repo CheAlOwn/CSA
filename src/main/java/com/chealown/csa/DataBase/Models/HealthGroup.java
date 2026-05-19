@@ -14,9 +14,7 @@ public class HealthGroup {
         this.groupName = new SimpleStringProperty(groupName != null ? groupName : "");
     }
 
-    public HealthGroup() {
-
-    }
+    public HealthGroup() {}
 
     public int getId() {
         return id.get();

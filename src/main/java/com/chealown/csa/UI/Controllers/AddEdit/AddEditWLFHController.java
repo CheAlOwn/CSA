@@ -1,6 +1,7 @@
 package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.Models.WaitingListForHousing;
+import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.WLFHRepository;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
@@ -20,8 +21,12 @@ import java.sql.SQLException;
 
 public class AddEditWLFHController {
 
-    public VBox tableBox;
-    public HBox tablePane;
+    @FXML
+    private VBox tableBox;
+
+    @FXML
+    private HBox tablePane;
+
     @FXML
     private TextField childTF;
 
@@ -54,6 +59,7 @@ public class AddEditWLFHController {
     private void initialize() {
         MaskUtil.applyNumberMask(childTF, 6);
         MaskUtil.applyDateMask(dateAddedTF);
+        MaskUtil.applyDateMask(expectedDateIssueTF);
         MaskUtil.applyNumberMask(numberInQueueTF, 4);
 
         showTableBox(false);
@@ -102,10 +108,26 @@ public class AddEditWLFHController {
         } else {
             if (wlfh == null)
                 wlfh = new WaitingListForHousing();
-            wlfh.setIdChildren(Integer.parseInt(childTF.getText()));
+
+            if (ChildrenRepository.haveChildWithId(StaticObjects.getCurrentUser().getPost().equals("Администратор"), Integer.parseInt(childTF.getText()))) {
+                wlfh.setIdChildren(Integer.parseInt(childTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
             wlfh.setCurrentStep(currentStepTF.getText());
-            wlfh.setDateAdded(dateAddedTF.getText());
-            wlfh.setExpectedDateOfIssue(expectedDateIssueTF.getText());
+            if (dateAddedTF.getText().length() == 10)
+                wlfh.setDateAdded(dateAddedTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат даты");
+                return;
+            }
+            if (expectedDateIssueTF.getText().length() == 10)
+                wlfh.setExpectedDateOfIssue(expectedDateIssueTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат даты");
+                return;
+            }
             wlfh.setNumberInTheQueue(Integer.parseInt(numberInQueueTF.getText()));
 
             String messagePart = "Добавление записи";

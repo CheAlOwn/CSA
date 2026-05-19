@@ -1,8 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.Post;
 import com.chealown.csa.DataBase.Models.Status;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -45,10 +43,9 @@ public class StatusRepository {
         return result > 0;
     }
 
-
     private static boolean update(Status status) {
         String sql = """
-                   UPDATE post
+                   UPDATE status
                    SET status_name=?
                    WHERE id=?;
                 """;
@@ -73,7 +70,6 @@ public class StatusRepository {
 
         DBConnector.update(sql, params);
     }
-
 
     public static List<Status> getAllData() throws SQLException {
         ArrayList<Status> data = new ArrayList<>();

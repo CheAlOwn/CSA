@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.User;
 import com.chealown.csa.DataBase.Models.WaitingListForHousing;
-import com.chealown.csa.DataBase.Repositories.UserRepository;
 import com.chealown.csa.DataBase.Repositories.WLFHRepository;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.collections.FXCollections;
@@ -73,7 +71,7 @@ public class WLFHTableModule extends TableModule<WaitingListForHousing> {
             @Override
             protected ObservableList<WaitingListForHousing> call() throws Exception {
                 List<WaitingListForHousing> list = WLFHRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Status;
 import com.chealown.csa.DataBase.Models.TemplateDocument;
-import com.chealown.csa.DataBase.Repositories.StatusRepository;
 import com.chealown.csa.DataBase.Repositories.TemplateRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

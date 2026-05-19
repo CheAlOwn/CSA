@@ -1,7 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.SocialMonitoring;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -50,9 +49,9 @@ public class SocialMonitoringRepository {
                 INSERT INTO social_monitoring
                 (
                 id_children, date_of_fixation, id_monitoring_type,
-                 old_value, new_value, change_reason, id_user
+                 old_value, new_value, change_reason, id_user, archive
                  )
-                VALUES(?, ?, ?, ?, ?, ?, ?);
+                VALUES(?, ?, ?, ?, ?, ?, ?, false);
                 """;
 
         Object[] params = {
@@ -74,7 +73,7 @@ public class SocialMonitoringRepository {
                    UPDATE social_monitoring
                        SET id_children = ?, date_of_fixation = ?, 
                        id_monitoring_type = ?, old_value = ?, new_value = ?, 
-                       change_reason = ?, id_user = ?
+                       change_reason = ?, id_user = ?, archive=false
                        WHERE id = ?;
                 """;
 

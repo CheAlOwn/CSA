@@ -14,8 +14,7 @@ public class Status {
         this.statusName = new SimpleStringProperty(statusName != null ? statusName : "");
     }
 
-    public Status() {
-    }
+    public Status() {}
 
     public int getId() {
         return id.get();

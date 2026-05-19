@@ -14,8 +14,7 @@ public class OrganizationType {
         this.typeName = new SimpleStringProperty(typeName != null ? typeName : "");
     }
 
-    public OrganizationType() {
-    }
+    public OrganizationType() {}
 
     public int getId() {
         return id.get();

@@ -11,14 +11,10 @@ import java.util.*;
 
 public class TemplateProcessor {
 
-    // Перечисление форматов экспорта
     public enum ExportFormat {
         DOCX, ODT
     }
 
-    /**
-     * Основной метод - обрабатывает шаблон и экспортирует в нужный формат
-     */
     public static void processTemplate(String templatePath, String outputPath,
                                        Map<String, String> dataMap, ExportFormat exportFormat) throws Exception {
         TemplateFormat sourceFormat = detectFormat(templatePath);
@@ -35,18 +31,12 @@ public class TemplateProcessor {
         }
     }
 
-    /**
-     * Упрощенный метод - экспорт в тот же формат, что и шаблон
-     */
     public static void processTemplate(String templatePath, String outputPath,
                                        Map<String, String> dataMap) throws Exception {
         processTemplate(templatePath, outputPath, dataMap,
                 detectFormat(templatePath) == TemplateFormat.DOCX ? ExportFormat.DOCX : ExportFormat.ODT);
     }
 
-    /**
-     * Определение формата шаблона по расширению файла
-     */
     private static TemplateFormat detectFormat(String filePath) {
         String lowerPath = filePath.toLowerCase();
         if (lowerPath.endsWith(".docx")) {
@@ -61,9 +51,6 @@ public class TemplateProcessor {
         DOCX, ODT, UNKNOWN
     }
 
-    /**
-     * Обработка DOCX с возможностью экспорта в разные форматы
-     */
     private static void processDocxWithExport(String templatePath, String outputPath,
                                               Map<String, String> dataMap,
                                               ExportFormat exportFormat) throws Exception {
@@ -81,7 +68,6 @@ public class TemplateProcessor {
                 break;
 
             case ODT:
-                // Конвертация DOCX -> ODT через временный файл
                 File tempDocx = File.createTempFile("temp", ".docx");
                 try (FileOutputStream fos = new FileOutputStream(tempDocx)) {
                     doc.write(fos);
@@ -93,9 +79,6 @@ public class TemplateProcessor {
         doc.close();
     }
 
-    /**
-     * Обработка ODT с возможностью экспорта в разные форматы
-     */
     private static void processOdtWithExport(String templatePath, String outputPath,
                                              Map<String, String> dataMap,
                                              ExportFormat exportFormat) throws Exception {
@@ -108,7 +91,6 @@ public class TemplateProcessor {
                 break;
 
             case DOCX:
-                // Конвертация ODT -> DOCX через временный файл
                 File tempOdt = File.createTempFile("temp", ".odt");
                 doc.save(tempOdt.getAbsolutePath());
                 convertOdtToDocx(tempOdt.getAbsolutePath(), outputPath, dataMap);
@@ -118,16 +100,11 @@ public class TemplateProcessor {
         doc.close();
     }
 
-    /**
-     * Обработка содержимого DOCX документа
-     */
     private static void processDocxDocument(XWPFDocument doc, Map<String, String> dataMap) {
-        // Параграфы
         for (XWPFParagraph p : doc.getParagraphs()) {
             replaceInParagraph(p, dataMap);
         }
 
-        // Таблицы
         for (XWPFTable table : doc.getTables()) {
             for (XWPFTableRow row : table.getRows()) {
                 for (XWPFTableCell cell : row.getTableCells()) {
@@ -139,9 +116,6 @@ public class TemplateProcessor {
         }
     }
 
-    /**
-     * Обработка содержимого ODT документа
-     */
     private static void processOdtDocument(OdfTextDocument doc, Map<String, String> dataMap) throws Exception {
         NodeList paragraphs = doc.getContentRoot().getElementsByTagName("text:p");
 
@@ -159,19 +133,14 @@ public class TemplateProcessor {
         }
     }
 
-    /**
-     * Конвертация DOCX в ODT
-     */
+
     private static void convertDocxToOdt(String docxPath, String odtPath,
                                          Map<String, String> dataMap) throws Exception {
-        // Создаем новый ODT документ
         OdfTextDocument odtDoc = OdfTextDocument.newTextDocument();
 
-        // Читаем DOCX
         try (FileInputStream fis = new FileInputStream(docxPath);
              XWPFDocument docxDoc = new XWPFDocument(fis)) {
 
-            // Извлекаем и обрабатываем текст
             for (XWPFParagraph p : docxDoc.getParagraphs()) {
                 String text = p.getText();
                 if (text != null && !text.trim().isEmpty()) {
@@ -186,19 +155,15 @@ public class TemplateProcessor {
         odtDoc.close();
     }
 
-    /**
-     * Конвертация ODT в DOCX
-     */
     private static void convertOdtToDocx(String odtPath, String docxPath,
                                          Map<String, String> dataMap) throws Exception {
-        // Создаем новый DOCX документ
+
         XWPFDocument docxDoc = new XWPFDocument();
 
-        // Читаем ODT
+
         OdfTextDocument odtDoc = (OdfTextDocument) OdfTextDocument.loadDocument(odtPath);
         NodeList paragraphs = odtDoc.getContentRoot().getElementsByTagName("text:p");
 
-        // Извлекаем и обрабатываем текст
         for (int i = 0; i < paragraphs.getLength(); i++) {
             String text = paragraphs.item(i).getTextContent();
             if (text != null && !text.trim().isEmpty()) {

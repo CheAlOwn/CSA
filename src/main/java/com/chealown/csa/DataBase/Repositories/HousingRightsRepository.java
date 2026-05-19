@@ -1,8 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.Employee;
 import com.chealown.csa.DataBase.Models.HousingRights;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -47,9 +45,9 @@ public class HousingRightsRepository {
         String sql = """
                 INSERT INTO housing_rights (
                 id_children, availability_of_housing, form_of_ownership,
-                registration_date, city, street, build
+                registration_date, city, street, build, archive
                 )
-                VALUES(?, ?, ?, ?, ?, ?, ?);
+                VALUES(?, ?, ?, ?, ?, ?, ?, false);
                 """;
 
         Object[] params = {
@@ -70,7 +68,7 @@ public class HousingRightsRepository {
         String sql = """
                 UPDATE housing_rights
                 SET id_children = ?, availability_of_housing = ?, form_of_ownership = ?, 
-                registration_date = ?, city = ?, street = ?, build = ?
+                registration_date = ?, city = ?, street = ?, build = ?, archive=false
                 WHERE id = ?; 
                 """;
 

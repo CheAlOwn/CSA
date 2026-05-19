@@ -3,6 +3,7 @@ package com.chealown.csa.UI.Controllers;
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.User;
 import com.chealown.csa.Entities.ManageUtil;
+import com.chealown.csa.Entities.SecurityLogUtil;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import javafx.fxml.FXML;
@@ -31,13 +32,33 @@ public class AuthorizationController {
         DBConnector.connect();
 
         entryTF.setOnAction(actionEvent -> {
+            String login = loginTF.getText();
+
             try {
                 if (checkUser(loginTF.getText(), passwordTF.getText())) {
+                    SecurityLogUtil.log(
+                            SecurityLogUtil.EventType.LOGIN,
+                            SecurityLogUtil.EventResult.SUCCESS,
+                            login,
+                            "Успешная авторизация"
+                    );
                     ManageUtil.switchPage("Главная", "MainPage-view");
                 } else {
+                    SecurityLogUtil.log(
+                            SecurityLogUtil.EventType.LOGIN,
+                            SecurityLogUtil.EventResult.FAILURE,
+                            login,
+                            "Неверный логин или пароль"
+                    );
                     ManageUtil.showAlert(Alert.AlertType.WARNING, "Авторизация", "Неверно введены логин или пароль");
                 }
             } catch (SQLException | IOException e) {
+                SecurityLogUtil.log(
+                        SecurityLogUtil.EventType.LOGIN,
+                        SecurityLogUtil.EventResult.FAILURE,
+                        login,
+                        "Ошибка: " + e.getMessage()
+                );
                 throw new RuntimeException(e);
             }
         });

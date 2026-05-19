@@ -1,10 +1,7 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.Document;
 import com.chealown.csa.DataBase.Models.EducationGroup;
-import com.chealown.csa.DataBase.Models.SocialMonitoring;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 

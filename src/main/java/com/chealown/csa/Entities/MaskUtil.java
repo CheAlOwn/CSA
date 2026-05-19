@@ -81,29 +81,62 @@ public class MaskUtil {
     }
 
     public static void applySnilsMask(TextField textField) {
-        UnaryOperator<TextFormatter.Change> filter = change -> {
+        UnaryOperator<TextFormatter.Change> snilsFilter = change -> {
             String newText = change.getControlNewText();
-            String digits = newText.replaceAll("\\D", "");
-            if (digits.length() > 11) {
-                digits = digits.substring(0, 11);
+
+            if (!newText.matches("[0-9\\-\\s]*")) {
+                return null;
             }
+
+            String digits = newText.replaceAll("[^0-9]", "");
+
+            if (digits.length() > 11) {
+                return null;
+            }
+
             StringBuilder formatted = new StringBuilder();
-            for (int i = 0; i < digits.length(); i++) {
-                if (i == 3 || i == 6) {
-                    formatted.append("-");
-                } else if (i == 9) {
-                    formatted.append(" ");
-                }
+            int len = digits.length();
+
+            for (int i = 0; i < Math.min(len, 3); i++) {
                 formatted.append(digits.charAt(i));
             }
-            String result = formatted.toString();
-            if (!result.equals(newText)) {
-                change.setText(result);
-                change.setCaretPosition(result.length());
-                change.setAnchor(result.length());
+
+            if (len > 3) {
+                formatted.append('-');
+                formatted.append(digits.charAt(3));
             }
+            if (len > 4) formatted.append(digits.charAt(4));
+            if (len > 5) formatted.append(digits.charAt(5));
+
+            if (len > 6) {
+                formatted.append('-');
+                formatted.append(digits.charAt(6));
+            }
+            if (len > 7) formatted.append(digits.charAt(7));
+            if (len > 8) formatted.append(digits.charAt(8));
+
+            if (len > 9) {
+                formatted.append(' ');
+                formatted.append(digits.charAt(9));
+            }
+            if (len > 10) formatted.append(digits.charAt(10));
+
+            String finalText = formatted.toString();
+            change.setText(finalText);
+            change.setRange(0, change.getControlText().length());
+            change.setCaretPosition(finalText.length());
+            change.setAnchor(finalText.length());
+
             return change;
         };
-        textField.setTextFormatter(new TextFormatter<>(filter));
+
+        TextFormatter<String> formatter = new TextFormatter<>(
+                new DefaultStringConverter(),
+                "",
+                snilsFilter
+        );
+
+        textField.setTextFormatter(formatter);
+        textField.setPromptText("XXX-XXX-XXX XX");
     }
 }

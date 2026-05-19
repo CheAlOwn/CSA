@@ -51,16 +51,16 @@ public class SocialPassportRepository {
         String sql = """
                 INSERT INTO social_passport (
                 id_children, id_education, id_health_group, 
-                id_family_situation, having_a_disability, date_create
+                id_family_situation, having_a_disability, date_create, archive
                 )
-                VALUES(?, ?, ?, ?, ?, ?);
+                VALUES(?, ?, ?, ?, ?, ?, false);
                 """;
 
         Object[] params = {
                 socialPassport.getIdChildren(),
-                socialPassport.getEducation(),
-                socialPassport.getHealthGroup(),
-                socialPassport.getFamilySituation(),
+                Integer.parseInt(socialPassport.getEducation()),
+                Integer.parseInt(socialPassport.getHealthGroup()),
+                Integer.parseInt(socialPassport.getFamilySituation()),
                 SecurityUtil.encryptSafe(socialPassport.getHavingADisability(), ENCRYPTION_KEY),
                 socialPassport.getDateCreate()
         };
@@ -72,15 +72,15 @@ public class SocialPassportRepository {
         String sql = """
                     UPDATE social_passport
                     SET id_children = ?, id_education = ?, id_health_group = ?, 
-                    id_family_situation = ?, having_a_disability = ?, date_create = ?
+                    id_family_situation = ?, having_a_disability = ?, date_create = ?, archive=false
                     WHERE id_passport = ?;
                 """;
 
         Object[] params = {
                 socialPassport.getIdChildren(),
-                socialPassport.getEducation(),
-                socialPassport.getHealthGroup(),
-                socialPassport.getFamilySituation(),
+                Integer.parseInt(socialPassport.getEducation()),
+                Integer.parseInt(socialPassport.getHealthGroup()),
+                Integer.parseInt(socialPassport.getFamilySituation()),
                 SecurityUtil.encryptSafe(socialPassport.getHavingADisability(), ENCRYPTION_KEY),
                 socialPassport.getDateCreate(),
                 socialPassport.getId()

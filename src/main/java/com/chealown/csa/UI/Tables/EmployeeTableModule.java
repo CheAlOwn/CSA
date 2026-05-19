@@ -1,10 +1,7 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Employee;
-import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.EmployeeRepository;
-import com.chealown.csa.Entities.StaticObjects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;

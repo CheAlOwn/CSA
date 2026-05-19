@@ -1,8 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.Post;
 import com.chealown.csa.DataBase.Models.User;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -22,16 +20,6 @@ public class UserRepository {
             inner join employee e on u.id_employee = e.id
             inner join post p on e.post = p.id
             """;
-
-
-    /*
-    *
-    * Сделать распределение по ролям
-    * Сделать контрольную проверку работоспособности
-    *
-    * */
-
-
 
     public static boolean save(User user) {
         if (StaticObjects.getSelectedObject() == null) {
@@ -79,7 +67,7 @@ public class UserRepository {
 
     public static void delete(User user) {
         String sql = """
-                DELETE FROM user
+                DELETE FROM "user"
                 WHERE id=?;
                 """;
 

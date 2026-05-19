@@ -1,14 +1,13 @@
 package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Interaction;
+import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.InteractionRepository;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import com.chealown.csa.UI.Tables.ChildrenTableModule;
-import com.chealown.csa.UI.Tables.InteractionTableModule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,20 +17,20 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class AddEditInteractionController {
 
-    public HBox tablePane;
-    public VBox tableBox;
+    @FXML
+    private HBox tablePane;
+
+    @FXML
+    private VBox tableBox;
+
     @FXML
     private Button btnSave;
 
     @FXML
     private TextField childTF;
-
-    @FXML
-    private Button chooseChildrenBtn;
 
     @FXML
     private Button exitBtn;
@@ -56,7 +55,6 @@ public class AddEditInteractionController {
 
     @FXML
     private void initialize() throws SQLException {
-        // видимость области с таблицей
         showTableBox(false);
 
         fillComboBoxes();
@@ -117,7 +115,12 @@ public class AddEditInteractionController {
         } else {
             if (interaction == null)
                 interaction = new Interaction();
-            interaction.setIdChildren(Integer.parseInt(childTF.getText()));
+            if (ChildrenRepository.haveChildWithId(StaticObjects.getCurrentUser().getPost().equals("Администратор"), Integer.parseInt(childTF.getText()))) {
+                interaction.setIdChildren(Integer.parseInt(childTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
             interaction.setInteractionResult(resultTF.getText());
             interaction.setOrganization(getData("organization", "organization_name", organizationCB.getSelectionModel().getSelectedItem(), "id"));
             interaction.setInteractionType(getData("interaction_type", "interaction_name", interactionTypeCB.getSelectionModel().getSelectedItem(), "id"));

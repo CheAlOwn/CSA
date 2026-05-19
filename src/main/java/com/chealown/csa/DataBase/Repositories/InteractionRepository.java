@@ -1,7 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.Interaction;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -46,8 +45,8 @@ public class InteractionRepository {
     private static boolean insert(Interaction interaction) {
         String sql = """
                 INSERT INTO interaction
-                     (id_organization, id_user, interaction_date, interaction_type, interaction_result)
-                     VALUES(?, ?, ?, ?, ?)
+                     (id_organization, id_user, interaction_date, interaction_type, interaction_result, archive)
+                     VALUES(?, ?, ?, ?, ?, false)
                      RETURNING id
                 """;
 
@@ -80,7 +79,7 @@ public class InteractionRepository {
         String sql = """
                 UPDATE interaction
                 SET id_organization=?, id_user=?, interaction_date=?, 
-                interaction_type=?, interaction_result=?
+                interaction_type=?, interaction_result=?, archive=false
                 WHERE id=?;
                 """;
 
@@ -129,6 +128,7 @@ public class InteractionRepository {
         String sql = """
                 DELETE FROM interaction
                 WHERE id=?;
+                DELETE FROM children_interaction
                 """;
 
         Object[] params = {

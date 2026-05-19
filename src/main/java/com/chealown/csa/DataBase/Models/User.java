@@ -6,14 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class User {
-    IntegerProperty id;
-    StringProperty login;
-    StringProperty secondName;
-    StringProperty firstName;
-    StringProperty patronymic;
-    StringProperty post;
-    IntegerProperty employeeId;
-    StringProperty password;
+    IntegerProperty id = new SimpleIntegerProperty();
+    StringProperty login = new SimpleStringProperty();
+    StringProperty secondName = new SimpleStringProperty();
+    StringProperty firstName = new SimpleStringProperty();
+    StringProperty patronymic = new SimpleStringProperty();
+    StringProperty post = new SimpleStringProperty();
+    IntegerProperty employeeId = new SimpleIntegerProperty();
+    StringProperty password = new SimpleStringProperty();
 
     public User(int id, String login, String password, String secondName, String firstName, String patronymic, String post, int employeeId) {
         this.id = new SimpleIntegerProperty(id);
@@ -26,8 +26,7 @@ public class User {
         this.employeeId = new SimpleIntegerProperty(employeeId);
     }
 
-    public User() {
-    }
+    public User() {}
 
     public int getId() {
         return id.get();

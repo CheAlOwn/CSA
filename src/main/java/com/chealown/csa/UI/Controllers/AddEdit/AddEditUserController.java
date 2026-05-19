@@ -1,6 +1,7 @@
 package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.Models.User;
+import com.chealown.csa.DataBase.Repositories.EmployeeRepository;
 import com.chealown.csa.DataBase.Repositories.UserRepository;
 import com.chealown.csa.Entities.ManageUtil;
 import com.chealown.csa.Entities.MaskUtil;
@@ -17,14 +18,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddEditUserController {
+    @FXML
+    private VBox tableBox;
 
-    public VBox tableBox;
-    public HBox tablePane;
+    @FXML
+    private HBox tablePane;
+
     @FXML
     private Button btnSave;
-
-    @FXML
-    private Button chooseEmployeeBtn;
 
     @FXML
     private TextField employeeIdTF;
@@ -52,7 +53,7 @@ public class AddEditUserController {
         btnSave.setOnAction(actionEvent -> {
             try {
                 saveChanges();
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -78,10 +79,9 @@ public class AddEditUserController {
         employeeIdTF.setText(String.valueOf(user.getEmployeeId()));
     }
 
-    private void saveChanges() throws IOException {
+    private void saveChanges() throws IOException, SQLException {
         if (
                 loginTF.getText().isEmpty() ||
-                        passwordTF.getText().isEmpty() ||
                         employeeIdTF.getText().isEmpty()
         ) {
             ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Не все обязательные поля заполнены");
@@ -90,9 +90,16 @@ public class AddEditUserController {
                 user = new User();
             }
 
-            user.setEmployeeId(Integer.parseInt(employeeIdTF.getId()));
+            if (EmployeeRepository.haveEmployeeWithId(Integer.parseInt(employeeIdTF.getText()))) {
+                System.out.println(employeeIdTF.getText());
+                user.setEmployeeId(Integer.parseInt(employeeIdTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
             user.setLogin(loginTF.getText());
-            user.setPassword(SecurityUtil.hashPassword(passwordTF.getText()));
+            if (!passwordTF.getText().isEmpty())
+                user.setPassword(SecurityUtil.hashPassword(passwordTF.getText()));
 
             String messagePart = "Добавление записи";
             if (StaticObjects.getSelectedObject() != null)
@@ -114,6 +121,7 @@ public class AddEditUserController {
     @FXML
     private void showTable(ActionEvent actionEvent) throws SQLException {
         tablePane.getChildren().clear();
+        System.out.println(employeeIdTF.getText());
 
         if (!flag) {
             showTableBox(true);

@@ -79,7 +79,7 @@ public class ChildrenTableModule extends TableModule<Children> {
             @Override
             protected ObservableList<Children> call() throws Exception {
                 List<Children> list = ChildrenRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

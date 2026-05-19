@@ -1,13 +1,12 @@
 package com.chealown.csa;
 
-import com.chealown.csa.Entities.TemplateProcessor;
+import com.chealown.csa.DataBase.DBConnector;
+import com.chealown.csa.Entities.SecurityLogUtil;
+import com.chealown.csa.Entities.StaticObjects;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainApplication extends Application {
     private static Stage currentStage;
@@ -22,18 +21,28 @@ public class MainApplication extends Application {
         stage.setResizable(false);
 
         currentStage = stage;
-//        testExample();
+
+        SecurityLogUtil.log(
+                SecurityLogUtil.EventType.SYSTEM_STARTUP,
+                SecurityLogUtil.EventResult.SUCCESS,
+                null,
+                "Запуск работы приложения"
+        );
     }
 
-
-    private void testExample() throws Exception {
-        Map<String, String> map = new HashMap<>();
-        map.put("${name}", "Leonid");
-        map.put("${age}", "19");
-
-        TemplateProcessor.processTemplate("templates/1777405762731_template.odt", String.format("documents/%s_document.odt", 2), map);
+    @Override
+    public void stop() throws Exception {
+        if (StaticObjects.getCurrentUser() != null) {
+            SecurityLogUtil.log(
+                    SecurityLogUtil.EventType.SYSTEM_SHUTDOWN,
+                    SecurityLogUtil.EventResult.SUCCESS,
+                    SecurityLogUtil.getCurrentSubject(),
+                    "Завершение работы приложения"
+            );
+        }
+        DBConnector.disconnect();
+        super.stop();
     }
-
 
     public static Stage getCurrentStage() {
         return currentStage;

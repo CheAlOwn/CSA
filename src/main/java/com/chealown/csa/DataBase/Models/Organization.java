@@ -26,9 +26,7 @@ public class Organization {
         this.type = new SimpleStringProperty(type != null ? type : "");
     }
 
-    public Organization() {
-
-    }
+    public Organization() {}
 
     public int getId() {
         return id.get();

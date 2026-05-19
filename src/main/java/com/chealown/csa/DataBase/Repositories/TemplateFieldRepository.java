@@ -1,7 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.TemplateDocument;
 import com.chealown.csa.DataBase.Models.TemplateField;
 import com.chealown.csa.Entities.StaticObjects;
 
@@ -39,14 +38,13 @@ public class TemplateFieldRepository {
                     field.getTemplateId(),
                     field.getPlaceholder(),
                     field.getLabel(),
-                    field.isRequired(), // Добавлено поле is_required
+                    field.isRequired(),
                     field.getDefaultValue()
             });
         }
 
         int[] result = DBConnector.batchInsert(sql, params);
 
-        // Если батч выполнился без исключений - считаем успехом
         return result != null && result.length > 0;
     }
 
@@ -64,7 +62,7 @@ public class TemplateFieldRepository {
                     field.getTemplateId(),
                     field.getPlaceholder(),
                     field.getLabel(),
-                    field.isRequired(), // Добавлено поле is_required
+                    field.isRequired(),
                     field.getDefaultValue(),
                     field.getId()
             });
@@ -72,7 +70,6 @@ public class TemplateFieldRepository {
 
         int[] result = DBConnector.batchInsert(sql, params);
 
-        // Если батч выполнился без исключений - считаем успехом
         return result != null && result.length > 0;
     }
 

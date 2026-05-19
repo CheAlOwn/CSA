@@ -1,10 +1,7 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.HousingRights;
 import com.chealown.csa.DataBase.Models.Organization;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 
 import java.sql.ResultSet;
@@ -42,7 +39,7 @@ public class OrganizationRepository {
                 organization.getBuild(),
                 organization.getPhone(),
                 organization.getEmail(),
-                organization.getType()
+                Integer.parseInt(organization.getType())
         };
         int result = DBConnector.update(sql, params);
         return result > 0;
@@ -63,7 +60,7 @@ public class OrganizationRepository {
                 organization.getBuild(),
                 organization.getPhone(),
                 organization.getEmail(),
-                organization.getType(),
+                Integer.parseInt(organization.getType()),
                 organization.getId()
         };
 

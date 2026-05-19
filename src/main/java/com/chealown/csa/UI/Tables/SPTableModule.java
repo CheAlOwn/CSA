@@ -1,14 +1,8 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.SocialMonitoring;
 import com.chealown.csa.DataBase.Models.SocialPassport;
-import com.chealown.csa.DataBase.Repositories.SocialMonitoringRepository;
 import com.chealown.csa.DataBase.Repositories.SocialPassportRepository;
 import com.chealown.csa.Entities.StaticObjects;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -81,7 +75,7 @@ public class SPTableModule extends TableModule<SocialPassport> {
             @Override
             protected ObservableList<SocialPassport> call() throws Exception {
                 List<SocialPassport> list = SocialPassportRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

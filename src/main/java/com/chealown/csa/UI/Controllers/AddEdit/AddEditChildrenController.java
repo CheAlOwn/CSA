@@ -134,12 +134,10 @@ public class AddEditChildrenController {
                         firstNameTF.getText().isEmpty() ||
                         birthdateTF.getText().isEmpty() ||
                         genderCB.getSelectionModel().getSelectedItem() == null ||
-                        genderCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
                         passportSerTF.getText().isEmpty() ||
                         passportNumTF.getText().isEmpty() ||
                         snilsTF.getText().isEmpty() ||
-                        statusCB.getSelectionModel().getSelectedItem() == null ||
-                        statusCB.getSelectionModel().getSelectedItem().equals("Отсутствует")
+                        statusCB.getSelectionModel().getSelectedItem() == null
         ) {
             ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Не все обязательные поля заполнены");
         } else {
@@ -149,15 +147,34 @@ public class AddEditChildrenController {
             child.setFirstName(firstNameTF.getText());
             child.setPatronymic(patronymicTF.getText());
 
-            // TODO: добавить маску
-            child.setBirthdate(birthdateTF.getText());
+            if (birthdateTF.getText().length() == 10)
+                child.setBirthdate(birthdateTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат даты");
+                return;
+            }
             child.setEducationGroup(getData("education_group", "group_name", educationGroupCB.getSelectionModel().getSelectedItem(), "id"));
-            System.out.println(getData("education_group", "group_name", educationGroupCB.getSelectionModel().getSelectedItem(), "id"));
             child.setGender(getData("gender", "gender_name", genderCB.getSelectionModel().getSelectedItem(), "id"));
             child.setStatus(getData("status", "status_name", statusCB.getSelectionModel().getSelectedItem(), "id"));
-            child.setPassportNum(passportNumTF.getText());
-            child.setPassportSer(passportSerTF.getText());
-            child.setSnils(snilsTF.getText());
+            if (passportSerTF.getText().length() == 4)
+                child.setPassportSer(passportSerTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат серии паспорта");
+                return;
+            }
+            if (passportNumTF.getText().length() == 6)
+                child.setPassportNum(passportNumTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат номера паспорта");
+                return;
+            }
+            if (snilsTF.getText().length() == 14)
+                child.setSnils(snilsTF.getText());
+            else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Некорректный формат СНИЛСа");
+                return;
+            }
+
 
 
             String messagePart = "Добавление записи";

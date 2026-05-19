@@ -1,7 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
 import com.chealown.csa.DataBase.Models.OrganizationType;
 import com.chealown.csa.Entities.StaticObjects;
 
@@ -15,7 +14,6 @@ public class OrganizationTypeRepository {
             SELECT id, type_name
             FROM organization_type;
             """;
-
 
     public static boolean save(OrganizationType type) {
         if (StaticObjects.getSelectedObject() == null) {
@@ -40,7 +38,6 @@ public class OrganizationTypeRepository {
         int result = DBConnector.update(sql, params);
         return result > 0;
     }
-
 
     private static boolean update(OrganizationType type) {
         String sql = """
@@ -69,7 +66,6 @@ public class OrganizationTypeRepository {
 
         DBConnector.update(sql, params);
     }
-
 
     public static List<OrganizationType> getAllData() throws SQLException {
         ArrayList<OrganizationType> data = new ArrayList<>();

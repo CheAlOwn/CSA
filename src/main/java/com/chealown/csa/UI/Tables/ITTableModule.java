@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.HealthGroup;
 import com.chealown.csa.DataBase.Models.InteractionType;
-import com.chealown.csa.DataBase.Repositories.HealthGroupRepository;
 import com.chealown.csa.DataBase.Repositories.InteractionTypeRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,7 +1,6 @@
 package com.chealown.csa.UI.Controllers.Filters;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
 import com.chealown.csa.UI.Controllers.FiltersController;
 import com.chealown.csa.UI.Controllers.MainController;

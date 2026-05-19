@@ -1,14 +1,8 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.HousingRights;
 import com.chealown.csa.DataBase.Models.Interaction;
-import com.chealown.csa.DataBase.Repositories.HousingRightsRepository;
 import com.chealown.csa.DataBase.Repositories.InteractionRepository;
 import com.chealown.csa.Entities.StaticObjects;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -76,7 +70,7 @@ public class InteractionTableModule extends TableModule<Interaction> {
             @Override
             protected ObservableList<Interaction> call() throws Exception {
                 List<Interaction> list = InteractionRepository
-                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО"));
+                        .getAllData(StaticObjects.getCurrentUser().getPost().equals("Администратор"));
                 return FXCollections.observableArrayList(list);
             }
         };

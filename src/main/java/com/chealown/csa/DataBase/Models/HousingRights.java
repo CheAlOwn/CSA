@@ -33,30 +33,6 @@ public class HousingRights {
         this.idChildren = new SimpleIntegerProperty(idChildren);
     }
 
-    public HousingRights(IntegerProperty id, StringProperty secondName, StringProperty firstName, StringProperty patronymic, StringProperty availabilityOfHousing, StringProperty formOfOwnership, StringProperty registrationDate, StringProperty city, StringProperty street, StringProperty build) {
-        this.id = id;
-        this.secondName = secondName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.availabilityOfHousing = availabilityOfHousing;
-        this.formOfOwnership = formOfOwnership;
-        this.registrationDate = registrationDate;
-        this.city = city;
-        this.street = street;
-        this.build = build;
-    }
-
-    public HousingRights(IntegerProperty id, StringProperty availabilityOfHousing, StringProperty formOfOwnership, StringProperty registrationDate, IntegerProperty idChildren, StringProperty build, StringProperty street, StringProperty city) {
-        this.id = id;
-        this.availabilityOfHousing = availabilityOfHousing;
-        this.formOfOwnership = formOfOwnership;
-        this.registrationDate = registrationDate;
-        this.idChildren = idChildren;
-        this.build = build;
-        this.street = street;
-        this.city = city;
-    }
-
     public int getId() {
         return id.get();
     }

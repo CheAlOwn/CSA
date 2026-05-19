@@ -48,7 +48,7 @@ public class DBConnector {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1); // возвращаем ID
+                    return rs.getInt(1);
                 } else {
                     throw new RuntimeException("INSERT не вернул ID");
                 }
@@ -67,7 +67,7 @@ public class DBConnector {
                 ps.addBatch();
             }
 
-            return ps.executeBatch(); // Выполняет все запросы одной пачкой
+            return ps.executeBatch();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -77,5 +77,9 @@ public class DBConnector {
         for (int i = 0; i < params.length; i++) {
             ps.setObject(i + 1, params[i]);
         }
+    }
+
+    public static void disconnect() throws SQLException {
+        conn.close();
     }
 }

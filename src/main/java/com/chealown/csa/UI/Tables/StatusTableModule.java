@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.Post;
 import com.chealown.csa.DataBase.Models.Status;
-import com.chealown.csa.DataBase.Repositories.PostRepository;
 import com.chealown.csa.DataBase.Repositories.StatusRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

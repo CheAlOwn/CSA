@@ -2,6 +2,7 @@ package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.SocialPassport;
+import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.SocialPassportRepository;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
@@ -22,8 +23,12 @@ import java.time.LocalDate;
 
 public class AddEditSPController {
 
-    public HBox tablePane;
-    public VBox tableBox;
+    @FXML
+    private HBox tablePane;
+
+    @FXML
+    private VBox tableBox;
+
     @FXML
     private TextField childTF;
 
@@ -117,10 +122,6 @@ public class AddEditSPController {
     private void saveChanges() throws SQLException, IOException {
         if (
                 childTF.getText().isEmpty() ||
-                        disabilityCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
-                        educationLevelCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
-                        familySituationCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
-                        healthGroupCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
                         disabilityCB.getSelectionModel().getSelectedItem() == null ||
                         educationLevelCB.getSelectionModel().getSelectedItem() == null ||
                         familySituationCB.getSelectionModel().getSelectedItem() == null ||
@@ -130,7 +131,12 @@ public class AddEditSPController {
         } else {
             if (socialPassport == null)
                 socialPassport = new SocialPassport();
-            socialPassport.setIdChildren(Integer.parseInt(childTF.getText()));
+            if (ChildrenRepository.haveChildWithId(StaticObjects.getCurrentUser().getPost().equals("Администратор"), Integer.parseInt(childTF.getText()))) {
+                socialPassport.setIdChildren(Integer.parseInt(childTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
             socialPassport.setDateCreate(MaskUtil.formattedDate(String.valueOf(LocalDate.now())));
             socialPassport.setEducation(getData("education_level", "education_name", educationLevelCB.getSelectionModel().getSelectedItem(), "id"));
             socialPassport.setFamilySituation(getData("family_situation", "situation_name", familySituationCB.getSelectionModel().getSelectedItem(), "id"));
@@ -174,6 +180,7 @@ public class AddEditSPController {
         if (!flag) {
             showTableBox(true);
             ChildrenTableModule module = new ChildrenTableModule();
+            module.loadData(ChildrenRepository.getChildWithoutPassport(StaticObjects.getCurrentUser().getPost().equals("Администратор ПО")));
             tablePane.getChildren().add(module.getTableView());
 
             module.getTableView().getSelectionModel().selectedItemProperty().addListener(lst -> {

@@ -46,8 +46,8 @@ public class ChildrenRepository {
                 INSERT INTO children (
                 first_name, second_name, patronymic, gender, birthdate,
                 passport_series, passport_number, snils,
-                id_education_group, status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                id_education_group, status, archive
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, false)
                 """;
 
         Object[] params = {
@@ -74,7 +74,7 @@ public class ChildrenRepository {
                 UPDATE children SET
                     first_name = ?, second_name = ?, patronymic = ?, gender = ?, birthdate = ?,
                     passport_series = ?, passport_number = ?, snils = ?,
-                    id_education_group = ?, status = ?
+                    id_education_group = ?, status = ?, archive=false
                 WHERE id = ?
                 """;
 
@@ -116,6 +116,48 @@ public class ChildrenRepository {
 
         return data;
     }
+
+    public static ArrayList<Children> getChildWithoutPassport(boolean withArchive) throws SQLException {
+        ArrayList<Children> data = new ArrayList<>();
+        ResultSet rs = DBConnector.query("""
+                SELECT c.id, c.second_name, c.first_name, c.patronymic, c.birthdate,
+                       g.gender_name, c.snils, c.passport_series, c.passport_number,
+                       eg.group_name, s.status_name
+                FROM children c
+                INNER JOIN gender g ON c.gender = g.id
+                INNER JOIN education_group eg ON c.id_education_group = eg.id
+                INNER JOIN status s ON c.status = s.id
+                LEFT JOIN social_passport sp ON sp.id_children = c.id
+                WHERE sp.id_children IS NULL AND (c.archive = false or c.archive = ?)""", withArchive);
+        while (rs.next()) {
+            data.add(new Children(
+                    rs.getInt("id"),
+                    SecurityUtil.decryptSafe(rs.getString("second_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("first_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("patronymic"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("birthdate"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("gender_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("snils"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("passport_number"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("passport_series"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("group_name"), ENCRYPTION_KEY),
+                    SecurityUtil.decryptSafe(rs.getString("status_name"), ENCRYPTION_KEY)
+            ));
+        }
+
+        return data;
+    }
+
+    public static boolean haveChildWithId(boolean withArchive, int childId) throws SQLException {
+        ResultSet rs = DBConnector.query("""
+                SELECT *
+                FROM children c
+                WHERE c.id = ? AND (c.archive = false or c.archive = ?)""", childId, withArchive);
+        if (rs.next())
+            return true;
+        return false;
+    }
+
 
     private static void archive(Children child) {
         String sql = """

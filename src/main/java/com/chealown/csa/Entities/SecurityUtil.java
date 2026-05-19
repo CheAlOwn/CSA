@@ -5,7 +5,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -17,8 +16,8 @@ public class SecurityUtil {
 
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/GCM/NoPadding";
-    private static final int IV_SIZE = 12; // Байт (96 бит) - стандарт для gcm
-    private static final int TAG_LENGTH_BIT = 128; //бит
+    private static final int IV_SIZE = 12;
+    private static final int TAG_LENGTH_BIT = 128;
 
     public static SecretKey loadKeyFromEnv(String envVarName) {
         String keyBase64 = System.getenv(envVarName);

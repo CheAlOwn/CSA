@@ -20,14 +20,6 @@ public class TemplateDocument {
         this.fields = new ArrayList<>();
     }
 
-    public TemplateDocument(int id, String name, String createdAt, String updatedAt) {
-        this.id = new SimpleIntegerProperty(id);
-        this.name = new SimpleStringProperty(name != null ? name : "");
-        this.createdAt = new SimpleStringProperty(createdAt != null ? createdAt : "");
-        this.updatedAt = new SimpleStringProperty(updatedAt != null ? updatedAt : "");
-        this.fields = new ArrayList<>();
-    }
-
     public TemplateDocument(int id, String name, String filePath, String createdAt, String updatedAt) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name != null ? name : "");

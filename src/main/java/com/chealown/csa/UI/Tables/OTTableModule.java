@@ -1,8 +1,6 @@
 package com.chealown.csa.UI.Tables;
 
-import com.chealown.csa.DataBase.Models.InteractionType;
 import com.chealown.csa.DataBase.Models.OrganizationType;
-import com.chealown.csa.DataBase.Repositories.InteractionTypeRepository;
 import com.chealown.csa.DataBase.Repositories.OrganizationTypeRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

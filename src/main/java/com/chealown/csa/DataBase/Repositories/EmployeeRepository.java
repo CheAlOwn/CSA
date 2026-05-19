@@ -1,8 +1,6 @@
 package com.chealown.csa.DataBase.Repositories;
 
 import com.chealown.csa.DataBase.DBConnector;
-import com.chealown.csa.DataBase.Models.Children;
-import com.chealown.csa.DataBase.Models.EducationGroup;
 import com.chealown.csa.DataBase.Models.Employee;
 import com.chealown.csa.Entities.SecurityUtil;
 import com.chealown.csa.Entities.StaticObjects;
@@ -104,5 +102,14 @@ public class EmployeeRepository {
         }
 
         return data;
+    }
+    public static boolean haveEmployeeWithId(int employeeId) throws SQLException {
+        ResultSet rs = DBConnector.query("""
+                SELECT *
+                FROM employee e
+                WHERE e.id = ?""", employeeId);
+        if (rs.next())
+            return true;
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package com.chealown.csa.UI.Controllers.AddEdit;
 
 import com.chealown.csa.DataBase.DBConnector;
 import com.chealown.csa.DataBase.Models.SocialMonitoring;
+import com.chealown.csa.DataBase.Repositories.ChildrenRepository;
 import com.chealown.csa.DataBase.Repositories.SocialMonitoringRepository;
 import com.chealown.csa.Entities.MaskUtil;
 import com.chealown.csa.Entities.ManageUtil;
@@ -20,9 +21,12 @@ import java.time.LocalDate;
 
 public class AddEditSMController {
 
-    public HBox tablePane;
-    public Button chooseChildrenBtn;
-    public VBox tableBox;
+    @FXML
+    private HBox tablePane;
+
+    @FXML
+    private VBox tableBox;
+
     @FXML
     private TextField childTF;
 
@@ -100,7 +104,6 @@ public class AddEditSMController {
         if (
                 childTF.getText().isEmpty() ||
                         monitoringTypeCB.getSelectionModel().getSelectedItem() == null ||
-                        monitoringTypeCB.getSelectionModel().getSelectedItem().equals("Отсутствует") ||
                         oldValueTF.getText().isEmpty() ||
                         newValueTF.getText().isEmpty() ||
                         changeReason.getText().isEmpty()
@@ -109,7 +112,13 @@ public class AddEditSMController {
         } else {
             if (socialMonitoring == null)
                 socialMonitoring = new SocialMonitoring();
-            socialMonitoring.setIdChildren(Integer.parseInt(childTF.getText()));
+            if (ChildrenRepository.haveChildWithId(StaticObjects.getCurrentUser().getPost().equals("Администратор"), Integer.parseInt(childTF.getText()))) {
+                socialMonitoring.setIdChildren(Integer.parseInt(childTF.getText()));
+            } else {
+                ManageUtil.showAlert(Alert.AlertType.WARNING, pageName.getText(), "Записи с таким ID не существует");
+                return;
+            }
+
             socialMonitoring.setChangeReason(changeReason.getText());
             socialMonitoring.setDateOfFixation(MaskUtil.formattedDate(String.valueOf(LocalDate.now())));
             socialMonitoring.setOldValue(oldValueTF.getText());
